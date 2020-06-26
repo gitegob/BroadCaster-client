@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
+import { GlobalContext } from '../contexts/GlobalContext';
+import { Logo } from '../components/Logo';
+import { AddCoordinates } from '../components/AddCoordinates';
 
 export const Edit = () => {
+  const { setPageTitle } = useContext(GlobalContext);
   useEffect(() => {
-    document.title = 'Edit Record - BroadCaster';
-  }, []);
+    setPageTitle('Edit Record - BroadCaster');
+  }, [setPageTitle]);
   const [title, setTitle] = useState('');
   const [comment, setComment] = useState(
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis deleniti nulla dolores tempora temporibus reprehenderit eos voluptas similique aliquam culpa eveniet hic ipsa, voluptate assumenda labore laudantium aut et doloribus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem voluptatum architecto a voluptate nostrum dicta quaerat eius molestias fuga adipisci consequuntur nobis aperiam, in aliquam totam nemo quo perspiciatis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem error placeat quae quibusdam excepturi! Incidunt ratione similique a? Quae soluta cupiditate temporibus quaerat voluptates illum exercitationem explicabo dolorum qui quas.',
@@ -15,12 +19,7 @@ export const Edit = () => {
       <div className="whole-body">
         <div className="grid-container">
           <nav>
-            <h3 className="logo">
-              <Link to="/">
-                <span className="broad">B</span>
-                <span className="caster">roadcaster</span>
-              </Link>
-            </h3>
+            <Logo />
             <ul className="nav-links">
               <Link to="/dashboard">
                 <li className="nav-link">Dashboard</li>
@@ -42,7 +41,7 @@ export const Edit = () => {
                     <img src={image1} alt="author pic" className="author-pic" />
                   </div>
                   <span className="author-name">
-                    <a href="#">Kevin Hart</a>
+                    <Link to="/dashboard">Kevin Hart</Link>
                   </span>
                 </div>
               </div>
@@ -68,26 +67,15 @@ export const Edit = () => {
                 <button className="geolocate" button="true">
                   Your location
                 </button>
-                <div className="locate-wrapper">
-                  <button className="locate" button="true">
-                    Different location
-                  </button>
-                  <div className="coordinates">
-                    <input type="text" className="latitude" placeholder="Latitude" />
-                    <input type="text" className="longitude" placeholder="Longitude" />
-                    <button type="submit" className="submit-coordinates">
-                      Add
-                    </button>
-                  </div>
-                </div>
+                <AddCoordinates />
               </div>
               <div className="post-panel">
-                <a href="#" className="cancel" button="true">
+                <Link to="#" className="cancel" button="true">
                   Back to Record
-                </a>
-                <a href="#" className="post" button="true">
+                </Link>
+                <Link to="#" className="post" button="true">
                   Done
-                </a>
+                </Link>
               </div>
             </div>
           </div>

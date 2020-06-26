@@ -1,5 +1,6 @@
 import React from 'react';
 import image1 from '../images/brian side sq.jpg';
+import { Link } from 'react-router-dom';
 
 export const Record = () => {
   return (
@@ -10,14 +11,14 @@ export const Record = () => {
             <img src={image1} alt="author pic" className="author-pic" />
           </div>
           <span className="author-name">
-            <a href="profile.html">Kevin Hart</a>
+            <Link to="/dashboard">Kevin Hart</Link>
           </span>
         </div>
         <div className="date">April 20 2019</div>
       </div>
       <div className="type red">Red-Flag</div>
       <div className="title">
-        <a href="view.html">Corruption somewhere</a>
+        <Link to="/records/5/view">Corruption somewhere</Link>
       </div>
       <div className="comment">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit sit modi hic dolore autem,
@@ -35,12 +36,12 @@ export const Record = () => {
         <div className="status resolved">RESOLVED</div>
       </div>
       <div className="quick-panel">
-        <a href="#" className="edit" button="true">
+        <Link to="/records/:recordId/edit" className="edit" button="true">
           <i className="material-icons">edit</i>
-        </a>
-        <a className="delete" button="true">
+        </Link>
+        <Link to="#" className="delete" button="true">
           <i className="material-icons">delete</i>
-        </a>
+        </Link>
       </div>
     </div>
   );

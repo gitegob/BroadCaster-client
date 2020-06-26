@@ -1,22 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
+import { GlobalContext } from '../contexts/GlobalContext';
+import { Logo } from '../components/Logo';
 
 export const About = () => {
-  useEffect(() => {
-    document.title = 'About - BroadCaster';
-  }, []);
+  const { setPageTitle } = useContext(GlobalContext);
+  useEffect(() => setPageTitle('About - BroadCaster'), [setPageTitle]);
   return (
     <div className="pages about-page">
       <div className="whole-body">
         <div className="grid-container">
           <nav>
-            <h3 className="logo">
-              <Link to="/">
-                <span className="broad">B</span>
-                <span className="caster">roadcaster</span>
-              </Link>
-            </h3>
+            <Logo />
             <ul className="nav-links">
               <Link to="/">
                 <li className="nav-link">Home</li>
@@ -42,10 +38,10 @@ export const About = () => {
                   </div>
                   <div className="user-info">
                     <div className="my-name">
-                      <a href="#">Brian Gitego</a>
+                      <Link to="#">Brian Gitego</Link>
                     </div>
                     <div className="my-email">
-                      <a href="#">gitegob7@gmail.com</a>
+                      <Link to="https://gmail.com">gitegob7@gmail.com</Link>
                     </div>
                     <div className="my-address">Kigali, Rwanda</div>
                   </div>

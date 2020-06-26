@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
+import { GlobalContext } from '../contexts/GlobalContext';
+import { Logo } from '../components/Logo';
+import { AddCoordinates } from '../components/AddCoordinates';
 
 export const New = () => {
+  const { setPageTitle } = useContext(GlobalContext);
   useEffect(() => {
-    document.title = 'New Record - BroadCaster';
-  }, []);
+    setPageTitle('New Record - BroadCaster');
+  }, [setPageTitle]);
   return (
     <div className="pages new-page">
       <div className="whole-body">
         <div className="grid-container">
           <nav>
-            <h3 className="logo">
-              <Link to="/">
-                <span className="broad">B</span>
-                <span className="caster">roadcaster</span>
-              </Link>
-            </h3>
+            <Logo />
             <ul className="nav-links">
               <Link to="/dashboard">
                 <li className="nav-link">Dashboard</li>
@@ -38,7 +37,7 @@ export const New = () => {
                     <img src={image1} alt="author pic" className="author-pic" />
                   </div>
                   <span className="author-name">
-                    <a href="#">Kevin Hart</a>
+                    <Link to="/dashboard">Kevin Hart</Link>
                   </span>
                 </div>
               </div>
@@ -59,18 +58,7 @@ export const New = () => {
                 <button className="geolocate" button="true">
                   Your location
                 </button>
-                <div className="locate-wrapper">
-                  <button className="locate" button="true">
-                    Different location
-                  </button>
-                  <div className="coordinates">
-                    <input type="text" className="latitude" placeholder="Latitude" />
-                    <input type="text" className="longitude" placeholder="Longitude" />
-                    <button type="submit" className="submit-coordinates">
-                      Add
-                    </button>
-                  </div>
-                </div>
+                <AddCoordinates />
               </div>
               <div className="add-media">
                 <span>Add Images/Videos</span>
@@ -83,12 +71,12 @@ export const New = () => {
                 />
               </div>
               <div className="post-panel">
-                <a href="#" className="cancel" button="true">
+                <Link to="/dashboard" className="cancel" button="true">
                   Cancel
-                </a>
-                <a href="#" className="post" button="true">
+                </Link>
+                <Link to="/records/view" className="post" button="true">
                   Post
-                </a>
+                </Link>
               </div>
             </div>
           </div>

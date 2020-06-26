@@ -1,22 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { LoginForm } from '../components/LoginForm';
+import { GlobalContext } from '../contexts/GlobalContext';
+import { Logo } from '../components/Logo';
 
 export const Login = () => {
+  const { setPageTitle } = useContext(GlobalContext);
   useEffect(() => {
-    document.title = 'Log In - BroadCaster';
-  }, []);
+    setPageTitle('Log In - BroadCaster');
+  }, [setPageTitle]);
   return (
     <div className="logup-page">
       <div className="whole-body">
         <div className="grid-container">
           <nav>
-            <h3 className="logo">
-              <Link to="/">
-                <span className="broad">B</span>
-                <span className="caster">roadcaster</span>
-              </Link>
-            </h3>
+            <Logo />
             <ul className="nav-links">
               <Link to="/">
                 <li className="nav-link">Home</li>
@@ -41,9 +39,9 @@ export const Login = () => {
               <br />
               <div className="bottom">
                 <span className="bcm">Not a member?</span>
-                <a className="psw" href="#">
+                <Link className="psw" to="/signup">
                   Sign up
-                </a>
+                </Link>
               </div>
             </div>
           </div>

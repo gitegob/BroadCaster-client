@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
-import image2 from '../images/kevin.jpg';
+import { GlobalContext } from '../contexts/GlobalContext';
+import { Logo } from '../components/Logo';
+import { Pagination } from '../components/Pagination';
+import { TabLinks } from '../components/TabLinks';
+import { RecordInfo } from '../components/RecordInfo';
 
 export const Admin = () => {
+  const { setPageTitle } = useContext(GlobalContext);
   useEffect(() => {
-    document.title = 'Admin - BroadCaster';
-  }, []);
+    setPageTitle('Admin - BroadCaster');
+  }, [setPageTitle]);
   return (
     <div className="pages admin-page">
       <div className="whole-body">
         <div className="grid-container">
           <nav>
-            <h3 className="logo">
-              <Link to="/">
-                <span className="broad">B</span>
-                <span className="caster">roadcaster</span>
-              </Link>
-            </h3>
+            <Logo />
             <ul className="nav-links">
               <Link to="/admin">
                 <li className="nav-link active">Admin</li>
@@ -27,17 +27,17 @@ export const Admin = () => {
               </Link>
             </ul>
           </nav>
-          <div className="leftside">
+          <div className="user-panel">
             <div className="user-wrapper">
               <div className="user-pic">
                 <img src={image1} alt="user pic" />
               </div>
               <div className="user-info">
                 <div className="user-name">
-                  <a href="#">Brian Gitego</a>
+                  <Link to="/admin">Brian Gitego</Link>
                 </div>
                 <div className="user-username">
-                  <a href="#">@gbrian__</a>
+                  <Link to="/admin">@gbrian__</Link>
                 </div>
                 <div className="user-phone">+250 785 721 391</div>
               </div>
@@ -47,47 +47,29 @@ export const Admin = () => {
             <br />
             <ul className="status-links">
               <li className="status-link active">
-                <a href="#" className="all">
+                <Link to="#" className="all">
                   ALL RECORDS (20)
-                </a>
+                </Link>
               </li>
               <li className="status-link">
-                <a href="#" className="resolved">
+                <Link to="#" className="resolved">
                   RESOLVED (9)
-                </a>
+                </Link>
               </li>
               <li className="status-link">
-                <a href="#" className="pending">
+                <Link to="#" className="pending">
                   pending (9)
-                </a>
+                </Link>
               </li>
               <li className="status-link">
-                <a href="#" className="rejected">
+                <Link to="#" className="rejected">
                   REJECTED (2)
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
           <div className="middle">
-            <div className="tab">
-              <ul className="tab-links">
-                <li className="tab-link active">
-                  <a href="#" className="all">
-                    All Records
-                  </a>
-                </li>
-                <li className="tab-link">
-                  <a href="#" className="red-flag">
-                    Red-Flag
-                  </a>
-                </li>
-                <li className="tab-link">
-                  <a href="#" className="intervention">
-                    Intervention
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <TabLinks />
             <div className="records-wrapper">
               <div className="search-panel">
                 <input type="text" placeholder="Look for a record..." />{' '}
@@ -97,20 +79,10 @@ export const Admin = () => {
               </div>
 
               <div className="record">
-                <div className="record-info">
-                  <div className="author-info">
-                    <div>
-                      <img src={image2} alt="author pic" className="author-pic" />
-                    </div>
-                    <span className="author-name">
-                      <a href="#">Ben Gisa</a>
-                    </span>
-                  </div>
-                  <div className="date">April 20 2019</div>
-                </div>
+                <RecordInfo />
                 <div className="type red">Red-Flag</div>
                 <div className="title">
-                  <a href="#">Corruption somewhere</a>
+                  <Link to="/records/view">Corruption somewhere</Link>
                 </div>
                 <div className="comment">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit sit modi hic
@@ -123,9 +95,9 @@ export const Admin = () => {
                   aperiam! Cupiditate repellendus amet, ratione inventore ab, voluptate ad delectus,
                   eos quaerat modi quis quam est.
                 </div>
-                <a href="#" className="read-more" button="true">
+                <Link to="/records/view" className="read-more" button="true">
                   Read more
-                </a>
+                </Link>
 
                 <div className="status-panel">
                   <div></div>
@@ -137,22 +109,7 @@ export const Admin = () => {
                 </div>
               </div>
             </div>
-            <div className="pagination">
-              <div className="page active" id="page1">
-                <a href="#">1</a>
-              </div>
-              <div className="page" id="page2">
-                <a href="#">2</a>
-              </div>
-              <div className="page" id="page3">
-                <a href="#">3</a>
-              </div>
-              <p className="page next" id="page4">
-                <a href="#">
-                  <i className="fa fa-chevron-right"></i>
-                </a>
-              </p>
-            </div>
+            <Pagination />
           </div>
         </div>
       </div>

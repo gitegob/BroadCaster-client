@@ -84,13 +84,22 @@ nav {
   top: 0;
   z-index: 23;
 }
-.nav-links,
-.tab-links {
+.nav-links {
   display: flex;
   padding-bottom: 0;
   flex-wrap: wrap;
   justify-content: space-around;
   justify-items: flex-end;
+}
+.tab-links {
+  position: sticky;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  justify-items: flex-end;
+  top: 8.67%;
+  padding: 1rem 0 1rem 0;
+  background-color: rgb(224, 224, 224);
 }
 .tab-links .active {
   border: none;
@@ -173,11 +182,11 @@ img.author-pic {
   border-radius: 50%;
   border: 1px solid rgb(223, 220, 220);
 }
-.leftside,
+.user-panel,
 .middle {
   padding: 1rem;
 }
-.leftside {
+.user-panel {
   grid-area: left;
   overflow: auto;
   background-color: whitesmoke;
@@ -278,13 +287,6 @@ img.author-pic {
 .bottom a {
   text-decoration: underline;
   color: #ccc;
-}
-
-.tab {
-  position: sticky;
-  top: 8.67%;
-  padding: 1rem 0 1rem 0;
-  background-color: rgb(224, 224, 224);
 }
 .records-wrapper {
   padding-bottom: 1rem;
@@ -834,10 +836,10 @@ textarea:focus {
       'left left left left'
       'middle middle middle middle';
   }
-  .pages .leftside .user-pic {
+  .pages .user-panel .user-pic {
     width: 35%;
   }
-  .pages .leftside {
+  .pages .user-panel {
     height: fit-content;
     min-height: auto;
     position: static;

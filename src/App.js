@@ -10,7 +10,7 @@ import { Edit } from './pages/Edit';
 import { New } from './pages/New';
 import { About } from './pages/About';
 import { Footer } from './components/Footer';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         <Route path="/login" exact component={Login} />
         <Route path="/dashboard" exact component={Profile} />
         <Route path="/admin" exact component={Admin} />
-        <Route path="/records/view" exact component={View} />
+        <Route path="/records/:recordId/view" exact component={View} />
         <Route path="/records/:recordId/edit" exact component={Edit} />
         <Route path="/records/new" exact component={New} />
         <Route path="/about" exact component={About} />
