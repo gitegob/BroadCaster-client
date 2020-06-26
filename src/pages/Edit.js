@@ -70,10 +70,10 @@ export const Edit = () => {
                 <AddCoordinates />
               </div>
               <div className="post-panel">
-                <Link to="#" className="cancel" button="true">
+                <Link to="/records/5/view" className="cancel" button="true">
                   Back to Record
                 </Link>
-                <Link to="#" className="post" button="true">
+                <Link to="/records/5/view" className="post" button="true">
                   Done
                 </Link>
               </div>

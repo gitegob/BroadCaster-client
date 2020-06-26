@@ -36,7 +36,7 @@ export const Profile = () => {
             <TabLinks />
             <form className="search-panel">
               <input type="text" placeholder="Look for a record..." />{' '}
-              <button type="submit" className="search-btn" button>
+              <button type="submit" className="search-btn" button="true">
                 <i className="material-icons">search</i>
               </button>
             </form>
@@ -52,7 +52,7 @@ export const Profile = () => {
           <center>
             <div>Delete record?</div>
             <br />
-            <Link to="/dashboard" className="confirm-delete" button>
+            <Link to="/dashboard" className="confirm-delete" button="true">
               Confirm
             </Link>
             <span className="close-modal">+</span>

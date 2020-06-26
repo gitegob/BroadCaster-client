@@ -38,7 +38,7 @@ export const View = () => {
                 <RecordInfo />
                 <div className="type red">Red-Flag</div>
                 <div className="title">
-                  <Link to="/records/:recordId/view">Corruption somewhere</Link>
+                  <Link to="/records/5/view">Corruption somewhere</Link>
                 </div>
                 <div className="comment">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit sit modi hic
@@ -77,18 +77,19 @@ export const View = () => {
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.433028268792!2d30.102219849897878!3d-1.9813148373298821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca6310387fca3%3A0xc1909c781d84b271!2sKicukiro%20Market%2C%20KK%2015%20Rd%2C%20Kigali!5e0!3m2!1sen!2srw!4v1572460287499!5m2!1sen!2srw"
                       width="600"
                       height="300"
-                      frameborder="0"
+                      frameBorder="0"
                       style={{ border: 0 }}
-                      allowfullscreen=""
+                      allowFullScreen=""
+                      SameSite="secure"
                     ></iframe>
                   </div>
                 </div>
                 <div className="status-panel">
                   <div className="edit-delete">
-                    <Link to="/records/:recordId/edit" className="edit" button="true">
+                    <Link to="/records/5/edit" className="edit" button="true">
                       Edit Record
                     </Link>
-                    <Link className="delete" button="true">
+                    <Link to="/records" className="delete" button="true">
                       Delete
                     </Link>
                   </div>

@@ -36,7 +36,7 @@ export const Record = () => {
         <div className="status resolved">RESOLVED</div>
       </div>
       <div className="quick-panel">
-        <Link to="/records/:recordId/edit" className="edit" button="true">
+        <Link to="/records/5/edit" className="edit" button="true">
           <i className="material-icons">edit</i>
         </Link>
         <Link to="#" className="delete" button="true">
