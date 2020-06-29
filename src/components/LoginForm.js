@@ -6,8 +6,8 @@ export const LoginForm = () => {
     <form>
       <input type="email" placeholder="E-mail" name="emal" required={true} />
       <input type="password" placeholder="Password" name="password" required={true} />
-      <Link className="submit" to="/dashboard" button="true">
-        Log in
+      <Link to="/dashboard">
+        <input className="submit" type="submit" value="Log In" button="true" />
       </Link>
     </form>
   );

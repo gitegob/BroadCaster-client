@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
 import { GlobalContext } from '../contexts/GlobalContext';
-import { Logo } from '../components/Logo';
 import { AddCoordinates } from '../components/AddCoordinates';
+import { Nav } from '../components/Nav';
 
 export const Edit = () => {
   const { setPageTitle } = useContext(GlobalContext);
@@ -14,25 +14,16 @@ export const Edit = () => {
   const [comment, setComment] = useState(
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis deleniti nulla dolores tempora temporibus reprehenderit eos voluptas similique aliquam culpa eveniet hic ipsa, voluptate assumenda labore laudantium aut et doloribus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem voluptatum architecto a voluptate nostrum dicta quaerat eius molestias fuga adipisci consequuntur nobis aperiam, in aliquam totam nemo quo perspiciatis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem error placeat quae quibusdam excepturi! Incidunt ratione similique a? Quae soluta cupiditate temporibus quaerat voluptates illum exercitationem explicabo dolorum qui quas.',
   );
+  const navLinks = [
+    { name: 'Dashboard', to: '/dashboard', className: 'nav-link' },
+    { name: 'New Record', to: '/records/new', className: 'nav-link' },
+    { name: 'Log Out', to: '/login', className: 'nav-link' },
+  ];
   return (
     <div className="page new-page view-page">
       <div className="whole-body">
         <div className="grid-container">
-          <nav>
-            <Logo />
-            <ul className="nav-links">
-              <Link to="/dashboard">
-                <li className="nav-link">Dashboard</li>
-              </Link>
-              <Link to="/records/new">
-                <li className="nav-link">New Record</li>
-              </Link>
-
-              <Link to="/login">
-                <li className="nav-link">Log Out</li>
-              </Link>
-            </ul>
-          </nav>
+          <Nav navLinks={navLinks} />
           <div className="middle">
             <div className="new-record">
               <div className="record-info">
@@ -64,14 +55,11 @@ export const Edit = () => {
               </article>
               <div className="add-location">
                 <h3>Edit location</h3>
-                <button className="geolocate" button="true">
-                  Your location
-                </button>
                 <AddCoordinates />
               </div>
               <div className="post-panel">
                 <Link to="/records/5/view" className="cancel" button="true">
-                  Back to Record
+                  Cancel
                 </Link>
                 <Link to="/records/5/view" className="post" button="true">
                   Done

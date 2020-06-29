@@ -2,33 +2,24 @@ import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
 import { GlobalContext } from '../contexts/GlobalContext';
-import { Logo } from '../components/Logo';
 import { AddCoordinates } from '../components/AddCoordinates';
+import { Nav } from '../components/Nav';
 
 export const New = () => {
   const { setPageTitle } = useContext(GlobalContext);
   useEffect(() => {
     setPageTitle('New Record - BroadCaster');
   }, [setPageTitle]);
+  const navLinks = [
+    { name: 'Dashboard', to: '/dashboard', className: 'nav-link' },
+    { name: 'New Record', to: '/records/new', className: 'nav-link active' },
+    { name: 'Log Out', to: '/login', className: 'nav-link' },
+  ];
   return (
     <div className="pages new-page">
       <div className="whole-body">
         <div className="grid-container">
-          <nav>
-            <Logo />
-            <ul className="nav-links">
-              <Link to="/dashboard">
-                <li className="nav-link">Dashboard</li>
-              </Link>
-              <Link to="/records/new">
-                <li className="nav-link active">New Record</li>
-              </Link>
-
-              <Link to="/login">
-                <li className="nav-link">Log Out</li>
-              </Link>
-            </ul>
-          </nav>
+          <Nav navLinks={navLinks} />
           <div className="middle">
             <div className="new-record">
               <div className="record-info">
@@ -55,26 +46,13 @@ export const New = () => {
                 />
               </article>
               <div className="add-location">
-                <button className="geolocate" button="true">
-                  Your location
-                </button>
                 <AddCoordinates />
-              </div>
-              <div className="add-media">
-                <span>Add Images/Videos</span>
-                <input
-                  type="file"
-                  name="images"
-                  className="file-upload"
-                  multiple
-                  accept="video/*,image/*"
-                />
               </div>
               <div className="post-panel">
                 <Link to="/dashboard" className="cancel" button="true">
                   Cancel
                 </Link>
-                <Link to="/records/view" className="post" button="true">
+                <Link to="/records/5/view" className="post" button="true">
                   Post
                 </Link>
               </div>

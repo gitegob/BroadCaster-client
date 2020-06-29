@@ -3,15 +3,11 @@ import React from 'react';
 export const AddCoordinates = () => {
   return (
     <div className="locate-wrapper">
-      <button className="locate" button="true">
-        Different location
-      </button>
+      <div className="locate">Where is this?</div>
       <form className="coordinates">
-        <input type="text" className="latitude" placeholder="Latitude" />
-        <input type="text" className="longitude" placeholder="Longitude" />
-        <button type="submit" className="submit-coordinates">
-          Add
-        </button>
+        <input type="text" className="district" placeholder="District" />
+        <input type="text" className="sector" placeholder="Sector" />
+        <input type="text" className="cell" placeholder="Cell" />
       </form>
     </div>
   );

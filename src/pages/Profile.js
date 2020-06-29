@@ -1,36 +1,28 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Record } from '../components/Record';
+import { Records } from '../components/Records';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { UserPanel } from '../components/UserPanel';
-import { Logo } from '../components/Logo';
 import { Pagination } from '../components/Pagination';
 import { TabLinks } from '../components/TabLinks';
+import { RecordUser } from '../components/RecordUser';
+import { Nav } from '../components/Nav';
 
 export const Profile = () => {
   const { setPageTitle } = useContext(GlobalContext);
   useEffect(() => {
     setPageTitle('Dashboard - BroadCaster');
   }, [setPageTitle]);
+  const navLinks = [
+    { name: 'Dashboard', to: '/dashboard', className: 'nav-link active' },
+    { name: 'New Record', to: '/records/new', className: 'nav-link' },
+    { name: 'Log Out', to: '/login', className: 'nav-link' },
+  ];
   return (
     <div className="pages profile-page">
       <div className="whole-body">
         <div className="grid-container">
-          <nav>
-            <Logo />
-            <ul className="nav-links">
-              <Link to="/dashboard">
-                <li className="nav-link active">Dashboard</li>
-              </Link>
-              <Link to="/records/new">
-                <li className="nav-link">New Record</li>
-              </Link>
-
-              <Link to="/login">
-                <li className="nav-link">Log Out</li>
-              </Link>
-            </ul>
-          </nav>
+          <Nav navLinks={navLinks} />
           <UserPanel />
           <div className="middle">
             <TabLinks />
@@ -40,9 +32,7 @@ export const Profile = () => {
                 <i className="material-icons">search</i>
               </button>
             </form>
-            <div className="records-wrapper">
-              <Record />
-            </div>
+            <Records prop={<RecordUser />} />
             <Pagination />
           </div>
         </div>

@@ -10,8 +10,8 @@ export const SignupForm = () => {
       <input type="password" placeholder="Password" name="password" required={true} />
       <input type="text" placeholder="Username" name="username" required={true} />
       <input type="tel" name="phone" placeholder="Phone Number" required={true} />
-      <Link className="submit" to="/dashboard" button="true">
-        Create Account
+      <Link to="/dashboard">
+        <input className="submit" type="submit" value="Create" button="true" />
       </Link>
     </form>
   );

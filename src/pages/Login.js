@@ -2,36 +2,24 @@ import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { LoginForm } from '../components/LoginForm';
 import { GlobalContext } from '../contexts/GlobalContext';
-import { Logo } from '../components/Logo';
+import { Nav } from '../components/Nav';
 
 export const Login = () => {
   const { setPageTitle } = useContext(GlobalContext);
   useEffect(() => {
     setPageTitle('Log In - BroadCaster');
   }, [setPageTitle]);
+  const navLinks = [
+    { name: 'Home', to: '/', className: 'nav-link' },
+    { name: 'Sign Up', to: '/signup', className: 'nav-link' },
+    { name: 'Log In', to: '/login', className: 'nav-link active' },
+    { name: 'About', to: '/about', className: 'nav-link' },
+  ];
   return (
     <div className="logup-page">
       <div className="whole-body">
         <div className="grid-container">
-          <nav>
-            <Logo />
-            <ul className="nav-links">
-              <Link to="/">
-                <li className="nav-link">Home</li>
-              </Link>
-              <Link to="/signup">
-                <li className="nav-link">Sign Up</li>
-              </Link>
-
-              <Link to="/login">
-                <li className="nav-link active">Log In</li>
-              </Link>
-              <Link to="/about">
-                <li className="nav-link">About</li>
-              </Link>
-            </ul>
-          </nav>
-
+          <Nav navLinks={navLinks} />
           <div className="middle">
             <div className="center">
               <h2>Log in</h2>
