@@ -18,13 +18,13 @@ form {
   color: #aaa;
 }
 form input {
-  color: #ccc;
+  color: #333;
   letter-spacing: 1px;
   border: none;
   border-bottom: 1px solid #999;
 }
 form input::placeholder {
-  color: #aaa;
+  color: #888;
 }
 
 input {
@@ -44,7 +44,7 @@ input:focus {
   display: block;
   width: fit-content;
   text-decoration: none;
-  padding: 10px;
+  padding: 0.5rem;
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
@@ -239,12 +239,15 @@ img.author-pic {
   text-transform: none;
   font-size: 2.6rem;
 }
-.get-started {
+.get-started,
+.logup-page input[type='submit'] {
   color: whitesmoke;
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   margin: auto;
+  border-radius: 2px;
 }
-.get-started:hover {
+.get-started:hover,
+.logup-page input[type='submit']:hover {
   color: rgba(0, 0, 0, 0.7);
   background-color: white;
   transition: 0.8s;
@@ -426,17 +429,17 @@ img.author-pic {
 }
 .view-page .status-panel .edit-delete .delete,
 .del-image-panel .img-delete {
-  background-color: rgb(218, 42, 42);
+  color: rgb(218, 42, 42);
 }
 .view-page .status-panel .edit-delete .edit {
-  background-color: #444;
+  color: #444;
 }
 .view-page .status-panel .edit-delete .delete:hover,
 .del-image-panel .img-delete:hover {
-  background-color: rgb(172, 1, 1);
+  color: rgb(133, 4, 4);
 }
 .view-page .status-panel .edit-delete .edit:hover {
-  background-color: #222;
+  color: #222;
 }
 
 iframe {
@@ -553,11 +556,11 @@ textarea:focus {
   font-size: 1rem;
 }
 .coordinates input {
-  display: inline-block;
+  display: block;
   width: fit-content;
 }
 .new-page .add-media {
-  background-color: #888;
+  background-color: #ccc;
   padding: 0.5rem;
   width: fit-content;
   margin-left: 1rem;
@@ -587,13 +590,13 @@ textarea:focus {
 .new-page .add-location .coordinates {
   background-color: #ddd;
   width: fit-content;
-  display: none;
 }
 .locate-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem;
+}
+.locate-wrapper form {
+  padding: 0.5rem;
+  margin: 0.5rem;
 }
 .locate-wrapper input {
   padding: 0;

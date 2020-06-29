@@ -2,7 +2,7 @@ import React from 'react';
 import image1 from '../images/brian side sq.jpg';
 import { Link } from 'react-router-dom';
 
-export const Record = () => {
+export const RecordUser = () => {
   return (
     <div className="record">
       <div className="record-info">

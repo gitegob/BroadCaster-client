@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
+import { StatLinks } from './StatLinks';
 
 export const UserPanel = () => {
   return (
@@ -22,12 +23,7 @@ export const UserPanel = () => {
       <br />
       <hr />
       <br />
-      <ul className="status-links">
-        <li className="status-link">20 Records</li>
-        <li className="status-link">9 Resolved</li>
-        <li className="status-link">9 pending</li>
-        <li className="status-link">2 Rejected</li>
-      </ul>
+      <StatLinks isAdmin={false} />
     </div>
   );
 };
