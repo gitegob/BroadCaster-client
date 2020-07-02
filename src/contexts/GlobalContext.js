@@ -12,30 +12,39 @@ export const GlobalProvider = ({ children }) => {
     { id: 3, name: 'Intervention', isActive: false },
   ]);
   const [statusLinks, setStatusLinks] = useState([
-    { name: 'Records', number: 20, isActive: true },
-    { name: 'Resolved', number: 9, isActive: false },
-    { name: 'pending', number: 9, isActive: false },
-    { name: 'Rejected', number: 2, isActive: false },
+    {
+      id: 1, name: 'Records', number: 20, isActive: true,
+    },
+    {
+      id: 2, name: 'Resolved', number: 9, isActive: false,
+    },
+    {
+      id: 3, name: 'pending', number: 9, isActive: false,
+    },
+    {
+      id: 4, name: 'Rejected', number: 2, isActive: false,
+    },
   ]);
-  const handleTabClick = (tabLink) => {
-    const newArr = tabLinks.map((el) => {
-      el.isActive = false;
-      return el;
+  const tabStatClick = (link, links, setLinks) => {
+    const newArr = links.map((el) => {
+      const result = el;
+      result.isActive = false;
+      return result;
     });
-    newArr[newArr.indexOf(tabLink)].isActive = true;
-    setTabLinks(newArr);
+    newArr[newArr.indexOf(link)].isActive = true;
+    setLinks(newArr);
+  };
+  const handleTabClick = (tabLink) => {
+    tabStatClick(tabLink, tabLinks, setTabLinks);
   };
   const handleStatusClick = (statusLink) => {
-    const newArr = statusLinks.map((el) => {
-      el.isActive = false;
-      return el;
-    });
-    newArr[newArr.indexOf(statusLink)].isActive = true;
-    setStatusLinks(newArr);
+    tabStatClick(statusLink, statusLinks, setStatusLinks);
   };
   return (
     <GlobalContext.Provider
-      value={{ tabLinks, statusLinks, setPageTitle, handleTabClick, handleStatusClick }}
+      value={{
+        tabLinks, statusLinks, setPageTitle, handleTabClick, handleStatusClick,
+      }}
     >
       {children}
     </GlobalContext.Provider>

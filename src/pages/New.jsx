@@ -11,9 +11,15 @@ export const New = () => {
     setPageTitle('New Record - BroadCaster');
   }, [setPageTitle]);
   const navLinks = [
-    { name: 'Dashboard', to: '/dashboard', className: 'nav-link' },
-    { name: 'New Record', to: '/records/new', className: 'nav-link active' },
-    { name: 'Log Out', to: '/login', className: 'nav-link' },
+    {
+      id: 1, name: 'Dashboard', to: '/dashboard', className: 'nav-link',
+    },
+    {
+      id: 2, name: 'New Record', to: '/records/new', className: 'nav-link active',
+    },
+    {
+      id: 3, name: 'Log Out', to: '/login', className: 'nav-link',
+    },
   ];
   return (
     <div className="pages new-page">

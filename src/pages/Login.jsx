@@ -10,10 +10,18 @@ export const Login = () => {
     setPageTitle('Log In - BroadCaster');
   }, [setPageTitle]);
   const navLinks = [
-    { name: 'Home', to: '/', className: 'nav-link' },
-    { name: 'Sign Up', to: '/signup', className: 'nav-link' },
-    { name: 'Log In', to: '/login', className: 'nav-link active' },
-    { name: 'About', to: '/about', className: 'nav-link' },
+    {
+      id: 1, name: 'Home', to: '/', className: 'nav-link',
+    },
+    {
+      id: 2, name: 'Sign Up', to: '/signup', className: 'nav-link',
+    },
+    {
+      id: 3, name: 'Log In', to: '/login', className: 'nav-link active',
+    },
+    {
+      id: 4, name: 'About', to: '/about', className: 'nav-link',
+    },
   ];
   return (
     <div className="logup-page">

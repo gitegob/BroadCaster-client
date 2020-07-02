@@ -4,7 +4,6 @@ import image1 from '../images/brian side sq.jpg';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { Pagination } from '../components/Pagination';
 import { TabLinks } from '../components/TabLinks';
-import { RecordAdmin } from '../components/RecordAdmin';
 import { Records } from '../components/Records';
 import { Nav } from '../components/Nav';
 import { StatLinks } from '../components/StatLinks';
@@ -15,8 +14,12 @@ export const Admin = () => {
     setPageTitle('Admin - BroadCaster');
   }, [setPageTitle]);
   const navLinks = [
-    { name: 'Admin', to: '/admin', className: 'nav-link active' },
-    { name: 'Log Out', to: '/login', className: 'nav-link' },
+    {
+      id: 1, name: 'Admin', to: '/admin', className: 'nav-link active',
+    },
+    {
+      id: 2, name: 'Log Out', to: '/login', className: 'nav-link',
+    },
   ];
   return (
     <div className="pages admin-page">
@@ -41,17 +44,18 @@ export const Admin = () => {
             <br />
             <hr />
             <br />
-            <StatLinks isAdmin={true} />
+            <StatLinks isAdmin />
           </div>
           <div className="middle">
             <TabLinks />
             <form className="search-panel">
-              <input type="text" placeholder="Look for a record..." />{' '}
+              <input type="text" placeholder="Look for a record..." />
+              {' '}
               <button type="submit" className="search-btn" button="true">
                 <i className="material-icons">search</i>
               </button>
             </form>
-            <Records prop={<RecordAdmin />} />
+            <Records />
             <Pagination />
           </div>
         </div>

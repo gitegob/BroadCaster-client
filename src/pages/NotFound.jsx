@@ -15,7 +15,7 @@ export const NotFound = () => {
             😬
           </span>
         </h1>
-        <h2>The page you requested for doesn't appear to be here</h2>
+        <h2>The page you requested for doesn&apos;t appear to be here</h2>
       </div>
     </div>
   );

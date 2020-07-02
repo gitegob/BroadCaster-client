@@ -17,6 +17,9 @@ ul {
 form {
   color: #aaa;
 }
+.logup-page input {
+  color: #ccc;
+}
 form input {
   color: #333;
   letter-spacing: 1px;
@@ -57,9 +60,8 @@ input:focus {
   grid-template-areas:
     'nav nav nav nav'
     'left middle middle middle';
-  grid-template-rows:
-    auto
-    1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   min-height: 95.5vh;
 }
 .index-page .grid-container,
@@ -448,13 +450,16 @@ iframe {
 .status {
   text-transform: uppercase;
 }
-.record .resolved {
+.record .resolved,
+select.resolved {
   color: green;
 }
-.record .pending {
+.record .pending,
+select.pending {
   color: orange;
 }
-.record .rejected {
+.record .rejected,
+select.rejected {
   color: red;
 }
 .status-panel {
@@ -464,8 +469,6 @@ iframe {
 }
 select option {
   color: #444;
-}
-select.status {
   display: block;
   border: none;
   padding: 0.5rem;

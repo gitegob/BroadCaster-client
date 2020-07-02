@@ -15,9 +15,15 @@ export const Edit = () => {
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis deleniti nulla dolores tempora temporibus reprehenderit eos voluptas similique aliquam culpa eveniet hic ipsa, voluptate assumenda labore laudantium aut et doloribus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit autem voluptatum architecto a voluptate nostrum dicta quaerat eius molestias fuga adipisci consequuntur nobis aperiam, in aliquam totam nemo quo perspiciatis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem error placeat quae quibusdam excepturi! Incidunt ratione similique a? Quae soluta cupiditate temporibus quaerat voluptates illum exercitationem explicabo dolorum qui quas.',
   );
   const navLinks = [
-    { name: 'Dashboard', to: '/dashboard', className: 'nav-link' },
-    { name: 'New Record', to: '/records/new', className: 'nav-link' },
-    { name: 'Log Out', to: '/login', className: 'nav-link' },
+    {
+      id: 1, name: 'Dashboard', to: '/dashboard', className: 'nav-link',
+    },
+    {
+      id: 2, name: 'New Record', to: '/records/new', className: 'nav-link',
+    },
+    {
+      id: 3, name: 'Log Out', to: '/login', className: 'nav-link',
+    },
   ];
   return (
     <div className="page new-page view-page">

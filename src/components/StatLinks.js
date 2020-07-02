@@ -6,8 +6,8 @@ export const StatLinks = () => {
   const { statusLinks } = useContext(GlobalContext);
   return (
     <ul className="status-links">
-      {statusLinks.map((link, i) => (
-        <StatLink key={i} statusLink={link} />
+      {statusLinks.map((link) => (
+        <StatLink key={link.id} statusLink={link} />
       ))}
     </ul>
   );

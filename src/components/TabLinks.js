@@ -6,8 +6,8 @@ export const TabLinks = () => {
   const { tabLinks } = useContext(GlobalContext);
   return (
     <ul className="tab-links">
-      {tabLinks.map((tabLink, i) => (
-        <TabLink key={i} tabLink={tabLink} />
+      {tabLinks.map((link) => (
+        <TabLink key={link.id} tabLink={link} />
       ))}
     </ul>
   );

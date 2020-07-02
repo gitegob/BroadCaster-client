@@ -19,9 +19,15 @@ export const View = () => {
     document.querySelector('.whole-body').classList.toggle('no-scroll');
   };
   const navLinks = [
-    { name: 'Dashboard', to: '/dashboard', className: 'nav-link' },
-    { name: 'New Record', to: '/records/new', className: 'nav-link' },
-    { name: 'Log Out', to: '/login', className: 'nav-link' },
+    {
+      id: 1, name: 'Dashboard', to: '/dashboard', className: 'nav-link',
+    },
+    {
+      id: 2, name: 'New Record', to: '/records/new', className: 'nav-link',
+    },
+    {
+      id: 3, name: 'Log Out', to: '/login', className: 'nav-link',
+    },
   ];
   return (
     <div className="pages view-page">
@@ -71,6 +77,7 @@ export const View = () => {
                     <Link to="/records/5/edit" className="edit" button="true">
                       <i className="material-icons">edit</i>
                     </Link>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <Link to="#" className="delete" button="true" onClick={setMod}>
                       <i className="material-icons">delete</i>
                     </Link>
@@ -90,7 +97,7 @@ export const View = () => {
             <Link to="/dashboard" className="confirm-delete" button="true">
               Confirm
             </Link>
-            <span className="close-modal" onClick={setMod}>
+            <span className="close-modal" role="button" onClick={setMod} onKeyUp={setMod} tabIndex="0">
               +
             </span>
           </center>
