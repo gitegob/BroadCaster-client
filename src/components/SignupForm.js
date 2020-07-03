@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
 
 export const SignupForm = () => {
   const initialState = {
@@ -12,27 +11,8 @@ export const SignupForm = () => {
     phone: '',
   };
   const [state, setState] = useState(initialState);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('signup!');
-    // const config = {
-    //   method: 'POST',
-    //   body: JSON.stringify(state),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // };
-    // const response = await (await fetch(`http://localhost:4000/api/v1/auth/signup`, config)).json();
-    // if (response.status === 201) {
-    //   const res = await (
-    //     await fetch(`http://localhost:4000/api/v1/auth/secret123/${state.email}`)
-    //   ).json();
-    //   logIn(res.data, response.data.token);
-    //   history.push('/dashboard');
-    // } else history.push('/404');
-  };
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <input
         type="text"
         placeholder="First Name"

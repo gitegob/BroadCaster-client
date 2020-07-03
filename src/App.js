@@ -12,8 +12,8 @@ import { New } from './pages/New';
 import { About } from './pages/About';
 import { NotFound } from './pages/NotFound';
 import { Footer } from './components/Footer';
-import { AuthProvider } from './contexts/AuthContext';
-import { RecordsProvider } from './contexts/RecordsContext';
+import { RecordsProvider } from './contexts/records/RecordsContext';
+import { AuthProvider } from './contexts/auth/AuthContext';
 
 function App() {
   return (

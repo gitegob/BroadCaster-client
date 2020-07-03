@@ -18,16 +18,28 @@ export const About = () => {
   };
   const navLinks = [
     {
-      id: 1, name: 'Home', to: '/', className: 'nav-link',
+      id: 1,
+      name: 'Home',
+      to: '/',
+      className: 'nav-link',
     },
     {
-      id: 2, name: 'Sign Up', to: '/signup', className: 'nav-link',
+      id: 2,
+      name: 'Sign Up',
+      to: '/signup',
+      className: 'nav-link',
     },
     {
-      id: 3, name: 'Log In', to: '/login', className: 'nav-link',
+      id: 3,
+      name: 'Log In',
+      to: '/login',
+      className: 'nav-link',
     },
     {
-      id: 4, name: 'About', to: '/about', className: 'nav-link active',
+      id: 4,
+      name: 'About',
+      to: '/about',
+      className: 'nav-link active',
     },
   ];
   return (
@@ -43,9 +55,7 @@ export const About = () => {
                     <img src={image1} alt="user pic" />
                   </div>
                   <div className="user-info">
-                    <div className="my-name">
-                      Brian Gitego
-                    </div>
+                    <div className="my-name">Brian Gitego</div>
                     <div className="my-email">
                       <Link to="https://gmail.com">gitegob7@gmail.com</Link>
                     </div>
@@ -72,7 +82,12 @@ export const About = () => {
                 </div>
                 <div className="feedback">
                   <div className="hear-from-u">I&apos;d love to hear from you!</div>
-                  <button className="contact-us-btn" type="button" button="true" onClick={contactFormDisplay}>
+                  <button
+                    className="contact-us-btn"
+                    type="button"
+                    button="true"
+                    onClick={contactFormDisplay}
+                  >
                     Contact me
                   </button>
                   <div

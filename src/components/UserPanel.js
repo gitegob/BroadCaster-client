@@ -2,13 +2,14 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
 import { StatLinks } from './StatLinks';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/auth/AuthContext';
 
 export const UserPanel = () => {
-  const { user } = useContext(AuthContext);
-  const {
-    firstName, lastName, userName, phone,
-  } = user;
+  const { userData: user } = useContext(AuthContext);
+  const usr = localStorage.getItem('userData');
+  console.log(usr);
+
+  const userData = user || usr;
   return (
     <div className="user-panel">
       <div className="user-wrapper">
@@ -18,24 +19,19 @@ export const UserPanel = () => {
         <div className="user-info">
           <div className="user-name">
             <Link to="/dashboard">
-              {firstName}
-              {' '}
-              {lastName}
+              {userData.firstName} {userData.lastName}
             </Link>
           </div>
           <div className="user-username">
-            <Link to="/dashboard">
-              @
-              {userName}
-            </Link>
+            <Link to="/dashboard">@{userData.userName}</Link>
           </div>
-          <div className="user-phone">{phone}</div>
+          <div className="user-phone">{userData.phone}</div>
         </div>
       </div>
       <br />
       <hr />
       <br />
-      <StatLinks isAdmin={false} />
+      <StatLinks isAdmin={userData.isAdmin} />
     </div>
   );
 };

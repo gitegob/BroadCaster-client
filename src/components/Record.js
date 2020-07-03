@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
+import { AuthContext } from '../contexts/auth/AuthContext';
 
 export const RecordAdmin = ({ record }) => {
   const [color, setColor] = useState('orange');
   const [status, setStatus] = useState(record.status);
+  const { userData } = useContext(AuthContext);
 
   const handleChange = (value) => {
     setStatus(value);
-    console.log(status);
-
-    switch (value) {
-      case 'pending':
-        setColor('orange');
-        break;
-      case 'resolved':
-        setColor('green');
-        break;
-      case 'rejected':
-        setColor('red');
-        break;
-      default:
-        setColor('');
-    }
+    // switch (value) {
+    //   case 'pending':
+    //     setColor('orange');
+    //     break;
+    //   case 'resolved':
+    //     setColor('green');
+    //     break;
+    //   case 'rejected':
+    //     setColor('red');
+    //     break;
+    //   default:
+    //     setColor('');
+    // }
   };
   return (
     <div className="record">

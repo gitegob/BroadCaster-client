@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
+import { AuthContext } from '../contexts/auth/AuthContext';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
 
 export const LoginForm = () => {
   const initialState = {
@@ -8,22 +8,12 @@ export const LoginForm = () => {
     password: '',
   };
   const [state, setState] = useState(initialState);
-  const history = useHistory();
   const { logIn } = useContext(AuthContext);
-  const handleSubmit = async (e) => {
+  const history = useHistory();
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const config = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(state),
-    };
-    const res = await (await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/auth/login`, config)).json();
-    if (res.status === 200) {
-      logIn(state.email, res.data.token);
-      history.push('/dashboard');
-    }
+    logIn(state, 'http://localhost:5000/api/v1/auth/login');
+    history.push('/dashboard');
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -45,24 +35,3 @@ export const LoginForm = () => {
     </form>
   );
 };
-// const history = useHistory();
-// const { logIn } = useContext(AuthContext);
-// const handleSubmit = async (e) => {
-//   e.preventDefault();
-//   console.log('login!');
-//   const config = {
-//     method: 'POST',
-//     body: JSON.stringify(state),
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   };
-//   const response = await (await fetch(`http://localhost:4000/api/v1/auth/login`, config)).json();
-//   if (response.status === 200) {
-//     const res = await (
-//       await fetch(`http://localhost:4000/api/v1/auth/secret123/${state.email}`)
-//     ).json();
-//     logIn(res.data, response.data.token);
-//     history.push('/dashboard');
-//   } else history.push('/login');
-// };

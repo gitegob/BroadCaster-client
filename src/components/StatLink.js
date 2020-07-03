@@ -11,11 +11,7 @@ export const StatLink = ({ statusLink }) => {
       onClick={handleClick}
     >
       <Link to="#">
-        {statusLink.name}
-        {' '}
-        (
-        {statusLink.number}
-        )
+        {statusLink.name} ({statusLink.number})
       </Link>
     </li>
   );
