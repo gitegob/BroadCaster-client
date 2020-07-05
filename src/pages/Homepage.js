@@ -1,21 +1,34 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { Nav } from '../components/Nav';
+import { Footer } from '../components/Footer';
 
 export const Homepage = () => {
   const navLinks = [
     {
-      id: 1, name: 'Home', to: '/', className: 'nav-link active',
+      id: 1,
+      name: 'Home',
+      to: '/',
+      className: 'nav-link active',
     },
     {
-      id: 2, name: 'Sign Up', to: '/signup', className: 'nav-link',
+      id: 2,
+      name: 'Sign Up',
+      to: '/signup',
+      className: 'nav-link',
     },
     {
-      id: 3, name: 'Log In', to: '/login', className: 'nav-link',
+      id: 3,
+      name: 'Log In',
+      to: '/login',
+      className: 'nav-link',
     },
     {
-      id: 4, name: 'About', to: '/about', className: 'nav-link',
+      id: 4,
+      name: 'About',
+      to: '/about',
+      className: 'nav-link',
     },
   ];
   const { setPageTitle } = useContext(GlobalContext);
@@ -45,6 +58,7 @@ export const Homepage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

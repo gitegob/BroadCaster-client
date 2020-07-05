@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/auth/AuthContext';
-import { useHistory } from 'react-router-dom';
 
 export const LoginForm = () => {
   const initialState = {
@@ -8,12 +7,12 @@ export const LoginForm = () => {
     password: '',
   };
   const [state, setState] = useState(initialState);
-  const { logIn } = useContext(AuthContext);
-  const history = useHistory();
-  const handleSubmit = (e) => {
+  const { logUp } = useContext(AuthContext);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    logIn(state, 'http://localhost:5000/api/v1/auth/login');
-    history.push('/dashboard');
+    console.log('state', state);
+    const res = await logUp(state, `${process.env.REACT_APP_BASEURL}/api/v1/auth/login`, '/login');
+    console.log('res login', res);
   };
   return (
     <form onSubmit={handleSubmit}>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { Nav } from '../components/Nav';
+import { Footer } from '../components/Footer';
 
 export const About = () => {
   const { setPageTitle } = useContext(GlobalContext);
@@ -118,6 +119,7 @@ export const About = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

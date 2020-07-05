@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { LoginForm } from '../components/LoginForm';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { Nav } from '../components/Nav';
+import { Footer } from '../components/Footer';
 
 export const Login = () => {
   const { setPageTitle } = useContext(GlobalContext);
@@ -55,6 +56,7 @@ export const Login = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

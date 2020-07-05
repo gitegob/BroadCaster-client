@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../contexts/auth/AuthContext';
 
 export const SignupForm = () => {
   const initialState = {
@@ -11,8 +11,18 @@ export const SignupForm = () => {
     phone: '',
   };
   const [state, setState] = useState(initialState);
+  const { logUp } = useContext(AuthContext);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await logUp(
+      state,
+      `${process.env.REACT_APP_BASEURL}/api/v1/auth/signup`,
+      '/signup',
+    );
+    console.log('res signup', res);
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="First Name"

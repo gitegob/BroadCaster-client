@@ -5,11 +5,7 @@ import { StatLinks } from './StatLinks';
 import { AuthContext } from '../contexts/auth/AuthContext';
 
 export const UserPanel = () => {
-  const { userData: user } = useContext(AuthContext);
-  const usr = localStorage.getItem('userData');
-  console.log(usr);
-
-  const userData = user || usr;
+  const { userData } = useContext(AuthContext);
   return (
     <div className="user-panel">
       <div className="user-wrapper">

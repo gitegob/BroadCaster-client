@@ -4,6 +4,7 @@ import { GlobalContext } from '../contexts/GlobalContext';
 import { UserPanel } from '../components/UserPanel';
 import image1 from '../images/brian side sq.jpg';
 import { Nav } from '../components/Nav';
+import { Footer } from '../components/Footer';
 
 export const View = () => {
   const { setPageTitle } = useContext(GlobalContext);
@@ -20,13 +21,22 @@ export const View = () => {
   };
   const navLinks = [
     {
-      id: 1, name: 'Dashboard', to: '/dashboard', className: 'nav-link',
+      id: 1,
+      name: 'Dashboard',
+      to: '/dashboard',
+      className: 'nav-link',
     },
     {
-      id: 2, name: 'New Record', to: '/records/new', className: 'nav-link',
+      id: 2,
+      name: 'New Record',
+      to: '/records/new',
+      className: 'nav-link',
     },
     {
-      id: 3, name: 'Log Out', to: '/login', className: 'nav-link',
+      id: 3,
+      name: 'Log Out',
+      to: '/login',
+      className: 'nav-link',
     },
   ];
   return (
@@ -97,12 +107,19 @@ export const View = () => {
             <Link to="/dashboard" className="confirm-delete" button="true">
               Confirm
             </Link>
-            <span className="close-modal" role="button" onClick={setMod} onKeyUp={setMod} tabIndex="0">
+            <span
+              className="close-modal"
+              role="button"
+              onClick={setMod}
+              onKeyUp={setMod}
+              tabIndex="0"
+            >
               +
             </span>
           </center>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

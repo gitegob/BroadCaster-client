@@ -11,9 +11,9 @@ export const Nav = ({ navLinks }) => (
     </h3>
     <ul className="nav-links">
       {navLinks.map((link) => (
-        <Link to={link.to} key={link.id}>
-          <li className={link.className}>{link.name}</li>
-        </Link>
+        <li className={link.className} key={link.id}>
+          <Link to={link.to}>{link.name}</Link>
+        </li>
       ))}
     </ul>
   </nav>

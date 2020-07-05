@@ -4,6 +4,7 @@ import image1 from '../images/brian side sq.jpg';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { AddCoordinates } from '../components/AddCoordinates';
 import { Nav } from '../components/Nav';
+import { Footer } from '../components/Footer';
 
 export const New = () => {
   const { setPageTitle } = useContext(GlobalContext);
@@ -12,13 +13,22 @@ export const New = () => {
   }, [setPageTitle]);
   const navLinks = [
     {
-      id: 1, name: 'Dashboard', to: '/dashboard', className: 'nav-link',
+      id: 1,
+      name: 'Dashboard',
+      to: '/dashboard',
+      className: 'nav-link',
     },
     {
-      id: 2, name: 'New Record', to: '/records/new', className: 'nav-link active',
+      id: 2,
+      name: 'New Record',
+      to: '/records/new',
+      className: 'nav-link active',
     },
     {
-      id: 3, name: 'Log Out', to: '/login', className: 'nav-link',
+      id: 3,
+      name: 'Log Out',
+      to: '/login',
+      className: 'nav-link',
     },
   ];
   return (
@@ -66,6 +76,7 @@ export const New = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

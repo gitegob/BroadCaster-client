@@ -1,5 +1,5 @@
 {
-  "name": "broadcaster-2",
+  "name": "broadcaster-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

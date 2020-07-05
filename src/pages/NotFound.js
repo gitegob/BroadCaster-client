@@ -7,7 +7,7 @@ export const NotFound = () => {
     setPageTitle('Page Not Found - BroadCaster');
   }, [setPageTitle]);
   return (
-    <div className="whole-body error-page">
+    <div className="not-found">
       <div>
         <h1>
           404

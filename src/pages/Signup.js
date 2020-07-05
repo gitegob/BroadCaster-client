@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { SignupForm } from '../components/SignupForm';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { Nav } from '../components/Nav';
+import { Footer } from '../components/Footer';
 
 export const Signup = () => {
   const { setPageTitle } = useContext(GlobalContext);
@@ -55,6 +56,7 @@ export const Signup = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

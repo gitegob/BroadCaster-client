@@ -4,6 +4,7 @@ import { Pagination } from '../components/Pagination';
 import { TabLinks } from '../components/TabLinks';
 import { Records } from '../components/Records';
 import { UserPanel } from '../components/UserPanel';
+import { Footer } from '../components/Footer';
 import { Nav } from '../components/Nav';
 
 export const Admin = () => {
@@ -13,10 +14,16 @@ export const Admin = () => {
   }, [setPageTitle]);
   const navLinks = [
     {
-      id: 1, name: 'Admin', to: '/admin', className: 'nav-link active',
+      id: 1,
+      name: 'Admin',
+      to: '/admin',
+      className: 'nav-link active',
     },
     {
-      id: 2, name: 'Log Out', to: '/login', className: 'nav-link',
+      id: 2,
+      name: 'Log Out',
+      to: '/login',
+      className: 'nav-link',
     },
   ];
   return (
@@ -24,12 +31,11 @@ export const Admin = () => {
       <div className="whole-body">
         <div className="grid-container">
           <Nav navLinks={navLinks} />
-          <UserPanel/>
+          <UserPanel />
           <div className="middle">
             <TabLinks />
             <form className="search-panel">
-              <input type="text" placeholder="Look for a record..." />
-              {' '}
+              <input type="text" placeholder="Look for a record..." />{' '}
               <button type="submit" className="search-btn" button="true">
                 <i className="material-icons">search</i>
               </button>
@@ -39,6 +45,7 @@ export const Admin = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
