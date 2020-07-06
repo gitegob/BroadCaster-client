@@ -8,11 +8,9 @@ export const LoginForm = () => {
   };
   const [state, setState] = useState(initialState);
   const { logUp } = useContext(AuthContext);
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('state', state);
-    const res = await logUp(state, `${process.env.REACT_APP_BASEURL}/api/v1/auth/login`, '/login');
-    console.log('res login', res);
+    logUp(state, `${process.env.REACT_APP_BASEURL}/api/v1/auth/login`, '/login');
   };
   return (
     <form onSubmit={handleSubmit}>

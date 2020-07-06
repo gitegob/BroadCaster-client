@@ -26,8 +26,8 @@ function App() {
             <RecordsProvider>
               <Route path="/dashboard" exact component={Dashboard} />
               <Route path="/admin" exact component={Admin} />
-              <Route path="/records/5/view" exact component={View} />
-              <Route path="/records/5/edit" exact component={Edit} />
+              <Route path="/records/:recordId/view" exact component={View} />
+              <Route path="/records/:recordId/edit" exact component={Edit} />
               <Route path="/records/new" exact component={New} />
               <Route path="/about" exact component={About} />
             </RecordsProvider>

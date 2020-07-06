@@ -7,19 +7,12 @@ export const SignupForm = () => {
     lastName: '',
     email: '',
     password: '',
-    userName: '',
-    phone: '',
   };
   const [state, setState] = useState(initialState);
   const { logUp } = useContext(AuthContext);
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const res = await logUp(
-      state,
-      `${process.env.REACT_APP_BASEURL}/api/v1/auth/signup`,
-      '/signup',
-    );
-    console.log('res signup', res);
+    logUp(state, `${process.env.REACT_APP_BASEURL}/api/v1/auth/signup`, '/signup');
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -50,20 +43,6 @@ export const SignupForm = () => {
         name="password"
         required
         onChange={(e) => setState({ ...state, password: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Username"
-        name="username"
-        required
-        onChange={(e) => setState({ ...state, userName: e.target.value })}
-      />
-      <input
-        type="tel"
-        name="phone"
-        placeholder="phone"
-        required
-        onChange={(e) => setState({ ...state, phone: e.target.value })}
       />
       <input className="submit" type="submit" value="Create" button="true" />
     </form>

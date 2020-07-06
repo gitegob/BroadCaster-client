@@ -1,11 +1,21 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import image1 from '../images/brian side sq.jpg';
 import { StatLinks } from './StatLinks';
 import { AuthContext } from '../contexts/auth/AuthContext';
 
 export const UserPanel = () => {
-  const { userData } = useContext(AuthContext);
+  const { token, userData, getUserData } = useContext(AuthContext);
+  const history = useHistory();
+  useEffect(() => {
+    (async () => {
+      const tkn = token || localStorage.getItem('accessToken');
+      if (!tkn) history.push('/login');
+      else {
+        await getUserData(tkn);
+      }
+    })();
+  });
   return (
     <div className="user-panel">
       <div className="user-wrapper">
@@ -18,10 +28,6 @@ export const UserPanel = () => {
               {userData.firstName} {userData.lastName}
             </Link>
           </div>
-          <div className="user-username">
-            <Link to="/dashboard">@{userData.userName}</Link>
-          </div>
-          <div className="user-phone">{userData.phone}</div>
         </div>
       </div>
       <br />

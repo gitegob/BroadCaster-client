@@ -1,14 +1,40 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { UserPanel } from '../components/UserPanel';
 import image1 from '../images/brian side sq.jpg';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
+import { RecordsContext } from '../contexts/records/RecordsContext';
+import { AuthContext } from '../contexts/auth/AuthContext';
 
-export const View = () => {
+const navLinks = [
+  {
+    id: 1,
+    name: 'Dashboard',
+    to: '/dashboard',
+    className: 'nav-link',
+  },
+  {
+    id: 2,
+    name: 'New Record',
+    to: '/records/new',
+    className: 'nav-link',
+  },
+  {
+    id: 3,
+    name: 'Log Out',
+    to: '/login',
+    className: 'nav-link',
+  },
+];
+export const View = ({ match }) => {
   const { setPageTitle } = useContext(GlobalContext);
-  const [state, setState] = useState({ modDisplay: 'none', scrollable: true });
+  const { token } = useContext(AuthContext);
+  const history = useHistory();
+  const { getARecord, record } = useContext(RecordsContext);
+  const [state, setState] = useState({ modDisplay: 'none', scrollable: true, record: record });
   useEffect(() => {
     setPageTitle('View Record - BroadCaster');
   }, [setPageTitle]);
@@ -19,26 +45,16 @@ export const View = () => {
     });
     document.querySelector('.whole-body').classList.toggle('no-scroll');
   };
-  const navLinks = [
-    {
-      id: 1,
-      name: 'Dashboard',
-      to: '/dashboard',
-      className: 'nav-link',
-    },
-    {
-      id: 2,
-      name: 'New Record',
-      to: '/records/new',
-      className: 'nav-link',
-    },
-    {
-      id: 3,
-      name: 'Log Out',
-      to: '/login',
-      className: 'nav-link',
-    },
-  ];
+  useEffect(() => {
+    (async () => {
+      const tkn = token || localStorage.getItem('accessToken');
+      if (!tkn) history.push('/login');
+      else {
+        await getARecord(+match.params.recordId, tkn);
+      }
+    })();
+  }, []);
+  console.log('record', record);
   return (
     <div className="pages view-page">
       <div className="whole-body">
@@ -54,45 +70,42 @@ export const View = () => {
                       <img src={image1} alt="author pic" className="author-pic" />
                     </div>
                     <span className="author-name">
-                      <Link to="/dashboard">Kevin Hart</Link>
+                      <Link to="/#">{record.authorName}</Link>
                     </span>
                   </div>
-                  <div className="date">April 20 2019</div>
+                  <div className="date">{record.createdOn}</div>
                 </div>
-                <div className="type red">Red-Flag</div>
+                <div className={`type ${record.type ? record.type.toLowerCase() : record.type}`}>
+                  {record.type}
+                </div>
                 <div className="title">
-                  <Link to="/records/5/view">Corruption somewhere</Link>
+                  <Link to="/#">{record.title}</Link>
                 </div>
-                <div className="comment">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit sit modi hic
-                  dolore autem, illum suscipit voluptas laborum praesentium architecto, accusantium
-                  ipsum quos quod recusandae repudiandae, quidem debitis nihil magni? Lorem ipsum
-                  dolor sit amet consectetur adipisicing elit. Voluptatem vel perspiciatis modi
-                  earum tenetur id atque eos. Reprehenderit beatae cupiditate delectus? Quidem
-                  possimus eos quo, error beatae tempore porro rem. Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit. Labore aliquid pariatur, maxime libero deleniti
-                  aperiam! Cupiditate repellendus amet, ratione inventore ab, voluptate ad delectus,
-                  eos quaerat modi quis quam est. Lorem ipsum dolor sit amet consectetur,
-                  adipisicing elit. Velit sit modi hic dolore autem, illum suscipit voluptas laborum
-                  praesentium architecto, accusantium ipsum quos quod recusandae repudiandae, quidem
-                  debitis nihil magni? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptatem vel perspiciatis modi earum tenetur id atque eos. Reprehenderit beatae
-                  cupiditate delectus? Quidem possimus eos quo, error beatae tempore porro rem.
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore aliquid pariatur,
-                  maxime libero deleniti aperiam! Cupiditate repellendus amet, ratione inventore ab,
-                  voluptate ad delectus, eos quaerat modi quis quam est.
+                <div className="locate-wrapper">
+                  <h3 className="locate">Location</h3>
+                  <div>
+                    {record.location ? record.location.district.toUpperCase() : record.location} -{' '}
+                    {record.location ? record.location.sector.toUpperCase() : record.location} -{' '}
+                    {record.location ? record.location.cell.toUpperCase() : record.location}
+                  </div>
                 </div>
+                <div className="comment">{record.description}</div>
                 <div className="status-panel">
                   <div className="edit-delete">
                     <Link to="/records/5/edit" className="edit" button="true">
                       <i className="material-icons">edit</i>
                     </Link>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <Link to="#" className="delete" button="true" onClick={setMod}>
                       <i className="material-icons">delete</i>
                     </Link>
                   </div>
-                  <div className="status resolved">RESOLVED</div>
+                  <div
+                    className={`status ${
+                      record.status ? record.status.toLowerCase() : record.status
+                    }`}
+                  >
+                    {record.status}
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 import { RecordsReducer } from './RecordsReducer';
+import { useHistory } from 'react-router-dom';
 
 const initialState = {
   records: [],
@@ -11,7 +12,7 @@ export const RecordsContext = createContext(initialState);
 
 export const RecordsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(RecordsReducer, initialState);
-
+  const history = useHistory();
   const getRecords = async (token) => {
     const config = {
       method: 'GET',
@@ -27,11 +28,14 @@ export const RecordsProvider = ({ children }) => {
         type: 'GET_RECORDS',
         payload: response.data.records,
       });
+      localStorage.setItem('currentRecords', JSON.stringify(response.data.records));
     } catch (err) {
       dispatch({
         type: 'ERROR',
         payload: err.message,
       });
+      history.push('/login');
+      console.log('err', err);
     }
   };
 
@@ -43,19 +47,23 @@ export const RecordsProvider = ({ children }) => {
       },
     };
     try {
-      const response = await (
+      const res = await (
         await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}`, config)
       ).json();
       dispatch({
         type: 'GET_A_RECORD',
-        payload: response.data.records,
+        payload: res.data.record,
       });
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: 'ERROR',
-        payload: err.message,
+        payload: error.message,
       });
+      history.push('/dashboard');
+      console.log('error', error);
     }
+    // const records = JSON.parse(localStorage.getItem('currentRecords'));
+    // return records.find((rec) => rec.id === recordId);
   };
   return (
     <RecordsContext.Provider value={{ ...state, getRecords, getARecord }}>

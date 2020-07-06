@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Records } from '../components/Records';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { UserPanel } from '../components/UserPanel';
@@ -8,24 +8,14 @@ import { Pagination } from '../components/Pagination';
 import { TabLinks } from '../components/TabLinks';
 import { Footer } from '../components/Footer';
 import { AuthContext } from '../contexts/auth/AuthContext';
-import { RecordsContext } from '../contexts/records/RecordsContext';
 
 export const Dashboard = () => {
-  const { token, getUserData, logOut } = useContext(AuthContext);
+  const { logOut } = useContext(AuthContext);
   const { setPageTitle } = useContext(GlobalContext);
-  const { getRecords } = useContext(RecordsContext);
-  const history = useHistory();
   useEffect(() => {
     setPageTitle('Dashboard- BroadCaster');
   }, []);
-  useEffect(() => {
-    const tkn = token || localStorage.getItem('accessToken');
-    if (!tkn) history.push('/login');
-    else {
-      getUserData(tkn);
-      getRecords(tkn);
-    }
-  }, []);
+
   return (
     <div className="pages profile-page">
       <div className="whole-body">

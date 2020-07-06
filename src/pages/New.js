@@ -5,6 +5,7 @@ import { GlobalContext } from '../contexts/GlobalContext';
 import { AddCoordinates } from '../components/AddCoordinates';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
+import { UserPanel } from '../components/UserPanel';
 
 export const New = () => {
   const { setPageTitle } = useContext(GlobalContext);
@@ -36,6 +37,7 @@ export const New = () => {
       <div className="whole-body">
         <div className="grid-container">
           <Nav navLinks={navLinks} />
+          <UserPanel />
           <div className="middle">
             <div className="new-record">
               <div className="record-info">
@@ -53,6 +55,7 @@ export const New = () => {
                   <option value="red-flag">Red-flag</option>
                   <option value="intervention">Intervention</option>
                 </select>
+                <AddCoordinates />
                 <input type="text" className="record-title-edit" placeholder="What is the issue?" />
                 <textarea
                   name="record-comment"
@@ -61,9 +64,7 @@ export const New = () => {
                   placeholder="Elaborate..."
                 />
               </article>
-              <div className="add-location">
-                <AddCoordinates />
-              </div>
+
               <div className="post-panel">
                 <Link to="/dashboard" className="cancel" button="true">
                   Cancel
