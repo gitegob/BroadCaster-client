@@ -17,6 +17,12 @@ export const RecordsReducer = (state, action) => {
         ...state,
         error: action.payload,
       };
+    case 'CREATE_A_RECORD':
+      return {
+        ...state,
+        record: action.payload,
+        loading: false,
+      };
     default:
       return null;
   }

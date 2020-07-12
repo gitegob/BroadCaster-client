@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
-import { createContext } from 'react';
-import { AuthReducer } from './AuthReducer';
+import React, { useReducer, createContext } from 'react';
+
 import { useHistory } from 'react-router-dom';
+import { AuthReducer } from './AuthReducer';
 
 const initialState = {
   token: '',
@@ -63,7 +63,10 @@ export const AuthProvider = ({ children }) => {
     });
   };
   return (
-    <AuthContext.Provider value={{ ...state, logUp, logOut, getUserData }}>
+    <AuthContext.Provider value={{
+      ...state, logUp, logOut, getUserData,
+    }}
+    >
       {children}
     </AuthContext.Provider>
   );

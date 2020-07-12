@@ -16,6 +16,7 @@ ul {
 }
 form {
   color: #aaa;
+  margin: 1rem auto;
 }
 .logup-page input {
   color: #ccc;
@@ -332,6 +333,7 @@ img.author-pic {
 }
 .record .type {
   font-weight: bold;
+  text-transform: uppercase;
   font-style: italic;
 }
 .record .read-more {
@@ -534,112 +536,65 @@ textarea:focus {
 .record-edit {
   padding: 1rem;
 }
-.record-edit select {
-  margin-top: 2rem;
-}
-.new-page .record-info {
-  display: block;
-}
-.new-page .record-info .author-info {
+.new-rec-btn-wrapper {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  padding-left: 1rem;
+  justify-content: space-between;
 }
-.new-page .record-info .author-info span {
-  display: block;
-}
-.new-page .add-location input,
-.new-page .add-media input {
-  width: fit-content;
-  font-size: 1rem;
-}
-.coordinates input {
-  display: block;
-  width: fit-content;
-}
-.new-page .add-media {
-  background-color: #ccc;
-  padding: 0.5rem;
-  width: fit-content;
-  margin-left: 1rem;
-}
-.new-page .add-media input {
-  border: none;
-  display: inline;
-  padding: 0;
-}
-.new-page .add-media span {
+
+.new-rec-btn {
+  color: #555;
   font-weight: bold;
-  text-transform: uppercase;
+  border: 1px solid #555;
 }
-.new-page .add-location button {
-  padding: 0.3rem;
-  margin: 1rem;
-  border: none;
+.new-rec-btn:hover {
   background-color: #555;
-  color: white;
+  color: whitesmoke;
 }
-.new-page .add-location button:hover {
-  background-color: #333;
-}
-.new-page .add-location button:focus {
-  outline: none;
-}
-.locate-wrapper {
-  margin: 1.5rem 0;
+
+fieldset {
   background-color: whitesmoke;
-  width: fit-content;
-  padding: 1.2rem;
-  text-transform: uppercase;
-  width: 100%;
+  color: #222;
+  padding: 1rem;
+  margin: 1rem auto;
+  border: none;
 }
-.locate-wrapper form {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  background: inherit;
-  width: 100%;
+fieldset legend {
+  font-size: 1.2rem;
 }
-.locate-wrapper form input {
-  flex: 30%;
-  /* margin: 0 1rem !important; */
+fieldset input {
+  font-size: 0.7rem;
 }
-.locate-wrapper input {
-  padding: 0;
-  display: inline;
+fieldset input::placeholder {
+  color: #333;
 }
-.locate-wrapper input.record-title-edit {
-  margin-left: 1.5rem 0 !important;
+fieldset.location-editor input {
+  font-size: 1rem;
   padding: 0;
 }
-.show {
-  display: block !important;
-}
-.new-page .new-record .post-panel {
+fieldset.post-panel {
   display: flex;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  justify-content: center;
-  margin: 1rem;
+  background-color: inherit;
 }
-.new-page .new-record .post-panel .post {
+fieldset.post-panel button {
+  border: none;
+}
+fieldset.post-panel .post {
   background-color: green;
   color: whitesmoke;
 }
-.new-page .new-record .post-panel .post:hover {
+fieldset.post-panel .post:hover {
   background-color: rgb(1, 61, 1);
 }
-.new-page .new-record .post-panel .cancel {
+fieldset.post-panel .cancel {
   background-color: #444;
   color: whitesmoke;
 }
-.new-page .new-record .post-panel .cancel:hover {
+fieldset.post-panel .cancel:hover {
   background-color: #222;
 }
-.new-page .new-record .post-panel a {
+fieldset.post-panel a {
   margin-left: 1rem;
 }
 .about-page .sub-middle {
@@ -764,8 +719,6 @@ textarea:focus {
   display: block;
   top: -5%;
   right: 2%;
-  transform: rotate(45deg);
-  --webkit-transform: rotate(45deg);
   z-index: 2;
   font-size: 3rem;
   cursor: pointer;
@@ -818,7 +771,9 @@ textarea:focus {
     'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-/* SMALLER SCREENS */
+/*==============================================================================================================================*/
+/* ========================================== SMALLER SCREENS ================================================================= */
+/*==============================================================================================================================*/
 
 @media (max-width: 768px) {
   .pages .grid-container {

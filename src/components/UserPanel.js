@@ -15,7 +15,7 @@ export const UserPanel = () => {
         await getUserData(tkn);
       }
     })();
-  });
+  },[]);
   return (
     <div className="user-panel">
       <div className="user-wrapper">

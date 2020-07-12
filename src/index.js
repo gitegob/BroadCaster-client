@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { GlobalProvider } from './contexts/GlobalContext';
 
 ReactDOM.render(
-  <GlobalProvider>
+  <BrowserRouter>
     <App />
-  </GlobalProvider>,
+  </BrowserRouter>,
   document.getElementById('root'),
 );

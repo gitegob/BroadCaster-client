@@ -1,41 +1,42 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { LoginForm } from '../components/LoginForm';
+import { LoginForm } from '../components/Login.form';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 
+const navLinks = [
+  {
+    id: 1,
+    name: 'Home',
+    to: '/',
+    className: 'nav-link',
+  },
+  {
+    id: 2,
+    name: 'Sign Up',
+    to: '/signup',
+    className: 'nav-link',
+  },
+  {
+    id: 3,
+    name: 'Log In',
+    to: '/login',
+    className: 'nav-link active',
+  },
+  {
+    id: 4,
+    name: 'About',
+    to: '/about',
+    className: 'nav-link',
+  },
+];
 export const Login = () => {
   const { setPageTitle } = useContext(GlobalContext);
   useEffect(() => {
     setPageTitle('Log In - BroadCaster');
   }, [setPageTitle]);
-  const navLinks = [
-    {
-      id: 1,
-      name: 'Home',
-      to: '/',
-      className: 'nav-link',
-    },
-    {
-      id: 2,
-      name: 'Sign Up',
-      to: '/signup',
-      className: 'nav-link',
-    },
-    {
-      id: 3,
-      name: 'Log In',
-      to: '/login',
-      className: 'nav-link active',
-    },
-    {
-      id: 4,
-      name: 'About',
-      to: '/about',
-      className: 'nav-link',
-    },
-  ];
+
   return (
     <div className="logup-page">
       <div className="whole-body">

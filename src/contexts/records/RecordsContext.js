@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react';
-import { RecordsReducer } from './RecordsReducer';
 import { useHistory } from 'react-router-dom';
+import { RecordsReducer } from './RecordsReducer';
 
 const initialState = {
   records: [],
@@ -62,11 +62,50 @@ export const RecordsProvider = ({ children }) => {
       history.push('/dashboard');
       console.log('error', error);
     }
-    // const records = JSON.parse(localStorage.getItem('currentRecords'));
-    // return records.find((rec) => rec.id === recordId);
+  };
+
+  const createRecord = async (body, tkn) => {
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${tkn}`,
+      },
+      body: JSON.stringify(body),
+    };
+    try {
+      const res = await (
+        await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records`, config)
+      ).json();
+      dispatch({
+        type: 'CREATE_A_RECORD',
+        payload: res.data.record,
+      });
+      history.push(`/records/${res.data.record.id}/view`);
+    } catch (error) {
+      dispatch({
+        type: 'ERROR',
+        payload: error.message,
+      });
+      console.log('error', error);
+    }
+  };
+
+  const deleteRecord = async (recordId, tkn) => {
+    const config = {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${tkn}`,
+      },
+    };
+    const res = await (await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}`, config)).json();
+    if (res.status === 200) { history.push('/dashboard'); }
   };
   return (
-    <RecordsContext.Provider value={{ ...state, getRecords, getARecord }}>
+    <RecordsContext.Provider value={{
+      ...state, getRecords, getARecord, createRecord, deleteRecord,
+    }}
+    >
       {children}
     </RecordsContext.Provider>
   );

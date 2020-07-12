@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContext';
@@ -8,6 +7,7 @@ import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { RecordsContext } from '../contexts/records/RecordsContext';
 import { AuthContext } from '../contexts/auth/AuthContext';
+import { StatusChanger } from '../components/StatusChanger';
 
 const navLinks = [
   {
@@ -18,23 +18,18 @@ const navLinks = [
   },
   {
     id: 2,
-    name: 'New Record',
-    to: '/records/new',
-    className: 'nav-link',
-  },
-  {
-    id: 3,
     name: 'Log Out',
     to: '/login',
     className: 'nav-link',
+    logOut: true,
   },
 ];
-export const View = ({ match }) => {
+export const View = (props) => {
   const { setPageTitle } = useContext(GlobalContext);
-  const { token } = useContext(AuthContext);
+  const { token, userData } = useContext(AuthContext);
   const history = useHistory();
-  const { getARecord, record } = useContext(RecordsContext);
-  const [state, setState] = useState({ modDisplay: 'none', scrollable: true, record: record });
+  const { getARecord, record, deleteRecord } = useContext(RecordsContext);
+  const [state, setState] = useState({ modDisplay: 'none', scrollable: true, record });
   useEffect(() => {
     setPageTitle('View Record - BroadCaster');
   }, [setPageTitle]);
@@ -50,11 +45,16 @@ export const View = ({ match }) => {
       const tkn = token || localStorage.getItem('accessToken');
       if (!tkn) history.push('/login');
       else {
-        await getARecord(+match.params.recordId, tkn);
+        await getARecord(+props.match.params.recordId, tkn);
       }
     })();
   }, []);
-  console.log('record', record);
+
+  const handleDelete = () => {
+    console.log('record', record);
+    const tkn = token || localStorage.getItem('accessToken');
+    if (tkn) deleteRecord(record.id, tkn);
+  };
   return (
     <div className="pages view-page">
       <div className="whole-body">
@@ -79,33 +79,37 @@ export const View = ({ match }) => {
                   {record.type}
                 </div>
                 <div className="title">
-                  <Link to="/#">{record.title}</Link>
+                  {record.title}
                 </div>
+                <div className="comment">{record.description}</div>
                 <div className="locate-wrapper">
                   <h3 className="locate">Location</h3>
                   <div>
-                    {record.location ? record.location.district.toUpperCase() : record.location} -{' '}
-                    {record.location ? record.location.sector.toUpperCase() : record.location} -{' '}
-                    {record.location ? record.location.cell.toUpperCase() : record.location}
+                    {record.district ? record.district.toUpperCase() : record.district}
+                    {' '}
+                    -
+                    {' '}
+                    {record.sector ? record.sector.toUpperCase() : record.sector}
+                    {' '}
+                    -
+                    {' '}
+                    {record.cell ? record.cell.toUpperCase() : record.cell}
                   </div>
                 </div>
-                <div className="comment">{record.description}</div>
                 <div className="status-panel">
                   <div className="edit-delete">
-                    <Link to="/records/5/edit" className="edit" button="true">
-                      <i className="material-icons">edit</i>
-                    </Link>
+                    {userData.isAdmin ? (
+                      null
+                    ) : (
+                      <Link to="/records/5/edit" className="edit" button="true">
+                        <i className="material-icons">edit</i>
+                      </Link>
+                    )}
                     <Link to="#" className="delete" button="true" onClick={setMod}>
                       <i className="material-icons">delete</i>
                     </Link>
                   </div>
-                  <div
-                    className={`status ${
-                      record.status ? record.status.toLowerCase() : record.status
-                    }`}
-                  >
-                    {record.status}
-                  </div>
+                  <StatusChanger record={record} />
                 </div>
               </div>
             </div>
@@ -117,9 +121,9 @@ export const View = ({ match }) => {
           <center>
             <div>Delete record?</div>
             <br />
-            <Link to="/dashboard" className="confirm-delete" button="true">
+            <button type="button" className="confirm-delete" button="true" onClick={handleDelete}>
               Confirm
-            </Link>
+            </button>
             <span
               className="close-modal"
               role="button"
@@ -127,7 +131,7 @@ export const View = ({ match }) => {
               onKeyUp={setMod}
               tabIndex="0"
             >
-              +
+              <i className="material-icons">close</i>
             </span>
           </center>
         </div>

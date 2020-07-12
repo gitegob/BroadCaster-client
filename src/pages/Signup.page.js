@@ -1,22 +1,27 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { SignupForm } from '../components/Signup.form';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 
-export const Homepage = () => {
+export const Signup = () => {
+  const { setPageTitle } = useContext(GlobalContext);
+  useEffect(() => {
+    setPageTitle('Sign Up - BroadCaster');
+  }, [setPageTitle]);
   const navLinks = [
     {
       id: 1,
       name: 'Home',
       to: '/',
-      className: 'nav-link active',
+      className: 'nav-link',
     },
     {
       id: 2,
       name: 'Sign Up',
       to: '/signup',
-      className: 'nav-link',
+      className: 'nav-link active',
     },
     {
       id: 3,
@@ -31,29 +36,22 @@ export const Homepage = () => {
       className: 'nav-link',
     },
   ];
-  const { setPageTitle } = useContext(GlobalContext);
-  useEffect(() => {
-    setPageTitle('BroadCaster - Speak up and be heard');
-  }, [setPageTitle]);
   return (
-    <div className="index-page">
+    <div className="logup-page">
       <div className="whole-body">
         <div className="grid-container">
           <Nav navLinks={navLinks} />
           <div className="middle">
-            <div className="description">
-              <div className="slogan">
-                <div className="broadcaster">Welcome to BroadCaster</div>
-                <br />
-                <br />
-                <div>To let you speak up and BE HEARD</div>
+            <div className="center">
+              <h2>Join BroadCaster</h2>
+              <SignupForm />
+              <br />
+              <div className="bottom">
+                <span className="bcm">Already a member?</span>
+                <Link className="psw" to="/login">
+                  Log in
+                </Link>
               </div>
-              <br />
-              <br />
-              <br />
-              <Link to="/signup" className="get-started" button="true">
-                GET STARTED
-              </Link>
             </div>
           </div>
         </div>
