@@ -16,6 +16,10 @@ ul {
 }
 form {
   color: #aaa;
+  margin: 1rem auto;
+}
+.logup-page input {
+  color: #ccc;
 }
 form input {
   color: #333;
@@ -30,10 +34,10 @@ form input::placeholder {
 input {
   display: block;
   width: 98%;
-  padding: 15px;
+  padding: 1rem 0;
   background: none;
   font-size: 1rem;
-  margin: 15px;
+  margin: 1rem 0;
 }
 
 input:focus {
@@ -57,16 +61,13 @@ input:focus {
   grid-template-areas:
     'nav nav nav nav'
     'left middle middle middle';
-  grid-template-rows:
-    auto
-    1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   min-height: 95.5vh;
 }
 .index-page .grid-container,
 .logup-page .grid-container,
-.new-page .grid-container,
-.about-page .grid-container,
-.contact-page .grid-container {
+.about-page .grid-container {
   grid-template-areas:
     'nav nav nav nav'
     'middle middle middle middle';
@@ -119,6 +120,7 @@ nav {
   background-color: #222;
   width: 2rem;
   height: 2rem;
+  padding: 1.1rem;
   color: whitesmoke;
   border-radius: 50%;
 }
@@ -331,6 +333,7 @@ img.author-pic {
 }
 .record .type {
   font-weight: bold;
+  text-transform: uppercase;
   font-style: italic;
 }
 .record .read-more {
@@ -355,10 +358,10 @@ img.author-pic {
 .quick-panel a:hover {
   color: #333;
 }
-.inter {
+.intervention {
   color: rgb(98, 52, 226);
 }
-.red {
+.red-flag {
   color: brown;
 }
 .record-info {
@@ -448,13 +451,16 @@ iframe {
 .status {
   text-transform: uppercase;
 }
-.record .resolved {
+.record .resolved,
+select.resolved {
   color: green;
 }
-.record .pending {
+.record .pending,
+select.pending {
   color: orange;
 }
-.record .rejected {
+.record .rejected,
+select.rejected {
   color: red;
 }
 .status-panel {
@@ -464,8 +470,6 @@ iframe {
 }
 select option {
   color: #444;
-}
-select.status {
   display: block;
   border: none;
   padding: 0.5rem;
@@ -505,12 +509,10 @@ select.status:focus {
 textarea {
   display: block;
   resize: none;
-  margin: 5px;
-  margin: auto;
-  margin-top: 2px;
-  width: 98%;
-  padding: 2rem;
-  font-size: 1.5em;
+  margin: 1rem auto;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2em;
   color: #333;
   font-family: 'Jomolhari', serif;
   border: none;
@@ -523,7 +525,7 @@ textarea:focus {
   border: none;
   font-family: 'Jomolhari', serif;
   border-bottom: 1px solid #888;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #444;
 }
 .new-record {
@@ -534,116 +536,78 @@ textarea:focus {
 .record-edit {
   padding: 1rem;
 }
-.record-edit select {
-  margin-top: 2rem;
-}
-.new-page .record-info {
-  display: block;
-}
-.new-page .record-info .author-info {
+.new-rec-btn-wrapper {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  padding-left: 1rem;
+  justify-content: space-between;
 }
-.new-page .record-info .author-info span {
-  display: block;
-}
-.new-page .add-location input,
-.new-page .add-media input {
-  width: fit-content;
-  font-size: 1rem;
-}
-.coordinates input {
-  display: block;
-  width: fit-content;
-}
-.new-page .add-media {
-  background-color: #ccc;
-  padding: 0.5rem;
-  width: fit-content;
-  margin-left: 1rem;
-}
-.new-page .add-media input {
-  border: none;
-  display: inline;
-  padding: 0;
-}
-.new-page .add-media span {
+
+.new-rec-btn {
+  color: #555;
   font-weight: bold;
-  text-transform: uppercase;
+  border: 1px solid #555;
 }
-.new-page .add-location button {
-  padding: 0.3rem;
-  margin: 1rem;
-  border: none;
+.new-rec-btn:hover {
   background-color: #555;
-  color: white;
+  color: whitesmoke;
 }
-.new-page .add-location button:hover {
-  background-color: #333;
+
+fieldset {
+  background-color: whitesmoke;
+  color: #222;
+  padding: 1rem;
+  margin: 1rem auto;
+  border: none;
 }
-.new-page .add-location button:focus {
-  outline: none;
+fieldset legend {
+  font-size: 1.2rem;
 }
-.new-page .add-location .coordinates {
-  background-color: #ddd;
-  width: fit-content;
+fieldset input {
+  font-size: 0.7rem;
 }
-.locate-wrapper {
-  margin: 0.5rem;
+fieldset input::placeholder {
+  color: #333;
 }
-.locate-wrapper form {
-  padding: 0.5rem;
-  margin: 0.5rem;
-}
-.locate-wrapper input {
+fieldset.location-editor input {
+  font-size: 1rem;
   padding: 0;
 }
-.show {
-  display: block !important;
-}
-.new-page .new-record .post-panel {
+fieldset.post-panel {
   display: flex;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  justify-content: center;
-  margin: 1rem;
+  background-color: inherit;
 }
-.new-page .new-record .post-panel .post {
+fieldset.post-panel button {
+  border: none;
+}
+fieldset.post-panel .post {
   background-color: green;
   color: whitesmoke;
 }
-.new-page .new-record .post-panel .post:hover {
+fieldset.post-panel .post:hover {
   background-color: rgb(1, 61, 1);
 }
-.new-page .new-record .post-panel .cancel {
+fieldset.post-panel .cancel {
   background-color: #444;
   color: whitesmoke;
 }
-.new-page .new-record .post-panel .cancel:hover {
+fieldset.post-panel .cancel:hover {
   background-color: #222;
 }
-.new-page .new-record .post-panel a {
+fieldset.post-panel a {
   margin-left: 1rem;
 }
-.about-page .sub-middle,
-.contact-page .sub-middle {
+.about-page .sub-middle {
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
   width: 70%;
   margin: auto;
 }
-.contact-page .middle {
-  flex-wrap: wrap-reverse;
-}
-.about-page .middle div,
-.contact-page .middle div {
+.about-page .middle div {
   padding: 1rem;
 }
-.about-page .my-info,
-.contact-page .my-info {
+.about-page .my-info {
   flex: 20%;
   background-color: rgba(245, 245, 245, 0.514);
   background-color: #666;
@@ -651,52 +615,19 @@ textarea:focus {
 .contact-us-wrapper {
   display: none;
 }
-.about-page .my-info .user-wrapper,
-.contact-page .my-info .user-wrapper {
+.about-page .my-info .user-wrapper {
   background: none;
   color: whitesmoke;
 }
 .about-page .my-info .user-wrapper div a,
-.about-page .my-info .user-wrapper div,
-.contact-page .my-info .user-wrapper div a,
-.contact-page .my-info .user-wrapper div {
+.about-page .my-info .user-wrapper div {
   color: whitesmoke;
 }
-.about-page .about-me,
-.contact-page .about-me {
+.about-page .about-me {
   flex: 70%;
   background-color: rgba(245, 245, 245, 0.596);
   backdrop-filter: blur(10px);
   font-size: 1.2rem;
-}
-.contact-page .user-wrapper .user-pic img {
-  border: none;
-}
-.contact-page .my-email,
-.contact-page .my-github,
-.contact-page .my-medium {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.contact-page .user-wrapper a {
-  text-decoration: underline;
-  color: #888;
-}
-.contact-page .user-info div {
-  padding: 0.5rem;
-  font-size: 1.1rem;
-}
-.contact-page .my-name {
-  font-size: 1.5rem;
-  text-transform: uppercase;
-}
-.contact-page .my-email img,
-.contact-page .my-github img,
-.contact-page .my-medium img {
-  width: 2rem;
-  height: 2rem;
-  margin-right: 0.5rem;
 }
 .feedback {
   padding: 1rem;
@@ -788,8 +719,6 @@ textarea:focus {
   display: block;
   top: -5%;
   right: 2%;
-  transform: rotate(45deg);
-  --webkit-transform: rotate(45deg);
   z-index: 2;
   font-size: 3rem;
   cursor: pointer;
@@ -830,7 +759,21 @@ textarea:focus {
   text-decoration: underline;
   color: rgb(106, 171, 231);
 }
-/* SMALLER SCREENS */
+.not-found {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.767), rgba(0, 0, 0, 0.137));
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/*==============================================================================================================================*/
+/* ========================================== SMALLER SCREENS ================================================================= */
+/*==============================================================================================================================*/
 
 @media (max-width: 768px) {
   .pages .grid-container {
@@ -852,6 +795,12 @@ textarea:focus {
   }
   .center {
     width: 50%;
+  }
+  .locate-wrapper form {
+    flex-wrap: no-wrap;
+  }
+  .locate-wrapper form input {
+    flex: 100%;
   }
 }
 @media (max-width: 600px) {
@@ -875,7 +824,7 @@ textarea:focus {
   }
   .new-page textarea {
     padding: 1rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     width: 100%;
   }
   .search-panel {

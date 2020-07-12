@@ -1,36 +1,43 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Homepage } from './pages/Homepage';
-import { Signup } from './pages/Signup';
-import { Login } from './pages/Login';
-import { Profile } from './pages/Profile';
-import { Admin } from './pages/Admin';
-import { View } from './pages/View';
-import { Edit } from './pages/Edit';
-import { New } from './pages/New';
-import { About } from './pages/About';
-import { NotFound } from './pages/NotFound';
-import { Footer } from './components/Footer';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { Signup } from './pages/Signup.page';
+import { Login } from './pages/Login.page';
+import { Dashboard } from './pages/Dashboard.page';
+import { View } from './pages/View.page';
+import { Edit } from './pages/Edit.page';
+import { New } from './pages/New.page';
+import { About } from './pages/About.page';
+import { NotFound } from './pages/NotFound.page';
+import { AuthContext, AuthProvider } from './contexts/auth/AuthContext';
+import { GlobalProvider } from './contexts/GlobalContext';
+import { RecordsProvider } from './contexts/records/RecordsContext';
 
 function App() {
+  const { userData, token } = useContext(AuthContext);
+  const tkn = token || localStorage.getItem('accessToken');
   return (
     <>
-      <Router>
-        <Switch>
-          <Route path="/" exact component={Homepage} />
-          <Route path="/signup" exact component={Signup} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/dashboard" exact component={Profile} />
-          <Route path="/admin" exact component={Admin} />
-          <Route path="/records/5/view" exact component={View} />
-          <Route path="/records/5/edit" exact component={Edit} />
-          <Route path="/records/new" exact component={New} />
-          <Route path="/about" exact component={About} />
-          <Route component={NotFound} />
-        </Switch>
-        <Footer />
-      </Router>
+      <GlobalProvider>
+        <AuthProvider>
+          <RecordsProvider>
+            <Switch>
+              {tkn && <Redirect from="/" to="/dashboard" exact />}
+              {userData && <Redirect from="/" to="/dashboard" exact />}
+              {!tkn && <Redirect from="/" to="/login" exact />}
+              {!userData && <Redirect from="/" to="/login" exact />}
+              <Route path="/signup" exact component={Signup} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/dashboard" exact component={Dashboard} />
+              <Route path="/records/:recordId/view" exact component={View} />
+              <Route path="/records/:recordId/edit" exact component={Edit} />
+              <Route path="/records/new" exact component={New} />
+              <Route path="/about" exact component={About} />
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </RecordsProvider>
+        </AuthProvider>
+      </GlobalProvider>
     </>
   );
 }
