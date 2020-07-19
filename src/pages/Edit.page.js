@@ -3,13 +3,12 @@ import { GlobalContext } from '../contexts/GlobalContext';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { UserPanel } from '../components/UserPanel';
-import { NewRecord } from '../components/NewRecord.form';
+import { EditRecord } from '../components/EditRecord.form';
 import { RecordsContext } from '../contexts/records/RecordsContext';
-import { emptyRecord } from '../components/dummy/dummy';
 
 export const Edit = () => {
   const { setPageTitle } = useContext(GlobalContext);
-  const { record } = useContext(RecordsContext);
+  const recordToEdit = JSON.parse(localStorage.getItem('recordToEdit'));
   useEffect(() => {
     setPageTitle('Edit Record - BroadCaster');
   }, [setPageTitle]);
@@ -35,7 +34,7 @@ export const Edit = () => {
           <Nav navLinks={navLinks} />
           <UserPanel />
           <div className="middle">
-            <NewRecord record={record} />
+            <EditRecord record={recordToEdit} />
           </div>
         </div>
       </div>

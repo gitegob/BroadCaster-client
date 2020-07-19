@@ -334,7 +334,8 @@ img.author-pic {
 .record .type {
   font-weight: bold;
   text-transform: uppercase;
-  font-style: italic;
+  font-size: .85rem;
+  /* font-style: italic; */
 }
 .record .read-more {
   background-color: #555;
@@ -359,10 +360,18 @@ img.author-pic {
   color: #333;
 }
 .intervention {
-  color: rgb(98, 52, 226);
+  background-color: rgb(98, 52, 226);
+  color:whitesmoke;
+  width: fit-content;
+  padding:.1rem .3rem;
+  border-radius: 3px;
 }
 .red-flag {
-  color: brown;
+  background-color: brown;
+  color:whitesmoke;
+  width: fit-content;
+  padding:.1rem .3rem;
+  border-radius: 3px;
 }
 .record-info {
   color: #444;
@@ -571,30 +580,35 @@ fieldset.location-editor input {
   font-size: 1rem;
   padding: 0;
 }
-fieldset.post-panel {
+.view-page .location{
+  margin-top: 2rem;
+  font-weight: bold;
+}
+.post-panel {
   display: flex;
+  background-color: black;
   justify-content: space-evenly;
   flex-wrap: wrap;
   background-color: inherit;
 }
-fieldset.post-panel button {
+.post-panel button {
   border: none;
 }
-fieldset.post-panel .post {
+.post-panel .post {
   background-color: green;
   color: whitesmoke;
 }
-fieldset.post-panel .post:hover {
+.post-panel .post:hover {
   background-color: rgb(1, 61, 1);
 }
-fieldset.post-panel .cancel {
+.post-panel .cancel {
   background-color: #444;
   color: whitesmoke;
 }
-fieldset.post-panel .cancel:hover {
+.post-panel .cancel:hover {
   background-color: #222;
 }
-fieldset.post-panel a {
+.post-panel a {
   margin-left: 1rem;
 }
 .about-page .sub-middle {

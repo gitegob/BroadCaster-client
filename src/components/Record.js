@@ -5,8 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { StatusChanger } from './StatusChanger';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { RecordsContext } from '../contexts/records/RecordsContext';
-
-import image1 from '../images/brian side sq.jpg';
+import { userPic } from './assets/assets';
 
 export const Record = ({ record }) => {
   const { userData, token } = useContext(AuthContext);
@@ -19,12 +18,16 @@ export const Record = ({ record }) => {
     const tkn = token || localStorage.getItem('accessToken');
     if (tkn) deleteRecord(record.id, tkn);
   };
+  const handleEdit = () => {
+    localStorage.setItem('recordToEdit', JSON.stringify(record));
+    history.push(`/records/${record.id}/edit`);
+  };
   return (
     <div className="record">
       <div className="record-info">
         <div className="author-info">
           <div>
-            <img src={image1} alt="author pic" className="author-pic" />
+            <img src={userPic} alt="author pic" className="author-pic" />
           </div>
           <span className="author-name">
             <Link to="/dashboard">{record.authorName}</Link>
@@ -44,13 +47,13 @@ export const Record = ({ record }) => {
       ) : (
         <div className="quick-panel">
           {' '}
-          <Link to={`/records/${record.id}/edit`} className="edit" button="true">
-            <i className="material-icons">edit</i>
+          <Link to="#">
+            <i className="material-icons edit" onClick={handleEdit}>edit</i>
             {' '}
           </Link>
           {' '}
-          <Link to="#" className="delete" button="true" onClick={handleDelete}>
-            <i className="material-icons">delete</i>
+          <Link to="#">
+            <i className="material-icons delete" onClick={handleDelete}>delete</i>
             {' '}
           </Link>
           {' '}
