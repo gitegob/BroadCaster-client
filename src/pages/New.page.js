@@ -4,7 +4,7 @@ import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { UserPanel } from '../components/UserPanel';
 import { NewRecord } from '../components/NewRecord.form';
-import { emptyRecord } from '../components/dummy/dummy';
+import { emptyRecord } from '../components/assets/assets';
 
 export const New = () => {
   const { setPageTitle } = useContext(GlobalContext);

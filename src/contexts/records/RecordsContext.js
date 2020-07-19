@@ -81,7 +81,34 @@ export const RecordsProvider = ({ children }) => {
         type: 'CREATE_A_RECORD',
         payload: res.data.record,
       });
-      history.push(`/records/${res.data.record.id}/view`);
+      history.push('/dashboard');
+    } catch (error) {
+      dispatch({
+        type: 'ERROR',
+        payload: error.message,
+      });
+      console.log('error', error);
+    }
+  };
+
+  const updateRecord = async (body, recordId, tkn) => {
+    const config = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${tkn}`,
+      },
+      body: JSON.stringify(body),
+    };
+    try {
+      const res = await (
+        await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}`, config)
+      ).json();
+      dispatch({
+        type: 'UPDATE_A_RECORD',
+        payload: res.data.record,
+      });
+      history.push(`/records/${recordId}/view`);
     } catch (error) {
       dispatch({
         type: 'ERROR',
@@ -103,7 +130,7 @@ export const RecordsProvider = ({ children }) => {
   };
   return (
     <RecordsContext.Provider value={{
-      ...state, getRecords, getARecord, createRecord, deleteRecord,
+      ...state, getRecords, getARecord, createRecord, deleteRecord, updateRecord,
     }}
     >
       {children}

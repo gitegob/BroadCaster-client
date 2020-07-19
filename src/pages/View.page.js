@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { UserPanel } from '../components/UserPanel';
-import image1 from '../images/brian side sq.jpg';
+import { userPic } from '../components/assets/assets';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { RecordsContext } from '../contexts/records/RecordsContext';
@@ -67,7 +67,7 @@ export const View = (props) => {
                 <div className="record-info">
                   <div className="author-info">
                     <div>
-                      <img src={image1} alt="author pic" className="author-pic" />
+                      <img src={userPic} alt="author pic" className="author-pic" />
                     </div>
                     <span className="author-name">
                       <Link to="/#">{record.authorName}</Link>
@@ -83,8 +83,7 @@ export const View = (props) => {
                 </div>
                 <div className="comment">{record.description}</div>
                 <div className="locate-wrapper">
-                  <h3 className="locate">Location</h3>
-                  <div>
+                  <div className="location">
                     {record.district ? record.district.toUpperCase() : record.district}
                     {' '}
                     -

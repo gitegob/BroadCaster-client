@@ -23,6 +23,12 @@ export const RecordsReducer = (state, action) => {
         record: action.payload,
         loading: false,
       };
+    case 'UPDATE_A_RECORD':
+      return {
+        ...state,
+        record: action.payload,
+        loading: false,
+      };
     default:
       return null;
   }

@@ -1,17 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { userPic, emptyRecord } from './assets/assets';
+import { emptyRecord } from './assets/assets';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { RecordsContext } from '../contexts/records/RecordsContext';
 
-export const NewRecord = ({ record }) => {
+export const EditRecord = ({ record }) => {
   const [state, setState] = useState(record || emptyRecord);
   const { token } = useContext(AuthContext);
-  const { createRecord } = useContext(RecordsContext);
+  const { updateRecord } = useContext(RecordsContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const tkn = token || localStorage.getItem('accessToken');
-    createRecord(state, tkn);
+    updateRecord(state, record.id, tkn);
   };
 
   return (
@@ -49,7 +49,6 @@ export const NewRecord = ({ record }) => {
           />
         </fieldset>
         <fieldset className="location-editor">
-          <legend>WHERE&apos;S THIS?</legend>
           <input
             type="text"
             className="district"

@@ -1,3 +1,5 @@
+import image1 from '../../images/user2.jpg';
+
 export const emptyRecord = {
   title: '',
   type: '',
@@ -6,3 +8,5 @@ export const emptyRecord = {
   sector: '',
   cell: '',
 };
+
+export const userPic = image1;
