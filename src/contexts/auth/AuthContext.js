@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { AuthReducer } from './AuthReducer';
 
 const initialState = {
-  token: '',
   userData: {},
   loading: true,
 };
@@ -13,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState);
   const history = useHistory();
 
-  const logUp = async (body, path, endpoint) => {
+  const logUp = async (body, path) => {
     const config = {
       method: 'POST',
       headers: {
@@ -27,12 +26,9 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('accessToken', res.data.token);
         dispatch({
           type: 'LOGIN',
-          payload: res.data.token,
         });
-        history.push('/dashboard');
-      } else history.push(`${endpoint}`);
-    } else history.push(`${endpoint}`);
-    return res;
+      } else throw res.error;
+    }
   };
 
   const getUserData = async (token) => {
@@ -51,20 +47,41 @@ export const AuthProvider = ({ children }) => {
           type: 'SET_USER_DATA',
           payload: res.data.userData,
         });
-      } else console.log('res', res);
+      } else {
+        localStorage.removeItem('accessToken');
+        history.push('/login');
+      }
     } else console.log('res', res);
   };
 
   const logOut = () => {
     history.push('/login');
-    localStorage.removeItem('accessToken');
+    if (localStorage.getItem('accessToken')) localStorage.removeItem('accessToken');
+    if (localStorage.getItem('userData')) localStorage.removeItem('userData');
+    if (localStorage.getItem('recordToEdit')) localStorage.removeItem('recordToEdit');
+    if (localStorage.getItem('currentRecords')) localStorage.removeItem('currentRecords');
     dispatch({
       type: 'LOGOUT',
     });
   };
+
+  const updateProfile = async (body, id) => {
+    const tkn = localStorage.getItem('accessToken');
+    const config = {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${tkn}`,
+      },
+      body,
+    };
+    const res = await (await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/auth/profile/${id}`, config)).json();
+    if (res.status === 200) return res;
+    throw res.error;
+
+  };
   return (
     <AuthContext.Provider value={{
-      ...state, logUp, logOut, getUserData,
+      ...state, logUp, logOut, getUserData, updateProfile,
     }}
     >
       {children}

@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { RecordsReducer } from './RecordsReducer';
 
 const initialState = {
@@ -128,9 +128,26 @@ export const RecordsProvider = ({ children }) => {
     const res = await (await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}`, config)).json();
     if (res.status === 200) { history.push('/dashboard'); }
   };
+
+  const updateStatus = async (recordId, status, tkn) => {
+    const config = {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${tkn}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status }),
+    };
+    const res = await (await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}/status`, config)).json();
+    if (res.status === 200) {
+      await getRecords(tkn);
+      if (history.location.pathname === '/dashboard') history.replace('/dashboard');
+      else history.push('/dashboard');
+    }
+  };
   return (
     <RecordsContext.Provider value={{
-      ...state, getRecords, getARecord, createRecord, deleteRecord, updateRecord,
+      ...state, getRecords, getARecord, createRecord, deleteRecord, updateRecord, updateStatus,
     }}
     >
       {children}

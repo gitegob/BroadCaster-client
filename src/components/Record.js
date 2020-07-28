@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import moment from 'moment';
 import { StatusChanger } from './StatusChanger';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { RecordsContext } from '../contexts/records/RecordsContext';
@@ -33,7 +34,7 @@ export const Record = ({ record }) => {
             <Link to="/dashboard">{record.authorName}</Link>
           </span>
         </div>
-        <div className="date">{record.createdOn}</div>
+        <div className="date">{moment(record.createdOn).fromNow()}</div>
       </div>
       <div className={`type ${record.type.toLowerCase()}`}>{record.type}</div>
       <div className="title" onClick={handleRecordClick}>

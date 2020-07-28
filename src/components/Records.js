@@ -5,17 +5,18 @@ import { Record } from './Record';
 import { AuthContext } from '../contexts/auth/AuthContext';
 
 export const Records = () => {
-  const { records } = useContext(RecordsContext);
+  const { records, getRecords } = useContext(RecordsContext);
   const { token } = useContext(AuthContext);
-  const { getRecords } = useContext(RecordsContext);
   const history = useHistory();
 
   useEffect(() => {
-    const tkn = token || localStorage.getItem('accessToken');
-    if (!tkn) history.push('/login');
-    else {
-      getRecords(tkn);
-    }
+    (async () => {
+      const tkn = token || localStorage.getItem('accessToken');
+      if (!tkn) history.push('/login');
+      else {
+        await getRecords(tkn);
+      }
+    })();
   }, []);
   return <div className="records-wrapper">{records.map((rec) => <Record key={rec.id} record={rec} />)}</div>;
 };
