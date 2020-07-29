@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import moment from 'moment';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { UserPanel } from '../components/UserPanel';
 import { userPic } from '../components/assets/assets';
@@ -51,7 +52,6 @@ export const View = (props) => {
   }, []);
 
   const handleDelete = () => {
-    console.log('record', record);
     const tkn = token || localStorage.getItem('accessToken');
     if (tkn) deleteRecord(record.id, tkn);
   };
@@ -73,7 +73,7 @@ export const View = (props) => {
                       <Link to="/#">{record.authorName}</Link>
                     </span>
                   </div>
-                  <div className="date">{record.createdOn}</div>
+                  <div className="date">{moment(record.createdOn).fromNow()}</div>
                 </div>
                 <div className={`type ${record.type ? record.type.toLowerCase() : record.type}`}>
                   {record.type}

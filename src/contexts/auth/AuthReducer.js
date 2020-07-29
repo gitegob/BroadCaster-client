@@ -3,7 +3,6 @@ export const AuthReducer = (state, action) => {
     case 'LOGIN':
       return {
         ...state,
-        token: action.payload,
         loading: false,
       };
     case 'SET_USER_DATA':
@@ -20,7 +19,6 @@ export const AuthReducer = (state, action) => {
     case 'LOGOUT':
       return {
         ...state,
-        token: '',
         userData: '',
         loading: false,
       };

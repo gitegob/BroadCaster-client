@@ -11,20 +11,6 @@ export const GlobalProvider = ({ children }) => {
     { id: 2, name: 'Red-Flag', isActive: false },
     { id: 3, name: 'Intervention', isActive: false },
   ]);
-  const [statusLinks, setStatusLinks] = useState([
-    {
-      id: 1, name: 'Records', number: 20, isActive: true,
-    },
-    {
-      id: 2, name: 'Resolved', number: 9, isActive: false,
-    },
-    {
-      id: 3, name: 'pending', number: 9, isActive: false,
-    },
-    {
-      id: 4, name: 'Rejected', number: 2, isActive: false,
-    },
-  ]);
   const tabStatClick = (link, links, setLinks) => {
     const newArr = links.map((el) => {
       const result = el;
@@ -37,13 +23,10 @@ export const GlobalProvider = ({ children }) => {
   const handleTabClick = (tabLink) => {
     tabStatClick(tabLink, tabLinks, setTabLinks);
   };
-  const handleStatusClick = (statusLink) => {
-    tabStatClick(statusLink, statusLinks, setStatusLinks);
-  };
   return (
     <GlobalContext.Provider
       value={{
-        tabLinks, statusLinks, setPageTitle, handleTabClick, handleStatusClick,
+        tabLinks, setPageTitle, handleTabClick,
       }}
     >
       {children}

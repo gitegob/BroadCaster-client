@@ -58,7 +58,7 @@ export const About = () => {
                   <div className="user-info">
                     <div className="my-name">Brian Gitego</div>
                     <div className="my-email">
-                      <Link to="https://gmail.com">gitegob7@gmail.com</Link>
+                      <a href="mailto:gitegob7@gmail.com">gitegob7@gmail.com</a>
                     </div>
                     <div className="my-address">Kigali, Rwanda</div>
                   </div>

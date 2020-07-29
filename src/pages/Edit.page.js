@@ -28,7 +28,7 @@ export const Edit = () => {
     },
   ];
   return (
-    <div className="page new-page view-page">
+    <div className="pages new-page view-page">
       <div className="whole-body">
         <div className="grid-container">
           <Nav navLinks={navLinks} />
