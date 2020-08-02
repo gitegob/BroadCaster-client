@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../contexts/auth/AuthContext';
 import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../contexts/auth/AuthContext';
+import { logUp } from '../lib/auth';
+import { pusher } from '../lib/utils';
 
 export const SignupForm = () => {
   const initialState = {
@@ -12,19 +14,21 @@ export const SignupForm = () => {
     error: '',
   };
   const [state, setState] = useState(initialState);
-  const { logUp } = useContext(AuthContext);
   const history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
     setState({ ...state, error: '', loading: true });
     logUp(state, `${process.env.REACT_APP_BASEURL}/api/v1/auth/signup`)
       .then((res) => {
+        localStorage.setItem('accessToken', res.data.token);
         setState({ ...state, loading: false });
-        history.push('/dashboard');
-      })
-      .catch((err) => {
-        const warning = err.split(' ')[0] === 'password' ? 'password must be atleast 8 characters with a number, a capital letter and a special character' : err;
+        pusher(history, '/');
+      }).catch((err) => {
+        let warning;
+        if (err.split) warning = err.split(' ')[0] === 'password' ? 'password must be atleast 8 characters with a number, a capital letter and a special character' : err;
+        else warning = 'Sign Up failed, try again.';
         setState({ ...state, error: warning, loading: false });
+        setTimeout(() => { setState({ ...state, error: '' }); }, 2000);
       });
   };
   return (
@@ -60,7 +64,7 @@ export const SignupForm = () => {
       <input className="submit" disabled={state.loading} type="submit" value={state.loading ? 'Sending...' : 'Create'} button="true" />
       {state.error && (
         <div style={{
-          margin: '1rem auto', width: 'fit-content', color: 'whitesmoke', backgroundColor: 'crimson',
+          margin: '1rem auto', textAlign: 'center', width: 'fit-content', color: 'whitesmoke', backgroundColor: 'crimson',
         }}
         >
           {state.error}

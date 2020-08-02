@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { userPic, emptyRecord } from './assets/assets';
+import { emptyRecord } from './assets/assets';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { RecordsContext } from '../contexts/records/RecordsContext';
 
@@ -73,7 +73,7 @@ export const NewRecord = ({ record }) => {
           />
         </fieldset>
         <div className="post-panel">
-          <Link to="/dashboard">
+          <Link to="/">
             <button className="cancel" type="button" button="true">Cancel</button>
           </Link>
           <button type="submit" className="post" button="true">

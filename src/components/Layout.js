@@ -1,42 +1,24 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Footer } from './Footer';
 import { Nav } from './Nav';
+import { GlobalContext } from '../contexts/GlobalContext';
 
-const navLinks = [
-  {
-    id: 1,
-    name: 'Home',
-    to: '/',
-    className: 'nav-link',
-  },
-  {
-    id: 2,
-    name: 'Sign Up',
-    to: '/signup',
-    className: 'nav-link',
-  },
-  {
-    id: 3,
-    name: 'Log In',
-    to: '/login',
-    className: 'nav-link active',
-  },
-  {
-    id: 4,
-    name: 'About',
-    to: '/about',
-    className: 'nav-link',
-  },
-];
-export const Layout = ({ children, pageClass }) => {
+export const Layout = ({
+  children, pageClass, pageTitle, authed,
+}) => {
+  const { setPageTitle } = useContext(GlobalContext);
+  useEffect(() => {
+    if (pageTitle)setPageTitle(pageTitle);
+  }, []);
   return (
     <div className={`${pageClass}`}>
       <div className="whole-body">
+        <Nav authed={authed} />
         <div className="grid-container">
-          <Nav navLinks={navLinks} />
           {children}
         </div>
       </div>
+
       <Footer />
     </div>
   );

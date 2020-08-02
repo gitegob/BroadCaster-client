@@ -72,7 +72,7 @@ export const EditRecord = ({ record }) => {
           />
         </fieldset>
         <div className="post-panel">
-          <Link to="/dashboard">
+          <Link to="/">
             <button className="cancel" type="button" button="true">Cancel</button>
           </Link>
           <button type="submit" className="post" button="true">

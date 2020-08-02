@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { RecordsReducer } from './RecordsReducer';
 
 const initialState = {
@@ -13,7 +13,8 @@ export const RecordsContext = createContext(initialState);
 export const RecordsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(RecordsReducer, initialState);
   const history = useHistory();
-  const getRecords = async (token) => {
+
+  const getRecords = async (path, token) => {
     const config = {
       method: 'GET',
       headers: {
@@ -22,7 +23,7 @@ export const RecordsProvider = ({ children }) => {
     };
     try {
       const response = await (
-        await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records`, config)
+        await fetch(path, config)
       ).json();
       dispatch({
         type: 'GET_RECORDS',
@@ -30,12 +31,8 @@ export const RecordsProvider = ({ children }) => {
       });
       localStorage.setItem('currentRecords', JSON.stringify(response.data.records));
     } catch (err) {
-      dispatch({
-        type: 'ERROR',
-        payload: err.message,
-      });
-      history.push('/login');
       console.log('err', err);
+      throw err;
     }
   };
 
@@ -55,12 +52,8 @@ export const RecordsProvider = ({ children }) => {
         payload: res.data.record,
       });
     } catch (error) {
-      dispatch({
-        type: 'ERROR',
-        payload: error.message,
-      });
-      history.push('/dashboard');
       console.log('error', error);
+      throw error;
     }
   };
 
@@ -81,7 +74,7 @@ export const RecordsProvider = ({ children }) => {
         type: 'CREATE_A_RECORD',
         payload: res.data.record,
       });
-      history.push('/dashboard');
+      history.push('/');
     } catch (error) {
       dispatch({
         type: 'ERROR',
@@ -125,8 +118,14 @@ export const RecordsProvider = ({ children }) => {
         Authorization: `Bearer ${tkn}`,
       },
     };
-    const res = await (await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}`, config)).json();
-    if (res.status === 200) { history.push('/dashboard'); }
+    const res = await (
+      await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}`, config)
+    ).json();
+    if (res.status === 200) {
+      await getRecords(`${process.env.REACT_APP_BASEURL}/api/v1/records`, tkn);
+      if (history.location.pathname === '/') history.replace('/');
+      else history.push('/');
+    }
   };
 
   const updateStatus = async (recordId, status, tkn) => {
@@ -138,17 +137,46 @@ export const RecordsProvider = ({ children }) => {
       },
       body: JSON.stringify({ status }),
     };
-    const res = await (await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}/status`, config)).json();
+    const res = await (
+      await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}/status`, config)
+    ).json();
     if (res.status === 200) {
-      await getRecords(tkn);
-      if (history.location.pathname === '/dashboard') history.replace('/dashboard');
-      else history.push('/dashboard');
+      await getRecords(`${process.env.REACT_APP_BASEURL}/api/v1/records`, tkn);
+      if (history.location.pathname === '/') history.replace('/');
+      else history.push('/');
+    }
+  };
+
+  const recordSearch = async (query, tkn) => {
+    const config = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${tkn}`,
+      },
+    };
+    try {
+      const res = await (await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records?search=${query}`, config)).json();
+      dispatch({
+        type: 'GET_RECORDS',
+        payload: res.data.records,
+      });
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
   };
   return (
-    <RecordsContext.Provider value={{
-      ...state, getRecords, getARecord, createRecord, deleteRecord, updateRecord, updateStatus,
-    }}
+    <RecordsContext.Provider
+      value={{
+        ...state,
+        getRecords,
+        getARecord,
+        createRecord,
+        deleteRecord,
+        updateRecord,
+        updateStatus,
+        recordSearch,
+      }}
     >
       {children}
     </RecordsContext.Provider>

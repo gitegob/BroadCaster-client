@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { StatusChanger } from './StatusChanger';
@@ -9,6 +9,7 @@ import { RecordsContext } from '../contexts/records/RecordsContext';
 import { userPic } from './assets/assets';
 
 export const Record = ({ record }) => {
+  const [state, setstate] = useState({ loading: false, error: '' });
   const { userData, token } = useContext(AuthContext);
   const { deleteRecord } = useContext(RecordsContext);
   const history = useHistory();
@@ -16,8 +17,18 @@ export const Record = ({ record }) => {
     history.push(`/records/${record.id}/view`);
   };
   const handleDelete = () => {
+    setstate({ ...state, loading: true, error: '' });
     const tkn = token || localStorage.getItem('accessToken');
-    if (tkn) deleteRecord(record.id, tkn);
+    if (tkn) {
+      deleteRecord(record.id, tkn).then((res) => {
+        setstate({ ...state, loading: false });
+        history.replace('/');
+      }).catch((err) => {
+        console.log('Delete Error=>', err);
+        setstate({ ...state, loading: false, error: 'Failed,Try again' });
+        setTimeout(() => setstate({ ...state, error: '' }), 3000);
+      });
+    }
   };
   const handleEdit = () => {
     localStorage.setItem('recordToEdit', JSON.stringify(record));
@@ -26,14 +37,16 @@ export const Record = ({ record }) => {
   return (
     <div className="record">
       <div className="record-info">
-        <div className="author-info">
-          <div>
-            <img src={userPic} alt="author pic" className="author-pic" />
+        {userData.isAdmin ? (
+          <div className="author-info">
+            <div>
+              <img src={record.authorDP || userPic} alt="author pic" className="author-pic" />
+            </div>
+            <span className="author-name">
+              <Link to={userData.isAdmin ? `/profile/${record.authorId}` : `/profile/${userData.id}`}>{record.authorName}</Link>
+            </span>
           </div>
-          <span className="author-name">
-            <Link to="/dashboard">{record.authorName}</Link>
-          </span>
-        </div>
+        ) : <div />}
         <div className="date">{moment(record.createdOn).fromNow()}</div>
       </div>
       <div className={`type ${record.type.toLowerCase()}`}>{record.type}</div>
@@ -53,10 +66,12 @@ export const Record = ({ record }) => {
             {' '}
           </Link>
           {' '}
-          <Link to="#">
-            <i className="material-icons delete" onClick={handleDelete}>delete</i>
-            {' '}
-          </Link>
+          {state.loading ? <div>Deleting...</div> : (
+            <Link to="#">
+              <i className="material-icons delete" onClick={handleDelete}>delete</i>
+              {' '}
+            </Link>
+          )}
           {' '}
         </div>
       )}

@@ -6,7 +6,7 @@ export const StatusChanger = ({ record }) => {
   const [status, setStatus] = useState(record.status);
   const [loading, setloading] = useState(false);
   const { userData } = useContext(AuthContext);
-  const { updateStatus, getRecords } = useContext(RecordsContext);
+  const { updateStatus } = useContext(RecordsContext);
   const handleChange = async (value) => {
     setloading(true);
     const tkn = localStorage.getItem('accessToken');
