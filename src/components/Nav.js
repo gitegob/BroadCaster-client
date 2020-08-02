@@ -1,15 +1,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../contexts/auth/AuthContext';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { logOut } from '../lib/auth';
 
-export const Nav = ({ navLinks }) => {
-  const { logOut } = useContext(AuthContext);
-  const handleClick = (link) => {
-    if (link.logOut) {
-      logOut();
-    }
+export const Nav = ({ authed }) => {
+  const history = useHistory();
+  const logOutHandler = () => {
+    logOut(history);
   };
   return (
     <nav>
@@ -19,13 +17,32 @@ export const Nav = ({ navLinks }) => {
           <span className="caster">roadcaster</span>
         </Link>
       </h3>
-      <ul className="nav-links">
-        {navLinks.map((link) => (
-          <li className={link.className} key={link.id} onClick={() => handleClick(link)}>
-            <Link to={link.to}>{link.name}</Link>
+      {authed && (
+        <ul className="nav-links">
+          <li className="nav-link">
+            <Link to="/">Dashboard</Link>
           </li>
-        ))}
-      </ul>
+          <li className="nav-link logout" onClick={logOutHandler}>
+            Log Out
+          </li>
+        </ul>
+      )}
+      {!authed && (
+        <ul className="nav-links">
+          <li className="nav-link">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/signup">Sign Up</Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/login">Log In</Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/about">About</Link>
+          </li>
+        </ul>
+      )}
     </nav>
   );
 };

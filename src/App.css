@@ -58,21 +58,34 @@ input:focus {
 .grid-container {
   display: grid;
   grid-template-areas:
-    'nav nav nav nav'
     'left middle middle middle';
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  min-height: 95.5vh;
+  min-height: 85vh;
 }
 .index-page .grid-container,
 .logup-page .grid-container,
 .about-page .grid-container {
   grid-template-areas:
-    'nav nav nav nav'
     'middle middle middle middle';
+
+}
+.user-profile{
+  grid-area: middle;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+.user-profile .user-wrapper{
+  background-color: rgb(224, 224, 224);
+  width:50%;
+  box-shadow: 5px 5px 20px;
+  height:fit-content;
+  padding: 1rem
 }
 nav {
-  grid-area: nav;
   display: flex;
   align-items: center;
   background-color: whitesmoke;
@@ -131,6 +144,7 @@ nav {
   text-transform: uppercase;
   padding: 0.3rem;
   border-bottom: 2px solid transparent;
+  cursor:pointer;
 }
 .status-link {
   text-align: center;
@@ -175,11 +189,13 @@ img.author-pic {
   border-radius: 50%;
 }
 .user-wrapper .user-pic {
-  width: 70%;
+  width: fit-content;
   margin: auto;
 }
 .user-wrapper .user-pic img {
-  width: 100%;
+  width: 10rem;
+  height:10rem;
+  margin:auto;
   border-radius: 50%;
   border: 1px solid rgb(223, 220, 220);
 }
@@ -837,8 +853,25 @@ fieldset.location-editor input {
 .edit-profile-btn:hover{
   background-color: #333;
 }
-
+input#dp{
+  display:none;
+}
+label.for-dp{
+  display:block;
+  text-align: center;
+  width:70%;
+  margin:0 auto;
+  font-weight: bold;
+  box-shadow: 0 0 2px;
+  cursor: pointer;
+  padding:.5rem;
+  border:1px solid gray;
+}
+label.for-dp:hover{
+  box-shadow: 0 0 5px;
+}
 /*============================================css loader==================================================*/
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;
@@ -898,7 +931,7 @@ fieldset.location-editor input {
   }
 }
 
-/*============================================css loader==================================================*/
+/*============================================css loaders==================================================*/
 
 
 /*==============================================================================================================================*/
@@ -908,12 +941,8 @@ fieldset.location-editor input {
 @media (max-width: 768px) {
   .pages .grid-container {
     grid-template-areas:
-      'nav nav nav nav'
       'left left left left'
       'middle middle middle middle';
-  }
-  .pages .user-panel .user-pic {
-    width: 35%;
   }
   .pages .user-panel {
     height: fit-content;
@@ -939,7 +968,6 @@ fieldset.location-editor input {
   }
   .grid-container {
     grid-template-areas:
-      'nav nav nav nav'
       'left left left left'
       'middle middle middle middle';
   }

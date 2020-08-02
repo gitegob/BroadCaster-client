@@ -11,6 +11,10 @@ export const GlobalProvider = ({ children }) => {
     { id: 2, name: 'Red-Flag', isActive: false },
     { id: 3, name: 'Intervention', isActive: false },
   ]);
+  const [profEditor, setprofEditor] = useState(false);
+  const toggleProfEditor = () => {
+    setprofEditor(!profEditor);
+  };
   const tabStatClick = (link, links, setLinks) => {
     const newArr = links.map((el) => {
       const result = el;
@@ -26,7 +30,7 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        tabLinks, setPageTitle, handleTabClick,
+        tabLinks, setPageTitle, handleTabClick, profEditor, toggleProfEditor,
       }}
     >
       {children}
