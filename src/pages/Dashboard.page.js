@@ -8,7 +8,7 @@ import { RecordsContext } from '../contexts/records/RecordsContext';
 
 export const Dashboard = () => {
   const [state, setstate] = useState({ query: '', loading: false });
-  const { recordSearch } = useContext(RecordsContext);
+  const { recordSearch, getRecords } = useContext(RecordsContext);
 
   const handleChange = (e) => {
     setstate({ ...state, query: e.target.value });

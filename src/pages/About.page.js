@@ -1,15 +1,37 @@
 import React, { useState } from 'react';
 import image1 from '../images/brian side sq.jpg';
 import { Layout } from '../components/Layout';
+import { sendFeedback } from '../lib/utils';
 
 export const About = () => {
   const [displayed, setDisplayed] = useState(false);
+  const [state, setstate] = useState({ name: '', email: '', feedback: '' });
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState('');
+  const [success, setsuccess] = useState('');
 
   const contactFormDisplay = () => {
+    setstate({
+      ...state, name: '', email: '', feedback: '',
+    });
     setDisplayed(!displayed);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    seterror('');
+    setsuccess('');
+    setloading(true);
+    try {
+      const res = await sendFeedback(state);
+      seterror('');
+      setloading(false);
+      setsuccess(res.message);
+      setTimeout(() => setsuccess(''), 2000);
+    } catch (err) {
+      setsuccess('');
+      setloading(false);
+      seterror(err);
+    }
     contactFormDisplay();
   };
   return (
@@ -33,15 +55,16 @@ export const About = () => {
           <div className="about-me">
             <div>
               <h2 className="how-it-works">About Brian</h2>
-              Brian is a 21 year old aspiring software engineer in Kigali, Rwanda. He is passionate about programming and is eager to learn and grow
+              Brian is a 21 year old aspiring software engineer in Kigali, Rwanda.
+              He is passionate about programming and is eager to learn and grow
               to be a world class developer.
               <br />
               <br />
               <br />
               <h2 className="how-it-works">About BroadCaster</h2>
-              &quot;I developed this product as a project that is part of the application for the Andela fellowship program in Kigali, Rwanda where i
-              hope to learn and collaborate with many different people to grow into a world-class developer and make a contribution to my
-              community.&quot;
+              &quot;Broadcaster enables any/every citizen to bring any form of corruption to the
+              notice of appropriate authorities and the general public. Users can also report on
+              any other things that need government intervention&quot;
               <br />
               <br />
             </div>
@@ -50,12 +73,29 @@ export const About = () => {
               <button className="contact-us-btn" type="button" button="true" onClick={contactFormDisplay}>
                 Contact me
               </button>
+              {error && (
+              <div style={{
+                margin: '1rem auto', width: 'fit-content', textAlign: 'center', color: 'whitesmoke', backgroundColor: 'crimson',
+              }}
+              >
+                {error}
+              </div>
+              )}
+              {success && (
+              <div style={{
+                margin: '1rem auto', width: 'fit-content', textAlign: 'center', color: 'whitesmoke', backgroundColor: 'green',
+              }}
+              >
+                {success}
+              </div>
+              )}
               <div className="contact-us-wrapper" style={{ display: displayed ? 'block' : 'none' }}>
                 <form onSubmit={handleSubmit}>
-                  <input type="email" name="email" className="feedback-email" placeholder="Your email here..." />
-                  <textarea name="feedback" className="feedback-text" rows="10" placeholder="How has your experience on BroadCaster been?" />
-                  <button type="submit" className="feedback-submit" button="true">
-                    Send
+                  <input type="text" name="name" className="feedback-email" placeholder="Your name here..." onChange={(e) => setstate({ ...state, email: e.target.value })} />
+                  <input type="email" name="email" className="feedback-email" placeholder="Your email here..." onChange={(e) => setstate({ ...state, name: e.target.value })} />
+                  <textarea name="feedback" className="feedback-text" rows="10" placeholder="How has your experience on BroadCaster been?" onChange={(e) => setstate({ ...state, feedback: e.target.value })} />
+                  <button type="submit" disabled={loading} className="feedback-submit" button="true">
+                    {loading ? 'Sending...' : 'Send'}
                   </button>
                 </form>
               </div>
