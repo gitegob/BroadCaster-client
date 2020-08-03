@@ -4,6 +4,7 @@ import { RecordsReducer } from './RecordsReducer';
 
 const initialState = {
   records: [],
+  userRecords: [],
   record: {},
   error: '',
   loading: true,
@@ -36,6 +37,27 @@ export const RecordsProvider = ({ children }) => {
     }
   };
 
+  const getUserRecords = async (path, token) => {
+    const config = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await (
+        await fetch(path, config)
+      ).json();
+      dispatch({
+        type: 'GET_USER_RECORDS',
+        payload: response.data.records,
+      });
+      localStorage.setItem('currentRecords', JSON.stringify(response.data.records));
+    } catch (err) {
+      console.log('err', err);
+      throw err;
+    }
+  };
   const getARecord = async (recordId, token) => {
     const config = {
       method: 'GET',
@@ -170,6 +192,7 @@ export const RecordsProvider = ({ children }) => {
       value={{
         ...state,
         getRecords,
+        getUserRecords,
         getARecord,
         createRecord,
         deleteRecord,

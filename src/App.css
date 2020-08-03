@@ -81,7 +81,6 @@ input:focus {
 .user-profile .user-wrapper{
   background-color: rgb(224, 224, 224);
   width:50%;
-  box-shadow: 5px 5px 20px;
   height:fit-content;
   padding: 1rem
 }

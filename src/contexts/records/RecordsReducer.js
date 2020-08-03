@@ -4,13 +4,16 @@ export const RecordsReducer = (state, action) => {
       return {
         ...state,
         records: action.payload,
-        loading: false,
+      };
+    case 'GET_USER_RECORDS':
+      return {
+        ...state,
+        userRecords: action.payload,
       };
     case 'GET_A_RECORD':
       return {
         ...state,
         record: action.payload,
-        loading: false,
       };
     case 'ERROR':
       return {
@@ -21,13 +24,11 @@ export const RecordsReducer = (state, action) => {
       return {
         ...state,
         record: action.payload,
-        loading: false,
       };
     case 'UPDATE_A_RECORD':
       return {
         ...state,
         record: action.payload,
-        loading: false,
       };
     default:
       return null;
