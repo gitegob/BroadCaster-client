@@ -7,7 +7,7 @@ import { Records } from '../components/Records';
 import { Layout } from '../components/Layout';
 import { pusher } from '../lib/utils';
 
-export const Profile = ({ match }) => {
+export default ({ match }) => {
   const history = useHistory();
   const { currentProfile: userData, getProfile } = useContext(AuthContext);
   useEffect(() => {

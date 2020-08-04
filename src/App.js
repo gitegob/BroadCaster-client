@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { lazy,Suspense } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import { Signup } from './pages/Signup.page';
-import { Login } from './pages/Login.page';
-import { Dashboard } from './pages/Dashboard.page';
-import { View } from './pages/View.page';
-import { Edit } from './pages/Edit.page';
-import { New } from './pages/New.page';
-import { About } from './pages/About.page';
+import Login from './pages/Login.page';
 import { AuthProvider } from './contexts/auth/AuthContext';
 import { GlobalProvider } from './contexts/GlobalContext';
 import { RecordsProvider } from './contexts/records/RecordsContext';
 import { Private } from './components/Private';
-import { Profile } from './pages/Profile';
+import { Loader } from './components/Loader';
+
+const Signup = lazy(()=>import("./pages/Signup.page"));
+const Dashboard = lazy(()=>import("./pages/Dashboard.page"));
+const Edit = lazy(()=>import("./pages/Edit.page"));
+const View = lazy(()=>import("./pages/View.page"));
+const New = lazy(()=>import("./pages/New.page"));
+const About = lazy(()=>import("./pages/About.page"));
+const Profile = lazy(()=>import("./pages/Profile.page"));
+
 
 function App() {
   return (
@@ -20,6 +23,7 @@ function App() {
       <GlobalProvider>
         <AuthProvider>
           <RecordsProvider>
+            <Suspense fallback={Loader}>
             <Switch>
               <Route path="/" exact component={Private(Dashboard)} />
               <Route path="/login" exact component={Login} />
@@ -41,6 +45,7 @@ function App() {
                 )}
               />
             </Switch>
+            </Suspense>
           </RecordsProvider>
         </AuthProvider>
       </GlobalProvider>

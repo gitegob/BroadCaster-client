@@ -8,7 +8,7 @@ import { AuthContext } from '../contexts/auth/AuthContext';
 import { StatusChanger } from '../components/StatusChanger';
 import { Layout } from '../components/Layout';
 
-export const View = (props) => {
+export default (props) => {
   const { token, userData } = useContext(AuthContext);
   const history = useHistory();
   const { getARecord, record, deleteRecord } = useContext(RecordsContext);
