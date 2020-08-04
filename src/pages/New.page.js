@@ -4,7 +4,7 @@ import { UserPanel } from '../components/UserPanel';
 import { NewRecord } from '../components/NewRecord.form';
 import { emptyRecord } from '../components/assets/assets';
 
-export const New = () => (
+export default () => (
   <Layout pageClass="pages new-page" pageTitle="New Record - BroadCaster" authed>
     <UserPanel />
     <div className="middle">

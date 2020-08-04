@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { SignupForm } from '../components/Signup.form';
 import { Layout } from '../components/Layout';
 
-export const Signup = () => (
+export default () => (
   <Layout pageClass="logup-page" pageTitle="Sign Up - BroadCaster">
     <div className="middle">
       <div className="center">

@@ -3,7 +3,7 @@ import image1 from '../images/brian side sq.jpg';
 import { Layout } from '../components/Layout';
 import { sendFeedback } from '../lib/utils';
 
-export const About = () => {
+export default () => {
   const [displayed, setDisplayed] = useState(false);
   const [state, setstate] = useState({ name: '', email: '', feedback: '' });
   const [loading, setloading] = useState(false);

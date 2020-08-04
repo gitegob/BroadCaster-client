@@ -6,9 +6,9 @@ import { TabLinks } from '../components/TabLinks';
 import { Layout } from '../components/Layout';
 import { RecordsContext } from '../contexts/records/RecordsContext';
 
-export const Dashboard = () => {
+export default () => {
   const [state, setstate] = useState({ query: '', loading: false });
-  const { recordSearch, getRecords } = useContext(RecordsContext);
+  const { recordSearch } = useContext(RecordsContext);
 
   const handleChange = (e) => {
     setstate({ ...state, query: e.target.value });

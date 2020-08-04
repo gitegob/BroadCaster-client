@@ -3,7 +3,7 @@ import { Layout } from '../components/Layout';
 import { UserPanel } from '../components/UserPanel';
 import { EditRecord } from '../components/EditRecord.form';
 
-export const Edit = () => {
+export default () => {
   const recordToEdit = JSON.parse(localStorage.getItem('recordToEdit'));
   return (
     <Layout pageClass="pages new-page view-page" pageTitle="Edit Record - BroadCaster" authed>
