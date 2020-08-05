@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { logUp } from '../lib/auth';
-import { pusher } from '../lib/utils';
+import { pusher, BASEURL } from '../lib/utils';
+import { ToastError } from './ToastError';
 
 export const SignupForm = () => {
   const initialState = {
@@ -18,17 +19,21 @@ export const SignupForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setState({ ...state, error: '', loading: true });
-    logUp(state, `${process.env.REACT_APP_BASEURL}/api/v1/auth/signup`)
+    logUp(state, `${BASEURL}/api/v1/auth/signup`)
       .then((res) => {
-        localStorage.setItem('accessToken', res.data.token);
-        setState({ ...state, loading: false });
-        pusher(history, '/');
+        if (res.status !== 200) {
+          const warning = res.error.split(' ')[0] === 'password' ? 'password must be atleast 8 characters with a number, a capital letter and a special character' : res.error;
+          setState({ ...state, error: warning, loading: false });
+          setTimeout(() => { setState({ ...state, error: '' }); }, 3000);
+        } else {
+          localStorage.setItem('accessToken', res.data.token);
+          setState({ ...state, loading: false });
+          pusher(history, '/');
+        }
       }).catch((err) => {
-        let warning;
-        if (err.split) warning = err.split(' ')[0] === 'password' ? 'password must be atleast 8 characters with a number, a capital letter and a special character' : err;
-        else warning = 'Sign Up failed, try again.';
-        setState({ ...state, error: warning, loading: false });
-        setTimeout(() => { setState({ ...state, error: '' }); }, 2000);
+        console.log(err);
+        setState({ ...state, error: 'Error connecting to server, please try again.', loading: false });
+        setTimeout(() => { setState({ ...state, error: '' }); }, 3000);
       });
   };
   return (
@@ -62,14 +67,7 @@ export const SignupForm = () => {
         onChange={(e) => setState({ ...state, password: e.target.value })}
       />
       <input className="submit" disabled={state.loading} type="submit" value={state.loading ? 'Sending...' : 'Create'} button="true" />
-      {state.error && (
-        <div style={{
-          margin: '1rem auto', textAlign: 'center', width: 'fit-content', color: 'whitesmoke', backgroundColor: 'crimson',
-        }}
-        >
-          {state.error}
-        </div>
-      )}
+      {state.error && <ToastError message={state.error} />}
     </form>
   );
 };

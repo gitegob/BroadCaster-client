@@ -5,6 +5,6 @@ export const Footer = () => (
   <div className="footer">
     &copy; 2019 - BroadCaster &nbsp;
     <span> &nbsp; </span>
-    <Link to="https://brian-broadcaster.herokuapp.com/">API</Link>
+    <Link to="https://github.com/gitego-brian/BroadCaster">API</Link>
   </div>
 );

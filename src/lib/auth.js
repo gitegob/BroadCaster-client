@@ -1,6 +1,6 @@
-import { pusher } from './utils';
+import { pusher, BASEURL } from './utils';
 
-export const logUp = async (body, path) => {
+export const logUp = (body, path) => {
   const config = {
     method: 'POST',
     headers: {
@@ -10,8 +10,7 @@ export const logUp = async (body, path) => {
   };
   return fetch(path, config)
     .then((data) => data.json())
-    .then((resp) => resp)
-    .catch((err) => err);
+    .then((resp) => resp).catch((err) => console.log(err));
 };
 
 export const logOut = (history) => {
@@ -28,7 +27,7 @@ export const updateProf = async (body, id) => {
     },
     body,
   };
-  return fetch(`${process.env.REACT_APP_BASEURL}/api/v1/auth/profile/${id}`, config)
+  return fetch(`${BASEURL}/api/v1/auth/profile/${id}`, config)
     .then((data) => data.json())
     .then((resp) => resp)
     .catch((err) => err);
@@ -41,7 +40,7 @@ export const getUsrData = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  return fetch(`${process.env.REACT_APP_BASEURL}/api/v1/auth/userdata`, config)
+  return fetch(`${BASEURL}/api/v1/auth/userdata`, config)
     .then((data) => data.json())
     .then((resp) => resp)
     .catch((err) => err);
@@ -54,7 +53,7 @@ export const getProf = async (token, userId) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  return fetch(`${process.env.REACT_APP_BASEURL}/api/v1/auth/profile/${userId}`, config)
+  return fetch(`${BASEURL}/api/v1/auth/profile/${userId}`, config)
     .then((data) => data.json())
     .then((resp) => resp)
     .catch((err) => err);

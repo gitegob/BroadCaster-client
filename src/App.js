@@ -23,7 +23,7 @@ function App() {
       <GlobalProvider>
         <AuthProvider>
           <RecordsProvider>
-            <Suspense fallback={Loader}>
+            <Suspense fallback={<Loader/>}>
             <Switch>
               <Route path="/" exact component={Private(Dashboard)} />
               <Route path="/login" exact component={Login} />
@@ -33,6 +33,7 @@ function App() {
               <Route path="/records/:recordId/edit" exact component={Private(Edit)} />
               <Route path="/records/new" exact component={Private(New)} />
               <Route path="/about" exact component={About} />
+              <Route path="/loader" exact component={Loader}/>
               <Route
                 path="*"
                 component={() => (

@@ -7,9 +7,14 @@ import { RecordsContext } from '../contexts/records/RecordsContext';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { StatusChanger } from '../components/StatusChanger';
 import { Layout } from '../components/Layout';
+import { logOut } from '../lib/auth';
+import { pusher } from '../lib/utils';
+import { ToastError } from '../components/ToastError';
 
 export default (props) => {
   const { token, userData } = useContext(AuthContext);
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState('');
   const history = useHistory();
   const { getARecord, record, deleteRecord } = useContext(RecordsContext);
   const [state, setState] = useState({ modDisplay: 'none', scrollable: true, record });
@@ -21,9 +26,19 @@ export default (props) => {
     });
     document.querySelector('.whole-body').classList.toggle('no-scroll');
   };
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    setloading(true);
     const tkn = localStorage.getItem('accessToken');
-    if (tkn) deleteRecord(record.id, tkn);
+    try {
+      const res = await deleteRecord(record.id, tkn);
+      if ([401, 403].indexOf(res.status) > -1) logOut(history);
+      else if (res.status === 200) pusher(history, '/records');
+      else seterror('Server error,Unable to delete');
+    } catch (err) {
+      seterror('Server error,Unable to delete');
+      console.log(err);
+    }
+    setloading(false);
   };
   useEffect(() => {
     const tkn = token || localStorage.getItem('accessToken');
@@ -99,7 +114,7 @@ export default (props) => {
             <div>Delete record?</div>
             <br />
             <button type="button" className="confirm-delete" button="true" onClick={handleDelete}>
-              Confirm
+              {loading ? 'Deleting...' : 'Confirm'}
             </button>
             <span
               className="close-modal"
@@ -113,6 +128,7 @@ export default (props) => {
           </center>
         </div>
       </div>
+      {error && <ToastError message={error} />}
     </Layout>
   );
 };

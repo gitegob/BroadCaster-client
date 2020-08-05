@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import { RecordsReducer } from './RecordsReducer';
+import { BASEURL } from '../../lib/utils';
 
 const initialState = {
   records: [],
@@ -67,7 +68,7 @@ export const RecordsProvider = ({ children }) => {
     };
     try {
       const res = await (
-        await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}`, config)
+        await fetch(`${BASEURL}/api/v1/records/${recordId}`, config)
       ).json();
       dispatch({
         type: 'GET_A_RECORD',
@@ -90,18 +91,16 @@ export const RecordsProvider = ({ children }) => {
     };
     try {
       const res = await (
-        await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records`, config)
+        await fetch(`${BASEURL}/api/v1/records`, config)
       ).json();
-      dispatch({
-        type: 'CREATE_A_RECORD',
-        payload: res.data.record,
-      });
-      history.push('/');
+      if (res.status === 201) {
+        dispatch({
+          type: 'CREATE_A_RECORD',
+          payload: res.data.record,
+        });
+      }
+      return res;
     } catch (error) {
-      dispatch({
-        type: 'ERROR',
-        payload: error.message,
-      });
       console.log('error', error);
     }
   };
@@ -117,7 +116,7 @@ export const RecordsProvider = ({ children }) => {
     };
     try {
       const res = await (
-        await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}`, config)
+        await fetch(`${BASEURL}/api/v1/records/${recordId}`, config)
       ).json();
       dispatch({
         type: 'UPDATE_A_RECORD',
@@ -141,10 +140,10 @@ export const RecordsProvider = ({ children }) => {
       },
     };
     const res = await (
-      await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}`, config)
+      await fetch(`${BASEURL}/api/v1/records/${recordId}`, config)
     ).json();
     if (res.status === 200) {
-      await getRecords(`${process.env.REACT_APP_BASEURL}/api/v1/records`, tkn);
+      await getRecords(`${BASEURL}/api/v1/records`, tkn);
       if (history.location.pathname === '/') history.replace('/');
       else history.push('/');
     }
@@ -160,10 +159,10 @@ export const RecordsProvider = ({ children }) => {
       body: JSON.stringify({ status }),
     };
     const res = await (
-      await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records/${recordId}/status`, config)
+      await fetch(`${BASEURL}/api/v1/records/${recordId}/status`, config)
     ).json();
     if (res.status === 200) {
-      await getRecords(`${process.env.REACT_APP_BASEURL}/api/v1/records`, tkn);
+      await getRecords(`${BASEURL}/api/v1/records`, tkn);
       if (history.location.pathname === '/') history.replace('/');
       else history.push('/');
     }
@@ -177,7 +176,7 @@ export const RecordsProvider = ({ children }) => {
       },
     };
     try {
-      const res = await (await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/records?search=${query}`, config)).json();
+      const res = await (await fetch(`${BASEURL}/api/v1/records?search=${query}`, config)).json();
       dispatch({
         type: 'GET_RECORDS',
         payload: res.data.records,
