@@ -12,6 +12,7 @@ export const GlobalProvider = ({ children }) => {
     { id: 3, name: 'Intervention', isActive: false },
   ]);
   const [profEditor, setprofEditor] = useState(false);
+  const [tabsdisabled, settabsdisabled] = useState(false);
   const toggleProfEditor = () => {
     setprofEditor(!profEditor);
   };
@@ -30,7 +31,7 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        tabLinks, setPageTitle, handleTabClick, profEditor, toggleProfEditor,
+        tabLinks, setPageTitle, handleTabClick, profEditor, toggleProfEditor, tabsdisabled, settabsdisabled,
       }}
     >
       {children}

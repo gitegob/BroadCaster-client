@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import { Records } from '../components/Records';
 import { UserPanel } from '../components/UserPanel';
 import { TabLinks } from '../components/TabLinks';
 import { Layout } from '../components/Layout';
 import { RecordsContext } from '../contexts/records/RecordsContext';
+import { Loader } from '../components/Loader';
+const Records = lazy(()=>import('../components/Records'));
 
 export default () => {
   const [state, setstate] = useState({ query: '', loading: false });
@@ -37,7 +38,9 @@ export default () => {
             New Record
           </Link>
         </div>
-        <Records />
+        <Suspense fallback={<Loader/>}>
+          <Records />
+        </Suspense>
       </div>
     </Layout>
   );

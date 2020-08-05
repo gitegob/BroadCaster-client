@@ -1,17 +1,28 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { emptyRecord } from './assets/assets';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { RecordsContext } from '../contexts/records/RecordsContext';
+import { pusher } from '../lib/utils';
+import { ToastError } from './ToastError';
 
 export const NewRecord = ({ record }) => {
   const [state, setState] = useState(record || emptyRecord);
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState('');
+  const history = useHistory();
   const { token } = useContext(AuthContext);
   const { createRecord } = useContext(RecordsContext);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setloading(true);
+    seterror('');
     e.preventDefault();
     const tkn = token || localStorage.getItem('accessToken');
-    createRecord(state, tkn);
+    const res = await createRecord(state, tkn);
+    if (res.status === 201) pusher(history, '/');
+    else seterror(res.error || 'Error creating this record, please try again');
+    setloading(false);
+    setTimeout(() => { setState({ ...state, error: '' }); }, 3000);
   };
 
   return (
@@ -76,10 +87,11 @@ export const NewRecord = ({ record }) => {
           <Link to="/">
             <button className="cancel" type="button" button="true">Cancel</button>
           </Link>
-          <button type="submit" className="post" button="true">
-            Post
+          <button type="submit" disabled={loading} className="post" button="true">
+            {loading ? 'Posting...' : 'Post'}
           </button>
         </div>
+        {error && <ToastError message={error} />}
       </form>
     </div>
   );

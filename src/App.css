@@ -871,11 +871,26 @@ label.for-dp:hover{
 }
 .loader {
   display:flex;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  margin: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.toast {
+  width:fit-content;
+  padding:.5rem;
+  margin:1rem auto;
+  border-radius: 3px;
+  text-align: center;
+  color:whitesmoke;
+}
+.toast-error{
+  background-color: crimson;
+}
+.toast-success{
+  background-color: green;
 }
 /*============================================css loader==================================================*/
 

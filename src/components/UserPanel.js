@@ -1,70 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  useContext, useEffect, useState,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { userPic } from './assets/assets';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { GlobalContext } from '../contexts/GlobalContext';
-
-const Profile = ({ userData }) => {
-  const history = useHistory();
-
-  const handleClick = () => {
-    if (history.location.pathname === '/') history.replace('/');
-    else history.push(`/profile/${userData.id}`);
-  };
-  return (
-    <>
-      <div className="user-wrapper">
-        <div className="user-pic">
-          <img src={userData.dp || userPic} alt="user pic" />
-        </div>
-        <div className="user-info">
-          <div className="user-name" role="button" onClick={handleClick}>
-            {userData.firstName}
-            {' '}
-            {userData.lastName}
-          </div>
-          <div>
-            {userData.email}
-          </div>
-          <div className="address" style={{ textTransform: 'uppercase' }}>
-            <div style={{ fontWeight: 'bold' }}>Address</div>
-            <hr />
-            <div style={{
-              color: '#555', fontSize: '.8rem', paddingBottom: 0,
-            }}
-            >
-              District
-            </div>
-            <div style={{ color: (!userData.district || userData.district === 'null') ? '#555' : '#222', fontWeight: 'bold' }}>
-              {(!userData.district || userData.district === 'null') ? 'empty' : userData.district}
-            </div>
-            <div style={{
-              color: '#555', fontSize: '.8rem', paddingBottom: 0,
-            }}
-            >
-              Sector
-            </div>
-            <div style={{ color: (!userData.sector || userData.sector === 'null') ? '#555' : '#222', fontWeight: 'bold' }}>
-              {(!userData.sector || userData.sector === 'null') ? 'empty' : userData.sector}
-            </div>
-            <div style={{
-              color: '#555', fontSize: '.8rem', paddingBottom: 0,
-            }}
-            >
-              Cell
-            </div>
-            <div style={{ color: (!userData.cell || userData.cell === 'null') ? '#555' : '#222', fontWeight: 'bold' }}>
-              {(!userData.cell || userData.cell === 'null') ? 'empty' : userData.cell}
-            </div>
-          </div>
-        </div>
-      </div>
-      <br />
-      <hr />
-      <br />
-    </>
-  );
-};
+import Profile from './Profile';
+import { Loader } from './Loader';
 
 export const ProfileUpdate = ({ user }) => {
   const [profile, setProfile] = useState(user);
@@ -79,9 +21,9 @@ export const ProfileUpdate = ({ user }) => {
     const formData = new FormData(form);
     updateProfile(formData, user.id)
       .then((res) => {
+        history.replace(window.location.pathname);
         setloaderr({ ...loaderr, loading: false });
         toggleProfEditor();
-        history.replace(window.location.pathname);
       })
       .catch((error) => {
         setloaderr({ ...loaderr, error, loading: false });
