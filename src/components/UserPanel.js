@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
   useContext, useEffect, useState,
 } from 'react';
@@ -6,7 +7,6 @@ import { userPic } from './assets/assets';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { GlobalContext } from '../contexts/GlobalContext';
 import Profile from './Profile';
-import { Loader } from './Loader';
 
 export const ProfileUpdate = ({ user }) => {
   const [profile, setProfile] = useState(user);
@@ -55,17 +55,13 @@ export const ProfileUpdate = ({ user }) => {
   );
 };
 export const UserPanel = () => {
-  const history = useHistory();
   const { profEditor, toggleProfEditor } = useContext(GlobalContext);
   const { token, userData, getUserData } = useContext(AuthContext);
 
   useEffect(() => {
     (async () => {
       const tkn = token || localStorage.getItem('accessToken');
-      if (!tkn) history.push('/login');
-      else {
-        await getUserData(tkn);
-      }
+      await getUserData(tkn);
     })();
   }, []);
 

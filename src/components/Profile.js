@@ -13,7 +13,7 @@ const Profile = ({ userData }) => {
         </div>
         <div className="user-info">
           <div className="user-name">
-            <Link onClick={() => pusher(history, `/profile/${userData.id}`)}>
+            <Link to="#" onClick={() => pusher(history, `/profile/${userData.id}`)}>
               {userData.firstName}
               {' '}
               {userData.lastName}

@@ -7,6 +7,7 @@ import { StatusChanger } from './StatusChanger';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { RecordsContext } from '../contexts/records/RecordsContext';
 import { userPic } from './assets/assets';
+import { pusher } from '../lib/utils';
 
 export const Record = ({ record }) => {
   const [state, setstate] = useState({ loading: false, error: '' });
@@ -42,8 +43,8 @@ export const Record = ({ record }) => {
             <div>
               <img src={record.authorDP || userPic} alt="author pic" className="author-pic" />
             </div>
-            <span className="author-name">
-              <Link to={userData.isAdmin ? `/profile/${record.authorId}` : `/profile/${userData.id}`}>{record.authorName}</Link>
+            <span className="author-name" onClick={() => pusher(history, userData.isAdmin ? `/profile/${record.authorId}` : `/profile/${userData.id}`)}>
+              {record.authorName}
             </span>
           </div>
         ) : <div />}

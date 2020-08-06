@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { RecordsContext } from '../contexts/records/RecordsContext';
@@ -19,7 +20,7 @@ export default ({ personal, userId }) => {
     else {
       getRecs(path, tkn)
         .then((res) => {
-          if (res.status === 401) logOut(history);
+          if (res.status !== 200) logOut(history);
         })
         .catch((error) => {
           console.log(error);

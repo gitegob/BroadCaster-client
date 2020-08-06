@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import { RecordsReducer } from './RecordsReducer';
 import { BASEURL } from '../../lib/utils';
+import { logOut } from '../../lib/auth';
 
 const initialState = {
   records: [],
@@ -23,19 +24,22 @@ export const RecordsProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     };
+    let response;
     try {
-      const response = await (
+      response = await (
         await fetch(path, config)
       ).json();
-      dispatch({
-        type: 'GET_RECORDS',
-        payload: response.data.records,
-      });
-      localStorage.setItem('currentRecords', JSON.stringify(response.data.records));
+      if (response.status === 200) {
+        dispatch({
+          type: 'GET_RECORDS',
+          payload: response.data.records,
+        });
+      } else logOut(history);
     } catch (err) {
       console.log('err', err);
       throw err;
     }
+    return response;
   };
 
   const getUserRecords = async (path, token) => {
@@ -45,19 +49,22 @@ export const RecordsProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     };
+    let response;
     try {
-      const response = await (
+      response = await (
         await fetch(path, config)
       ).json();
-      dispatch({
-        type: 'GET_USER_RECORDS',
-        payload: response.data.records,
-      });
-      localStorage.setItem('currentRecords', JSON.stringify(response.data.records));
+      if (response.status === 200) {
+        dispatch({
+          type: 'GET_USER_RECORDS',
+          payload: response.data.records,
+        });
+      } else logOut(history);
     } catch (err) {
       console.log('err', err);
       throw err;
     }
+    return response;
   };
   const getARecord = async (recordId, token) => {
     const config = {
@@ -89,8 +96,9 @@ export const RecordsProvider = ({ children }) => {
       },
       body: JSON.stringify(body),
     };
+    let res;
     try {
-      const res = await (
+      res = await (
         await fetch(`${BASEURL}/api/v1/records`, config)
       ).json();
       if (res.status === 201) {
@@ -99,10 +107,10 @@ export const RecordsProvider = ({ children }) => {
           payload: res.data.record,
         });
       }
-      return res;
     } catch (error) {
       console.log('error', error);
     }
+    return res;
   };
 
   const updateRecord = async (body, recordId, tkn) => {

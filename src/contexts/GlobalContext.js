@@ -28,10 +28,24 @@ export const GlobalProvider = ({ children }) => {
   const handleTabClick = (tabLink) => {
     tabStatClick(tabLink, tabLinks, setTabLinks);
   };
+  const togglePwdShow = (element) => {
+    element.map((el) => {
+      const type = el.getAttribute('type') === 'password' ? 'text' : 'password';
+      el.setAttribute('type', type);
+      return null;
+    });
+  };
   return (
     <GlobalContext.Provider
       value={{
-        tabLinks, setPageTitle, handleTabClick, profEditor, toggleProfEditor, tabsdisabled, settabsdisabled,
+        tabLinks,
+        setPageTitle,
+        handleTabClick,
+        profEditor,
+        toggleProfEditor,
+        tabsdisabled,
+        settabsdisabled,
+        togglePwdShow,
       }}
     >
       {children}

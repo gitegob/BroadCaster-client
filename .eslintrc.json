@@ -6,6 +6,7 @@
     },
     "extends": [
         "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
         "airbnb"
     ],
     "globals": {
@@ -28,7 +29,6 @@
         "react/prop-types": "off",
         "jsx-a11y/anchor-is-valid": "off",
         "no-unused-vars": "warn",
-        "react-hooks/exhaustive-deps": "off",
         "no-console": "off"
     }
 }
