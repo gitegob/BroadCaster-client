@@ -11,11 +11,9 @@ export const GlobalProvider = ({ children }) => {
     { id: 2, name: 'Red-Flag', isActive: false },
     { id: 3, name: 'Intervention', isActive: false },
   ]);
-  const [profEditor, setprofEditor] = useState(false);
+  const [editors, setEditors] = useState({ prof: true, profEditor: false, resetEditor: false });
   const [tabsdisabled, settabsdisabled] = useState(false);
-  const toggleProfEditor = () => {
-    setprofEditor(!profEditor);
-  };
+  const [forgotPwd, setForgotPwd] = useState(false);
   const tabStatClick = (link, links, setLinks) => {
     const newArr = links.map((el) => {
       const result = el;
@@ -28,10 +26,26 @@ export const GlobalProvider = ({ children }) => {
   const handleTabClick = (tabLink) => {
     tabStatClick(tabLink, tabLinks, setTabLinks);
   };
+  const togglePwdShow = (element) => {
+    element.map((el) => {
+      const type = el.getAttribute('type') === 'password' ? 'text' : 'password';
+      el.setAttribute('type', type);
+      return null;
+    });
+  };
   return (
     <GlobalContext.Provider
       value={{
-        tabLinks, setPageTitle, handleTabClick, profEditor, toggleProfEditor, tabsdisabled, settabsdisabled,
+        tabLinks,
+        setPageTitle,
+        handleTabClick,
+        tabsdisabled,
+        settabsdisabled,
+        togglePwdShow,
+        forgotPwd,
+        setForgotPwd,
+        editors,
+        setEditors,
       }}
     >
       {children}

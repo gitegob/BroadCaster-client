@@ -15,6 +15,7 @@ const View = lazy(()=>import("./pages/View.page"));
 const New = lazy(()=>import("./pages/New.page"));
 const About = lazy(()=>import("./pages/About.page"));
 const Profile = lazy(()=>import("./pages/Profile.page"));
+const Verifying = lazy(()=>import("./components/Verifying"))
 
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
               <Route path="/records/:recordId/edit" exact component={Private(Edit)} />
               <Route path="/records/new" exact component={Private(New)} />
               <Route path="/about" exact component={About} />
-              <Route path="/loader" exact component={Loader}/>
+              <Route path="/signup/verify/:verificationToken" exact component={Verifying} />
               <Route
                 path="*"
                 component={() => (

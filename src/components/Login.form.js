@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { logUp } from '../lib/auth';
 import { pusher, BASEURL } from '../lib/utils';
 import { ToastError } from './ToastError';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 export const LoginForm = () => {
   const initialState = {
@@ -12,6 +15,8 @@ export const LoginForm = () => {
     error: '',
   };
   const [state, setState] = useState(initialState);
+  const [pwdVisible, setPwdVisible] = useState(false);
+  const { togglePwdShow } = useContext(GlobalContext);
   const history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,13 +47,26 @@ export const LoginForm = () => {
         required
         onChange={(e) => setState({ ...state, email: e.target.value })}
       />
-      <input
-        type="password"
-        placeholder="Password"
-        name="password"
-        required
-        onChange={(e) => setState({ ...state, password: e.target.value })}
-      />
+      <div className="pwd-wrapper">
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          id="pwd"
+          required
+          onChange={(e) => setState({ ...state, password: e.target.value })}
+        />
+        <span
+          role="button"
+          className="material-icons"
+          onClick={() => {
+            setPwdVisible(!pwdVisible);
+            togglePwdShow([document.querySelector('#pwd')]);
+          }}
+        >
+          {pwdVisible ? 'visibility' : 'visibility_off'}
+        </span>
+      </div>
       <input className="submit" disabled={state.loading} type="submit" value={state.loading ? 'Sending...' : 'Log In'} button="true" />
       {state.error && <ToastError message={state.error} />}
     </form>

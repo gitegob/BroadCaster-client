@@ -7,6 +7,9 @@ html {
   font-family: 'Lato', sans-serif;
   font-size: 0.9rem;
 }
+body{
+  height:100%
+}
 a {
   text-decoration: none;
   color: inherit;
@@ -20,6 +23,17 @@ ul {
 }
 .logup-page input {
   color: #ccc;
+}
+.pwd-wrapper> #pwd,
+.pwd-wrapper> #confirm-pwd{
+  display: inline;
+  margin-right: -30px;
+}
+.pwd-wrapper>.material-icons{
+  cursor: pointer;
+}
+.pwd-wrapper>.material-icons:hover{
+  color: #ddd;
 }
 form input {
   letter-spacing: 1px;
@@ -61,7 +75,7 @@ input:focus {
     'left middle middle middle';
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  min-height: 85vh;
+  min-height: calc(100vh - 30px - 47px);
 }
 .index-page .grid-container,
 .logup-page .grid-container,
@@ -71,7 +85,6 @@ input:focus {
 
 }
 .user-profile{
-  grid-area: middle;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -178,9 +191,6 @@ nav {
   font-weight: bold;
 }
 
-.author-info {
-  display: flex;
-}
 img.author-pic {
   width: 2.5rem;
   height: 2.5rem;
@@ -271,8 +281,9 @@ img.author-pic {
 .logup-page .middle {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .center {
   width: 35%;
@@ -342,14 +353,13 @@ img.author-pic {
   display: block;
   transition: all ease-in 0.5s;
 }
-.record div {
+.record > div {
   margin-bottom: 0.8rem;
 }
 .record .type {
   font-weight: bold;
   text-transform: uppercase;
   font-size: .85rem;
-  /* font-style: italic; */
 }
 .record .read-more {
   background-color: #555;
@@ -502,10 +512,21 @@ select option {
 select.status:focus {
   outline: none;
 }
+.author-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .author-info .author-name {
   font-size: 1.2rem;
   padding: 0.25rem;
-  margin-left: 0.5rem;
+  /* margin: auto auto 0 0.5rem; */
+  cursor: pointer;
+}
+.author-info .author-name:hover {
+  color:#222;
+  font-weight: bold;
+
 }
 .new-page .author-info .author-name {
   font-weight: bold;
@@ -772,20 +793,19 @@ fieldset.location-editor input {
   overflow: hidden;
 }
 .whole-body {
-  min-height: 95.5vh;
-  padding-bottom: 30px;
+  min-height: calc(100vh - 30px);
 }
 .footer {
   padding: 10px;
   text-align: center;
   background-color: #444;
   color: whitesmoke;
-  margin-top: -30px;
   height: 30px;
 }
 .footer a {
   text-decoration: underline;
   color: rgb(106, 171, 231);
+  margin: auto 1rem
 }
 .not-found {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.767), rgba(0, 0, 0, 0.137));
@@ -818,20 +838,20 @@ fieldset.location-editor input {
   width:50%;
   border:none
 }
-.profile-edit .save-profile-btn{
+.save-profile-btn,.save-reset-btn{
   background-color: green;
 }
-.cancel-profile-btn{
+.cancel-profile-btn,.cancel-reset-btn{
   margin: 1rem auto;
   color:whitesmoke;
   width:40%;
   border:none;
   background-color:#555;
 }
-.profile-edit .save-profile-btn:hover{
+.save-profile-btn:hover,.save-reset-btn:hover{
   background-color: darkgreen;
 }
-.cancel-profile-btn:hover{
+.cancel-profile-btn:hover,.cancel-reset-btn:hover{
   background-color: #333;
 }
 .profile-edit .user-pic{
@@ -842,15 +862,18 @@ fieldset.location-editor input {
   width:100%;
   border-radius: 50%;
 }
-.edit-profile-btn{
-  margin:auto;
+.edit-profile-btn,.reset-pwd-btn{
+  margin: 1rem auto;
   background-color: #555;
   color:whitesmoke;
   width:50%;
   border:none
 }
-.edit-profile-btn:hover{
+.edit-profile-btn:hover,.reset-pwd-btn:hover{
   background-color: #333;
+}
+*[disabled]{
+  opacity:0.7
 }
 input#dp{
   display:none;
@@ -1002,16 +1025,20 @@ label.for-dp:hover{
 /*==============================================================================================================================*/
 
 @media (max-width: 768px) {
-  .pages .grid-container {
+  .pages .grid-container,.prof-page .grid-container {
     grid-template-areas:
       'left left left left'
       'middle middle middle middle';
   }
-  .pages .user-panel {
+  .pages .user-panel,.prof-page .user-panel {
     height: fit-content;
     min-height: auto;
     position: static;
   }
+.user-wrapper .user-pic img {
+    width: 7rem;
+    height: 7rem;
+}
   .about-page .sub-middle {
     width: 90%;
   }

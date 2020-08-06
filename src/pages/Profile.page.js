@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, lazy,Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../contexts/auth/AuthContext';
+/* eslint-disable react-hooks/exhaustive-deps */
 import { UserPanel } from '../components/UserPanel';
 import { Layout } from '../components/Layout';
 import { pusher } from '../lib/utils';

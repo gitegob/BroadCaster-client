@@ -30,16 +30,10 @@ export const Nav = ({ authed }) => {
       {!authed && (
         <ul className="nav-links">
           <li className="nav-link">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="nav-link">
             <Link to="/signup">Sign Up</Link>
           </li>
           <li className="nav-link">
             <Link to="/login">Log In</Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/about">About</Link>
           </li>
         </ul>
       )}

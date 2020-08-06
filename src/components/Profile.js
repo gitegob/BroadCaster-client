@@ -3,7 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { userPic } from './assets/assets';
 import { pusher } from '../lib/utils';
 
-const Profile = ({ userData }) => {
+export default ({ userData }) => {
   const history = useHistory();
   return (
     <>
@@ -13,7 +13,7 @@ const Profile = ({ userData }) => {
         </div>
         <div className="user-info">
           <div className="user-name">
-            <Link onClick={() => pusher(history, `/profile/${userData.id}`)}>
+            <Link to="#" onClick={() => pusher(history, `/profile/${userData.id}`)}>
               {userData.firstName}
               {' '}
               {userData.lastName}
@@ -61,5 +61,3 @@ const Profile = ({ userData }) => {
     </>
   );
 };
-
-export default Profile;

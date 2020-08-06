@@ -52,10 +52,10 @@ export default () => {
               </div>
             </div>
           </div>
-          <div className="about-me">
+          <div className="about-me" id="about">
             <div>
               <h2 className="how-it-works">About Brian</h2>
-              Brian is a 21 year old aspiring software engineer in Kigali, Rwanda.
+              Brian is an aspiring software engineer in Kigali, Rwanda.
               He is passionate about programming and is eager to learn and grow
               to be a world class developer.
               <br />
@@ -67,8 +67,19 @@ export default () => {
               any other things that need government intervention&quot;
               <br />
               <br />
+              <h2 className="how-it-works">How it works</h2>
+              Users can create Red-flag records or Intervention records.
+              <br />
+              Red-flag records are reports of an incident related to corruption.
+              <br />
+              Intervention records are reports on issues that need government
+              intervention like damaged roads,burst pipes,etc.
+              <br />
+              Records will initially be categorized as &quot;pending&quot;.
+              After careful investigation of the posted incidents users will notice
+              via their dashboard or email whether their record has been resolved or rejected
             </div>
-            <div className="feedback">
+            <div className="feedback" id="contact-us">
               <div className="hear-from-u">I&apos;d love to hear from you!</div>
               <button className="contact-us-btn" type="button" button="true" onClick={contactFormDisplay}>
                 Contact me
