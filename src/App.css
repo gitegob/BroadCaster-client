@@ -872,6 +872,9 @@ fieldset.location-editor input {
 .edit-profile-btn:hover,.reset-pwd-btn:hover{
   background-color: #333;
 }
+*[disabled]{
+  opacity:0.7
+}
 input#dp{
   display:none;
 }

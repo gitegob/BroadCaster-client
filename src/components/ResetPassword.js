@@ -3,19 +3,22 @@ import { GlobalContext } from '../contexts/GlobalContext';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { ToastError } from './ToastError';
 import { ToastSuccess } from './ToastSuccess';
+import { ErrorDiv } from './Signup.form';
 
 export const ResetPassword = () => {
   const { editors, setEditors } = useContext(GlobalContext);
   const { resetPwd } = useContext(AuthContext);
-  const [state, setstate] = useState({ oldPwd: '', newPwd: '', confirmPwd: '' });
+  const [state, setstate] = useState({ oldPwd: '', newPwd: '' });
   const [outcome, setOutcome] = useState({ success: '', error: '' });
   const [loader, setloader] = useState(false);
+  const [matchpwd, setmatchpwd] = useState(true);
+  const [pwdvalid, setpwdvalid] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     setloader(true);
     setOutcome({ ...outcome, success: '', error: '' });
     const tkn = localStorage.getItem('accessToken');
-    resetPwd(tkn, { oldPwd: state.oldPwd, newPwd: state.newPwd })
+    resetPwd(tkn, state)
       .then((res) => {
         setloader(false);
         if (res.status === 200) {
@@ -25,7 +28,7 @@ export const ResetPassword = () => {
             setEditors({
               ...editors, profEditor: false, prof: true, resetEditor: false,
             });
-          }, 3000);
+          }, 1000);
         } else {
           setOutcome({ ...outcome, error: res.error, success: '' });
         }
@@ -38,11 +41,23 @@ export const ResetPassword = () => {
         console.log(err);
       });
   };
+  const confirmingPwd = (e) => {
+    if (e.target.value !== state.newPwd) setmatchpwd(false);
+    else setmatchpwd(true);
+  };
+  const changePwd = (e) => {
+    setstate({ ...state, newPwd: e.target.value });
+    const valid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,128}$/.test(e.target.value);
+    if (!valid) setpwdvalid(false);
+    else setpwdvalid(true);
+  };
   return (
     <form className="profile-edit" onSubmit={handleSubmit}>
-      <input type="text" name="oldPwd" placeholder="Old Password" value={state.oldPwd || ''} onChange={(e) => setstate({ ...state, oldPwd: e.target.value })} />
-      <input type="text" name="newPwd" placeholder="New Password" value={state.newPwd || ''} onChange={(e) => setstate({ ...state, newPwd: e.target.value })} />
-      <input type="text" name="confirmPwd" placeholder="Confirm New Password" value={state.confirmPwd || ''} onChange={(e) => setstate({ ...state, confirmPwd: e.target.value })} />
+      <input type="text" required name="oldPwd" placeholder="Old Password" value={state.oldPwd || ''} onChange={(e) => setstate({ ...state, oldPwd: e.target.value })} />
+      <input type="text" required name="newPwd" placeholder="New Password" value={state.newPwd || ''} onChange={changePwd} />
+      {!pwdvalid && <ErrorDiv message="Password must be atleat 8 characters, with atleast a capital letter and a number" />}
+      <input type="text" required name="confirmPwd" placeholder="Confirm New Password" onChange={confirmingPwd} />
+      {!matchpwd && <ErrorDiv message="Passwords do not match" />}
       <button type="submit" disabled={loader} className="save-reset-btn" button="true">{loader ? 'Resetting...' : 'Reset'}</button>
       <button
         type="submit"

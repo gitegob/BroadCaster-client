@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { Loader } from './Loader';
 import { pusher } from '../lib/utils';
 import { AuthContext } from '../contexts/auth/AuthContext';
+import { ToastError } from './ToastError';
 
 export default ({ match }) => {
   const [error, setError] = useState('');
@@ -20,7 +21,7 @@ export default ({ match }) => {
     <div>
       {error ? (
         <div>
-          <h2>{error}</h2>
+          <ToastError message={error} />
           <Link to="/signup">Go to sign up</Link>
         </div>
       ) : <h2>Verifying...</h2>}

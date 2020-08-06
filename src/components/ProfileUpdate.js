@@ -46,9 +46,15 @@ export const ProfileUpdate = ({ user }) => {
       <input type="text" name="sector" placeholder="sector" value={profile.sector === 'null' ? '' : profile.sector} onChange={(e) => setProfile({ ...profile, sector: e.target.value })} />
       <input type="text" name="cell" placeholder="cell" value={profile.cell === 'null' ? '' : profile.cell} onChange={(e) => setProfile({ ...profile, cell: e.target.value })} />
       <input type="email" name="recoveryEmail" placeholder="Recovery email (recommended)" value={profile.recoveryEmail ? profile.recoveryEmail : ''} onChange={(e) => setProfile({ ...profile, recoveryEmail: e.target.value })} />
-      <input type="checkbox" name="allowEmails" checked={profile.allowEmails} onChange={(e) => setProfile({ ...profile, allowEmails: e.target.checked })} />
+      <div style={{
+        display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 1rem',
+      }}
+      >
+        <div><b>Allow Email Notifications</b></div>
+        <input style={{ display: 'inline', flex: '10%' }} type="checkbox" name="allowEmails" id="allow-emails" checked={profile.allowEmails} onChange={(e) => setProfile({ ...profile, allowEmails: e.target.checked })} />
+      </div>
       <label htmlFor="dp" className="for-dp">
-        Choose Image
+        Change profile pic
         <input type="file" id="dp" accept=".png,.jpg,.jpeg" name="dp" onChange={(e) => setProfile({ ...profile, dp: e.target.files })} />
       </label>
       <button type="submit" disabled={loader} className="save-profile-btn" button="true">{loader ? 'Saving...' : 'Save'}</button>

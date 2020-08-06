@@ -123,14 +123,14 @@ export const SignupForm = () => {
         </span>
       </div>
       {!matchpwd && <ErrorDiv message="Passwords do not match!" />}
-      <input className="submit" disabled={state.loading} type="submit" value={state.loading ? 'Sending...' : 'Create'} button="true" />
+      <input className="submit" disabled={state.loading || !pwdvalid || !matchpwd} type="submit" value={state.loading ? 'Sending...' : 'Create'} button="true" />
       {state.error && <ToastError message={state.error} />}
       {state.success && <ToastSuccess message={state.success} />}
     </form>
   );
 };
 
-const ErrorDiv = ({ message }) => (
+export const ErrorDiv = ({ message }) => (
   <div style={{
     fontSize: '.8rem', width: 'fit-content', margin: 'auto', color: 'orange', padding: '.5rem', fontWeight: 'bold', textAlign: 'center',
   }}
