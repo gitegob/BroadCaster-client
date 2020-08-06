@@ -43,7 +43,7 @@ export const Record = ({ record }) => {
             <div>
               <img src={record.authorDP || userPic} alt="author pic" className="author-pic" />
             </div>
-            <span className="author-name" onClick={() => pusher(history, userData.isAdmin ? `/profile/${record.authorId}` : `/profile/${userData.id}`)}>
+            <span className="author-name" onClick={() => pusher(history, `/profile/${record.authorId}`)}>
               {record.authorName}
             </span>
           </div>

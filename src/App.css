@@ -838,20 +838,20 @@ fieldset.location-editor input {
   width:50%;
   border:none
 }
-.profile-edit .save-profile-btn{
+.save-profile-btn,.save-reset-btn{
   background-color: green;
 }
-.cancel-profile-btn{
+.cancel-profile-btn,.cancel-reset-btn{
   margin: 1rem auto;
   color:whitesmoke;
   width:40%;
   border:none;
   background-color:#555;
 }
-.profile-edit .save-profile-btn:hover{
+.save-profile-btn:hover,.save-reset-btn:hover{
   background-color: darkgreen;
 }
-.cancel-profile-btn:hover{
+.cancel-profile-btn:hover,.cancel-reset-btn:hover{
   background-color: #333;
 }
 .profile-edit .user-pic{
@@ -862,14 +862,14 @@ fieldset.location-editor input {
   width:100%;
   border-radius: 50%;
 }
-.edit-profile-btn{
-  margin:auto;
+.edit-profile-btn,.reset-pwd-btn{
+  margin: 1rem auto;
   background-color: #555;
   color:whitesmoke;
   width:50%;
   border:none
 }
-.edit-profile-btn:hover{
+.edit-profile-btn:hover,.reset-pwd-btn:hover{
   background-color: #333;
 }
 input#dp{

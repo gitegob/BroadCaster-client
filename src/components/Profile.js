@@ -3,7 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { userPic } from './assets/assets';
 import { pusher } from '../lib/utils';
 
-const Profile = ({ userData }) => {
+export default ({ userData }) => {
   const history = useHistory();
   return (
     <>
@@ -61,5 +61,3 @@ const Profile = ({ userData }) => {
     </>
   );
 };
-
-export default Profile;

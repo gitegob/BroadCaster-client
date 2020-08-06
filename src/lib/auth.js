@@ -19,7 +19,7 @@ export const logOut = (history) => {
   pusher(history, '/login');
 };
 
-export const updateProf = async (tkn, body, id) => {
+export const handleUpdateProfile = async (tkn, body, id) => {
   const config = {
     method: 'PATCH',
     headers: {
@@ -33,7 +33,7 @@ export const updateProf = async (tkn, body, id) => {
     .catch((err) => err);
 };
 
-export const getUsrData = async (token) => {
+export const handleGetUserData = async (token) => {
   const config = {
     method: 'GET',
     headers: {
@@ -46,7 +46,7 @@ export const getUsrData = async (token) => {
     .catch((err) => err);
 };
 
-export const getProf = (token, userId) => {
+export const handleGetProfile = (token, userId) => {
   const config = {
     method: 'GET',
     headers: {
@@ -59,7 +59,7 @@ export const getProf = (token, userId) => {
     .catch((err) => err);
 };
 
-export const verifEmail = async (verificationToken) => {
+export const handleVerifyEmail = async (verificationToken) => {
   const config = {
     method: 'GET',
     headers: {
@@ -69,6 +69,41 @@ export const verifEmail = async (verificationToken) => {
   let res;
   try {
     res = await (await fetch(`${BASEURL}/api/v1/auth/signup/verify`, config)).json();
+  } catch (error) {
+    console.log(error);
+  }
+  return res;
+};
+
+export const handleRecoverPwd = async (body) => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  };
+  let res;
+  try {
+    res = await (await fetch(`${BASEURL}/api/v1/auth/recoverpwd`, config)).json();
+  } catch (error) {
+    console.log(error);
+  }
+  return res;
+};
+
+export const handleResetPwd = async (tkn, body) => {
+  const config = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${tkn}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  };
+  let res;
+  try {
+    res = await (await fetch(`${BASEURL}/api/v1/auth/resetpwd`, config)).json();
   } catch (error) {
     console.log(error);
   }
