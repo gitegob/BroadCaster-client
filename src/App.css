@@ -25,7 +25,10 @@ ul {
   color: #ccc;
 }
 .pwd-wrapper> #pwd,
-.pwd-wrapper> #confirm-pwd{
+.pwd-wrapper> #confirm-pwd,
+.pwd-wrapper> #new-pwd,
+.pwd-wrapper> #old-pwd,
+.pwd-wrapper> #confirm-new-pwd{
   display: inline;
   margin-right: -30px;
 }
@@ -35,13 +38,16 @@ ul {
 .pwd-wrapper>.material-icons:hover{
   color: #ddd;
 }
+.reset>.material-icons:hover{
+  color: #222;
+}
 form input {
   letter-spacing: 1px;
   border: none;
   border-bottom: 1px solid #999;
 }
 .logup-page form input::placeholder {
-  color: #888;
+  color: #666;
 }
 
 input {

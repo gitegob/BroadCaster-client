@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useContext } from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { AuthContext } from '../contexts/auth/AuthContext';
@@ -13,6 +15,8 @@ export const ResetPassword = () => {
   const [loader, setloader] = useState(false);
   const [matchpwd, setmatchpwd] = useState(true);
   const [pwdvalid, setpwdvalid] = useState(false);
+  const [pwdVisible, setPwdVisible] = useState({ pwd: false, confirmPwd: false });
+  const { togglePwdShow } = useContext(GlobalContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     setloader(true);
@@ -53,10 +57,46 @@ export const ResetPassword = () => {
   };
   return (
     <form className="profile-edit" onSubmit={handleSubmit}>
-      <input type="text" required name="oldPwd" placeholder="Old Password" value={state.oldPwd || ''} onChange={(e) => setstate({ ...state, oldPwd: e.target.value })} />
-      <input type="text" required name="newPwd" placeholder="New Password" value={state.newPwd || ''} onChange={changePwd} />
+      <div className="reset pwd-wrapper">
+        <input type="password" id="old-pwd" required name="oldPwd" placeholder="Old Password" value={state.oldPwd || ''} onChange={(e) => setstate({ ...state, oldPwd: e.target.value })} />
+        <span
+          role="button"
+          className="material-icons"
+          onClick={() => {
+            setPwdVisible({ ...pwdVisible, pwd: !pwdVisible.pwd });
+            togglePwdShow([document.querySelector('#old-pwd')]);
+          }}
+        >
+          {pwdVisible.pwd ? 'visibility' : 'visibility_off'}
+        </span>
+      </div>
+      <div className="reset pwd-wrapper">
+        <input type="password" id="new-pwd" required name="newPwd" placeholder="New Password" value={state.newPwd || ''} onChange={changePwd} />
+        <span
+          role="button"
+          className="material-icons"
+          onClick={() => {
+            setPwdVisible({ ...pwdVisible, pwd: !pwdVisible.pwd });
+            togglePwdShow([document.querySelector('#new-pwd')]);
+          }}
+        >
+          {pwdVisible.pwd ? 'visibility' : 'visibility_off'}
+        </span>
+      </div>
       {!pwdvalid && <ErrorDiv message="Password must be atleat 8 characters, with atleast a capital letter and a number" />}
-      <input type="text" required name="confirmPwd" placeholder="Confirm New Password" onChange={confirmingPwd} />
+      <div className="reset pwd-wrapper">
+        <input type="password" id="confirm-new-pwd" required name="confirmPwd" placeholder="Confirm New Password" onChange={confirmingPwd} />
+        <span
+          role="button"
+          className="material-icons"
+          onClick={() => {
+            setPwdVisible({ ...pwdVisible, pwd: !pwdVisible.pwd });
+            togglePwdShow([document.querySelector('#confirm-new-pwd')]);
+          }}
+        >
+          {pwdVisible.pwd ? 'visibility' : 'visibility_off'}
+        </span>
+      </div>
       {!matchpwd && <ErrorDiv message="Passwords do not match" />}
       <button type="submit" disabled={loader} className="save-reset-btn" button="true">{loader ? 'Resetting...' : 'Reset'}</button>
       <button

@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {
-  useContext, useEffect,
+  useContext,
 } from 'react';
-import { AuthContext } from '../contexts/auth/AuthContext';
 import { GlobalContext } from '../contexts/GlobalContext';
 import Profile from './Profile';
 import { ProfileUpdate } from './ProfileUpdate';
@@ -12,20 +11,12 @@ export const UserPanel = () => {
   const {
     editors, setEditors,
   } = useContext(GlobalContext);
-  const { token, userData, getUserData } = useContext(AuthContext);
-
-  useEffect(() => {
-    (async () => {
-      const tkn = token || localStorage.getItem('accessToken');
-      await getUserData(tkn);
-    })();
-  }, []);
 
   return (
     <div className="user-panel">
       {editors.profEditor && (
       <>
-        <ProfileUpdate user={userData} />
+        <ProfileUpdate />
         <button
           type="button"
           onClick={() => setEditors({
@@ -40,7 +31,7 @@ export const UserPanel = () => {
       )}
       {editors.prof && (
       <>
-        <Profile userData={userData} />
+        <Profile />
         <button
           type="button"
           onClick={() => setEditors({
