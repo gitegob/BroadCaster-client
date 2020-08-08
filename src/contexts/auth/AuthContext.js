@@ -42,8 +42,8 @@ export const AuthProvider = ({ children }) => {
     const tkn = localStorage.getItem('accessToken');
     if (!tkn) return logOut(history);
     return handleUpdateProfile(tkn, body, id)
-      .then((res) => {
-        getUserData(tkn);
+      .then(async (res) => {
+        await getUserData(tkn);
         return res;
       }).catch((err) => err);
   };

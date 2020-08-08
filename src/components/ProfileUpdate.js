@@ -1,16 +1,24 @@
-import React, { useState, useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useContext, useEffect } from 'react';
 import { ToastError } from './ToastError';
 import { ToastSuccess } from './ToastSuccess';
 import { userPic } from './assets/assets';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { GlobalContext } from '../contexts/GlobalContext';
 
-export const ProfileUpdate = ({ user }) => {
-  const [profile, setProfile] = useState(user);
+export const ProfileUpdate = () => {
+  const { userData: user, getUserData, updateProfile } = useContext(AuthContext);
+  const { editors, setEditors } = useContext(GlobalContext);
   const [loader, setloader] = useState(false);
   const [outcome, setOutcome] = useState({ success: '', error: '' });
-  const { updateProfile } = useContext(AuthContext);
-  const { editors, setEditors } = useContext(GlobalContext);
+  const [profile, setProfile] = useState(user);
+  useEffect(() => {
+    (async () => {
+      const tkn = localStorage.getItem('accessToken');
+      await getUserData(tkn);
+    })();
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setloader(true);
@@ -41,11 +49,32 @@ export const ProfileUpdate = ({ user }) => {
       <div className="user-pic"><img src={profile.dp || userPic} alt="dp" /></div>
       <input type="text" name="firstName" placeholder="firstName" value={profile.firstName || ''} onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} />
       <input type="text" name="lastName" placeholder="lastName" value={profile.lastName || ''} onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} />
-      <input type="email" name="email" placeholder="email" value={profile.email || ''} onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
-      <input type="text" name="district" placeholder="district" value={profile.district === 'null' ? '' : profile.district} onChange={(e) => setProfile({ ...profile, district: e.target.value })} />
-      <input type="text" name="sector" placeholder="sector" value={profile.sector === 'null' ? '' : profile.sector} onChange={(e) => setProfile({ ...profile, sector: e.target.value })} />
-      <input type="text" name="cell" placeholder="cell" value={profile.cell === 'null' ? '' : profile.cell} onChange={(e) => setProfile({ ...profile, cell: e.target.value })} />
-      <input type="email" name="recoveryEmail" placeholder="Recovery email (recommended)" value={profile.recoveryEmail ? profile.recoveryEmail : ''} onChange={(e) => setProfile({ ...profile, recoveryEmail: e.target.value })} />
+      <fieldset style={{ backgroundColor: 'inherit' }}>
+        <legend style={{ textAlign: 'center', margin: 'auto' }}>Edit Address</legend>
+        <div className="address" style={{ textTransform: 'uppercase' }}>
+          <div style={{
+            color: '#555', fontSize: '.8rem', paddingBottom: 0, paddingTop: '1rem',
+          }}
+          >
+            Edit District
+          </div>
+          <input type="text" name="district" placeholder="district" value={profile.district === 'null' ? '' : profile.district} onChange={(e) => setProfile({ ...profile, district: e.target.value })} />
+          <div style={{
+            color: '#555', fontSize: '.8rem', paddingBottom: 0, paddingTop: '1rem',
+          }}
+          >
+            Edit Sector
+          </div>
+          <input type="text" name="sector" placeholder="sector" value={profile.sector === 'null' ? '' : profile.sector} onChange={(e) => setProfile({ ...profile, sector: e.target.value })} />
+          <div style={{
+            color: '#555', fontSize: '.8rem', paddingBottom: 0, paddingTop: '1rem',
+          }}
+          >
+            Edit Cell
+          </div>
+          <input type="text" name="cell" placeholder="cell" value={profile.cell === 'null' ? '' : profile.cell} onChange={(e) => setProfile({ ...profile, cell: e.target.value })} />
+        </div>
+      </fieldset>
       <div style={{
         display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 1rem',
       }}
@@ -54,7 +83,7 @@ export const ProfileUpdate = ({ user }) => {
         <input style={{ display: 'inline', flex: '10%' }} type="checkbox" name="allowEmails" id="allow-emails" checked={profile.allowEmails} onChange={(e) => setProfile({ ...profile, allowEmails: e.target.checked })} />
       </div>
       <label htmlFor="dp" className="for-dp">
-        Change profile pic
+        Change Profile Picture
         <input type="file" id="dp" accept=".png,.jpg,.jpeg" name="dp" onChange={(e) => setProfile({ ...profile, dp: e.target.files })} />
       </label>
       <button type="submit" disabled={loader} className="save-profile-btn" button="true">{loader ? 'Saving...' : 'Save'}</button>

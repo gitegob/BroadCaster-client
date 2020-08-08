@@ -1,10 +1,20 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useContext } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { userPic } from './assets/assets';
 import { pusher } from '../lib/utils';
+import { AuthContext } from '../contexts/auth/AuthContext';
 
-export default ({ userData }) => {
+export default () => {
   const history = useHistory();
+  const { userData, getUserData } = useContext(AuthContext);
+
+  useEffect(() => {
+    (async () => {
+      const tkn = localStorage.getItem('accessToken');
+      await getUserData(tkn);
+    })();
+  }, []);
   return (
     <>
       <div className="user-wrapper">
