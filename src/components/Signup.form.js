@@ -34,7 +34,7 @@ export const SignupForm = () => {
     if (!matchpwd || !pwdvalid) dispError(!pwdvalid ? 'Password must be atleat 8 characters, with atleast a capital letter and a number' : 'Passwords do not match!');
     else {
       setState({ ...state, error: '', loading: true });
-      logUp(state, `${BASEURL}/api/v1/auth/signup`)
+      logUp(state, '/auth/signup')
         .then((res) => {
           if (res.status !== 200) {
             dispError(res.error);

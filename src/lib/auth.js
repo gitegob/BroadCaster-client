@@ -1,17 +1,25 @@
 import { pusher, BASEURL } from './utils';
 
-export const logUp = (body, path) => {
+const fetcher = async (endPoint, config) => {
+  try {
+    const data = await fetch(`${BASEURL}/api/v1${endPoint}`, config);
+    const res = data.json();
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+export const logUp = async (body, path) => {
   localStorage.clear();
-  const config = {
+  const res = await fetcher(path, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
-  };
-  return fetch(path, config)
-    .then((data) => data.json())
-    .then((resp) => resp).catch((err) => console.log(err));
+  });
+  return res;
 };
 
 export const logOut = (history) => {
@@ -20,92 +28,77 @@ export const logOut = (history) => {
 };
 
 export const handleUpdateProfile = async (tkn, body, id) => {
-  const config = {
+  const res = await fetcher(`/auth/profile/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${tkn}`,
+    },
+    body: JSON.stringify(body),
+  });
+  return res;
+};
+
+export const handleGetUserData = async (token) => {
+  const res = await fetcher('/auth/userdata', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+export const handleGetProfile = async (token, userId) => {
+  const res = await fetcher(`/auth/profile/${userId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+export const handleVerifyEmail = async (verificationToken) => {
+  const res = await fetcher('/auth/signup/verify', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${verificationToken}`,
+    },
+  });
+  return res;
+};
+
+export const handleRecoverPwd = async (body) => {
+  const res = await fetcher('/auth/recoverpwd', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  return res;
+};
+
+export const handleResetPwd = async (tkn, body) => {
+  const res = await fetcher('/auth/resetpwd', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${tkn}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  return res;
+};
+
+export const handleUpdateProfilePic = async (tkn, body, id) => {
+  const res = await fetcher(`/auth/profile/${id}/dp`, {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${tkn}`,
     },
     body,
-  };
-  return fetch(`${BASEURL}/api/v1/auth/profile/${id}`, config)
-    .then((data) => data.json())
-    .then((resp) => resp)
-    .catch((err) => err);
-};
-
-export const handleGetUserData = async (token) => {
-  const config = {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  return fetch(`${BASEURL}/api/v1/auth/userdata`, config)
-    .then((data) => data.json())
-    .then((resp) => resp)
-    .catch((err) => err);
-};
-
-export const handleGetProfile = (token, userId) => {
-  const config = {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  return fetch(`${BASEURL}/api/v1/auth/profile/${userId}`, config)
-    .then((data) => data.json())
-    .then((resp) => resp)
-    .catch((err) => err);
-};
-
-export const handleVerifyEmail = async (verificationToken) => {
-  const config = {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${verificationToken}`,
-    },
-  };
-  let res;
-  try {
-    res = await (await fetch(`${BASEURL}/api/v1/auth/signup/verify`, config)).json();
-  } catch (error) {
-    console.log(error);
-  }
-  return res;
-};
-
-export const handleRecoverPwd = async (body) => {
-  const config = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  };
-  let res;
-  try {
-    res = await (await fetch(`${BASEURL}/api/v1/auth/recoverpwd`, config)).json();
-  } catch (error) {
-    console.log(error);
-  }
-  return res;
-};
-
-export const handleResetPwd = async (tkn, body) => {
-  const config = {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${tkn}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  };
-  let res;
-  try {
-    res = await (await fetch(`${BASEURL}/api/v1/auth/resetpwd`, config)).json();
-  } catch (error) {
-    console.log(error);
-  }
+  });
   return res;
 };
