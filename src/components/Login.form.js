@@ -21,7 +21,7 @@ export const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setState({ ...state, error: '', loading: true });
-    logUp(state, `${BASEURL}/api/v1/auth/login`)
+    logUp(state, '/auth/login')
       .then((res) => {
         if (res.status !== 200) {
           setState({ ...state, error: res.error, loading: false });

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { AuthReducer } from './AuthReducer';
 import {
   handleGetUserData, handleGetProfile, handleUpdateProfile, logOut,
-  handleVerifyEmail, handleRecoverPwd, handleResetPwd,
+  handleVerifyEmail, handleRecoverPwd, handleResetPwd, handleUpdateProfilePic,
 } from '../../lib/auth';
 
 const initialState = {
@@ -48,6 +48,16 @@ export const AuthProvider = ({ children }) => {
       }).catch((err) => err);
   };
 
+  const updateProfilePic = (body, id) => {
+    const tkn = localStorage.getItem('accessToken');
+    if (!tkn) return logOut(history);
+    return handleUpdateProfilePic(tkn, body, id)
+      .then(async (res) => {
+        await getUserData(tkn);
+        return res;
+      }).catch((err) => err);
+  };
+
   const verifyEmail = (verificationToken) => handleVerifyEmail(verificationToken)
     .then((res) => res)
     .catch((error) => error);
@@ -64,6 +74,7 @@ export const AuthProvider = ({ children }) => {
         ...state,
         getUserData,
         updateProfile,
+        updateProfilePic,
         getProfile,
         verifyEmail,
         recoverPwd,

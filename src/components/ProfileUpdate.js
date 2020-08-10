@@ -2,7 +2,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ToastError } from './ToastError';
 import { ToastSuccess } from './ToastSuccess';
-import { userPic } from './assets/assets';
 import { AuthContext } from '../contexts/auth/AuthContext';
 import { GlobalContext } from '../contexts/GlobalContext';
 
@@ -23,9 +22,7 @@ export const ProfileUpdate = () => {
     e.preventDefault();
     setloader(true);
     setOutcome({ ...outcome, success: '', error: '' });
-    const form = document.getElementById('myForm');
-    const formData = new FormData(form);
-    updateProfile(formData, user.id)
+    updateProfile(profile, user.id)
       .then((res) => {
         if (res.status === 200) {
           setOutcome({ ...outcome, success: res.message, error: '' });
@@ -46,7 +43,6 @@ export const ProfileUpdate = () => {
   };
   return (
     <form name="form" id="myForm" className="profile-edit" onSubmit={handleSubmit}>
-      <div className="user-pic"><img src={profile.dp || userPic} alt="dp" /></div>
       <input type="text" name="firstName" placeholder="firstName" value={profile.firstName || ''} onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} />
       <input type="text" name="lastName" placeholder="lastName" value={profile.lastName || ''} onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} />
       <fieldset style={{ backgroundColor: 'inherit' }}>
@@ -82,10 +78,6 @@ export const ProfileUpdate = () => {
         <div><b>Allow Email Notifications</b></div>
         <input style={{ display: 'inline', flex: '10%' }} type="checkbox" name="allowEmails" id="allow-emails" checked={profile.allowEmails} onChange={(e) => setProfile({ ...profile, allowEmails: e.target.checked })} />
       </div>
-      <label htmlFor="dp" className="for-dp">
-        Change Profile Picture
-        <input type="file" id="dp" accept=".png,.jpg,.jpeg" name="dp" onChange={(e) => setProfile({ ...profile, dp: e.target.files })} />
-      </label>
       <button type="submit" disabled={loader} className="save-profile-btn" button="true">{loader ? 'Saving...' : 'Save'}</button>
       {outcome.error && <ToastError message={outcome.error} />}
       {outcome.success && <ToastSuccess message={outcome.success} />}

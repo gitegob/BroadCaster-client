@@ -887,7 +887,9 @@ input#dp{
 label.for-dp{
   display:block;
   text-align: center;
-  width:70%;
+  width:fit-content;
+  text-transform: uppercase;
+  font-size: .9rem;
   margin:0 auto;
   font-weight: bold;
   box-shadow: 0 0 2px;
