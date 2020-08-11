@@ -3,17 +3,18 @@ import { useHistory } from 'react-router-dom';
 import { AuthReducer } from './AuthReducer';
 import {
   handleGetUserData, handleGetProfile, handleUpdateProfile, logOut,
-  handleVerifyEmail, handleRecoverPwd, handleResetPwd, handleUpdateProfilePic,
+  handleRecoverPwd, handleResetPwd, handleUpdateProfilePic,
 } from '../../lib/auth';
 
 const initialState = {
   userData: {},
   currentProfile: {},
 };
-export const AuthContext = createContext(initialState);
+export const AuthState = createContext(initialState);
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState);
   const history = useHistory();
+
   const getUserData = (token) => {
     if (!token) return logOut(history);
     return handleGetUserData(token)
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
             payload: res.data.userData,
           });
         } else logOut(history);
+        return res;
       }).catch((err) => err);
   };
 
@@ -34,7 +36,8 @@ export const AuthProvider = ({ children }) => {
         dispatch({
           type: 'SET_PROFILE',
           payload: res.data.userData,
-        }); return res;
+        });
+        return res;
       }).catch((err) => err);
   };
 
@@ -58,10 +61,6 @@ export const AuthProvider = ({ children }) => {
       }).catch((err) => err);
   };
 
-  const verifyEmail = (verificationToken) => handleVerifyEmail(verificationToken)
-    .then((res) => res)
-    .catch((error) => error);
-
   const recoverPwd = (body) => handleRecoverPwd(body).then((res) => res).catch((error) => error);
 
   const resetPwd = (tkn, body) => {
@@ -69,19 +68,18 @@ export const AuthProvider = ({ children }) => {
     return handleResetPwd(tkn, body).then((res) => res).catch((error) => error);
   };
   return (
-    <AuthContext.Provider
+    <AuthState.Provider
       value={{
         ...state,
         getUserData,
         updateProfile,
         updateProfilePic,
         getProfile,
-        verifyEmail,
         recoverPwd,
         resetPwd,
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </AuthState.Provider>
   );
 };

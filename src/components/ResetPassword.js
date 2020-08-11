@@ -1,22 +1,22 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useContext } from 'react';
-import { GlobalContext } from '../contexts/GlobalContext';
-import { AuthContext } from '../contexts/auth/AuthContext';
+import { GlobalState } from '../state/GlobalState';
+import { AuthState } from '../state/auth/AuthState';
 import { ToastError } from './ToastError';
 import { ToastSuccess } from './ToastSuccess';
 import { ErrorDiv } from './Signup.form';
 
 export const ResetPassword = () => {
-  const { editors, setEditors } = useContext(GlobalContext);
-  const { resetPwd } = useContext(AuthContext);
+  const { editors, setEditors } = useContext(GlobalState);
+  const { resetPwd } = useContext(AuthState);
   const [state, setstate] = useState({ oldPwd: '', newPwd: '' });
   const [outcome, setOutcome] = useState({ success: '', error: '' });
   const [loader, setloader] = useState(false);
   const [matchpwd, setmatchpwd] = useState(true);
   const [pwdvalid, setpwdvalid] = useState(false);
   const [pwdVisible, setPwdVisible] = useState({ pwd: false, confirmPwd: false });
-  const { togglePwdShow } = useContext(GlobalContext);
+  const { togglePwdShow } = useContext(GlobalState);
   const handleSubmit = (e) => {
     e.preventDefault();
     setloader(true);

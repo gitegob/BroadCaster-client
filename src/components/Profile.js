@@ -3,13 +3,13 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { userPic } from './assets/assets';
 import { pusher } from '../lib/utils';
-import { AuthContext } from '../contexts/auth/AuthContext';
+import { AuthState } from '../state/auth/AuthState';
 import { ToastError } from './ToastError';
 import { ToastSuccess } from './ToastSuccess';
 
 export default () => {
   const history = useHistory();
-  const { userData, getUserData, updateProfilePic } = useContext(AuthContext);
+  const { userData, getUserData, updateProfilePic } = useContext(AuthState);
   const [loader, setloader] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [outcome, setOutcome] = useState({ success: '', error: '' });
@@ -60,12 +60,12 @@ export default () => {
           </label>
         </form>
         {hovered && (
-        <div style={{
-          textAlign: 'center', textTransform: 'uppercase', fontSize: '.8rem', color: 'red',
-        }}
-        >
-          *Upload a square image*
-        </div>
+          <div style={{
+            textAlign: 'center', textTransform: 'uppercase', fontSize: '.8rem', color: 'red',
+          }}
+          >
+            *Upload a square image*
+          </div>
         )}
         <div className="user-info">
           <div className="user-name">

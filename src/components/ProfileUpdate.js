@@ -2,12 +2,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ToastError } from './ToastError';
 import { ToastSuccess } from './ToastSuccess';
-import { AuthContext } from '../contexts/auth/AuthContext';
-import { GlobalContext } from '../contexts/GlobalContext';
+import { AuthState } from '../state/auth/AuthState';
+import { GlobalState } from '../state/GlobalState';
 
 export const ProfileUpdate = () => {
-  const { userData: user, getUserData, updateProfile } = useContext(AuthContext);
-  const { editors, setEditors } = useContext(GlobalContext);
+  const { userData: user, getUserData, updateProfile } = useContext(AuthState);
+  const { editors, setEditors } = useContext(GlobalState);
   const [loader, setloader] = useState(false);
   const [outcome, setOutcome] = useState({ success: '', error: '' });
   const [profile, setProfile] = useState(user);

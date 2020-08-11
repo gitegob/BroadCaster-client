@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { emptyRecord } from './assets/assets';
-import { AuthContext } from '../contexts/auth/AuthContext';
-import { RecordsContext } from '../contexts/records/RecordsContext';
+import { AuthState } from '../state/auth/AuthState';
+import { RecordState } from '../state/records/RecordState';
 
 export const EditRecord = ({ record }) => {
   const [state, setState] = useState(record || emptyRecord);
-  const { token } = useContext(AuthContext);
-  const { updateRecord } = useContext(RecordsContext);
+  const { token } = useContext(AuthState);
+  const { updateRecord } = useContext(RecordState);
   const handleSubmit = (e) => {
     e.preventDefault();
     const tkn = token || localStorage.getItem('accessToken');

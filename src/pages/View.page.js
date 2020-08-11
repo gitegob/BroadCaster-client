@@ -4,8 +4,8 @@ import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { UserPanel } from '../components/UserPanel';
 import { userPic } from '../components/assets/assets';
-import { RecordsContext } from '../contexts/records/RecordsContext';
-import { AuthContext } from '../contexts/auth/AuthContext';
+import { RecordState } from '../state/records/RecordState';
+import { AuthState } from '../state/auth/AuthState';
 import { StatusChanger } from '../components/StatusChanger';
 import { Layout } from '../components/Layout';
 import { logOut } from '../lib/auth';
@@ -13,11 +13,11 @@ import { pusher } from '../lib/utils';
 import { ToastError } from '../components/ToastError';
 
 export default (props) => {
-  const { token, userData } = useContext(AuthContext);
+  const { token, userData } = useContext(AuthState);
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState('');
   const history = useHistory();
-  const { getARecord, record, deleteRecord } = useContext(RecordsContext);
+  const { getARecord, record, deleteRecord } = useContext(RecordState);
   const [state, setState] = useState({ modDisplay: 'none', scrollable: true, record });
 
   const setMod = () => {
@@ -96,10 +96,10 @@ export default (props) => {
                 {userData.isAdmin ? (
                   null
                 ) : (
-                  <Link to="/records/5/edit" className="edit" button="true">
-                    <i className="material-icons">edit</i>
-                  </Link>
-                )}
+                    <Link to="/records/5/edit" className="edit" button="true">
+                      <i className="material-icons">edit</i>
+                    </Link>
+                  )}
                 <Link to="#" className="delete" button="true" onClick={setMod}>
                   <i className="material-icons">delete</i>
                 </Link>

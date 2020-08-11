@@ -15,3 +15,14 @@ export const sendFeedback = async (body) => {
   const res = await (await fetch(`${BASEURL}/api/v1/feedback`, config)).json();
   return res;
 };
+
+export const fetcher = async (endPoint, config) => {
+  try {
+    const data = await fetch(`${BASEURL}/api/v1${endPoint}`, config);
+    const res = data.json();
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

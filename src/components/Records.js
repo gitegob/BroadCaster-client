@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { RecordsContext } from '../contexts/records/RecordsContext';
+import { RecordState } from '../state/records/RecordState';
 import { Record } from './Record';
 import { logOut } from '../lib/auth';
 import { pusher, BASEURL } from '../lib/utils';
@@ -9,7 +9,7 @@ import { pusher, BASEURL } from '../lib/utils';
 export default ({ personal, userId }) => {
   const {
     records, userRecords, getRecords, getUserRecords,
-  } = useContext(RecordsContext);
+  } = useContext(RecordState);
   const history = useHistory();
   const recs = personal ? userRecords : records;
   useEffect(() => {

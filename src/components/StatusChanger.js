@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../contexts/auth/AuthContext';
-import { RecordsContext } from '../contexts/records/RecordsContext';
+import { AuthState } from '../state/auth/AuthState';
+import { RecordState } from '../state/records/RecordState';
 
 export const StatusChanger = ({ record }) => {
   const [status, setStatus] = useState(record.status);
   const [loading, setloading] = useState(false);
-  const { userData } = useContext(AuthContext);
-  const { updateStatus } = useContext(RecordsContext);
+  const { userData } = useContext(AuthState);
+  const { updateStatus } = useContext(RecordState);
   const handleChange = async (value) => {
     setloading(true);
     const tkn = localStorage.getItem('accessToken');
@@ -24,17 +24,17 @@ export const StatusChanger = ({ record }) => {
           <div />
         </div>
       ) : (
-        <select
-          name="status"
-          value={status ? status.toLowerCase() : status}
-          className={`status ${record.status ? record.status.toLowerCase() : record.status}`}
-          onChange={(e) => handleChange(e.target.value)}
-        >
-          <option value="pending">PENDING</option>
-          <option value="resolved">RESOLVED</option>
-          <option value="rejected">REJECTED</option>
-        </select>
-      )
+          <select
+            name="status"
+            value={status ? status.toLowerCase() : status}
+            className={`status ${record.status ? record.status.toLowerCase() : record.status}`}
+            onChange={(e) => handleChange(e.target.value)}
+          >
+            <option value="pending">PENDING</option>
+            <option value="resolved">RESOLVED</option>
+            <option value="rejected">REJECTED</option>
+          </select>
+        )
 
     );
   } return (

@@ -2,14 +2,15 @@
 import React, { useEffect, useContext } from 'react';
 import { Footer } from './Footer';
 import { Nav } from './Nav';
-import { GlobalContext } from '../contexts/GlobalContext';
+import { GlobalState } from '../state/GlobalState';
 
 export const Layout = ({
-  children, pageClass, pageTitle, authed,
+  children, pageClass, pageTitle,
 }) => {
-  const { setPageTitle } = useContext(GlobalContext);
+  const { setPageTitle } = useContext(GlobalState);
+  const authed = localStorage.getItem('accessToken');
   useEffect(() => {
-    if (pageTitle)setPageTitle(pageTitle);
+    if (pageTitle) setPageTitle(pageTitle);
   }, []);
   return (
     <div className={`${pageClass}`}>
