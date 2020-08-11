@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { logUp } from '../lib/auth';
-import { BASEURL } from '../lib/utils';
 import { ToastError } from './ToastError';
 import { ToastSuccess } from './ToastSuccess';
-import { GlobalContext } from '../contexts/GlobalContext';
+import { GlobalState } from '../state/GlobalState';
+import { pusher } from '../lib/utils';
 
 export const SignupForm = () => {
   const initialState = {
@@ -21,7 +22,8 @@ export const SignupForm = () => {
   const [matchpwd, setmatchpwd] = useState(true);
   const [pwdvalid, setpwdvalid] = useState(true);
   const [pwdVisible, setPwdVisible] = useState({ pwd: false, confirmPwd: false });
-  const { togglePwdShow } = useContext(GlobalContext);
+  const { togglePwdShow } = useContext(GlobalState);
+  const history = useHistory();
 
   const dispError = (error) => {
     setState({
@@ -36,11 +38,12 @@ export const SignupForm = () => {
       setState({ ...state, error: '', loading: true });
       logUp(state, '/auth/signup')
         .then((res) => {
-          if (res.status !== 200) {
+          if (res.status !== 201) {
             dispError(res.error);
           } else {
-            setState({ ...state, loading: false, success: 'A verification email has been sent to your account' });
-            setTimeout(() => { setState({ ...state, error: '', success: '' }); }, 3000);
+            localStorage.setItem('accessToken', res.data.token);
+            setState({ ...state, loading: false });
+            pusher(history, '/');
           }
         }).catch((err) => {
           console.log(err);

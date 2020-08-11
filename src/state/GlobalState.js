@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 
-export const GlobalContext = createContext();
+export const GlobalState = createContext();
 const setPageTitle = (title) => {
   document.title = title;
 };
@@ -34,7 +34,7 @@ export const GlobalProvider = ({ children }) => {
     });
   };
   return (
-    <GlobalContext.Provider
+    <GlobalState.Provider
       value={{
         tabLinks,
         setPageTitle,
@@ -49,6 +49,6 @@ export const GlobalProvider = ({ children }) => {
       }}
     >
       {children}
-    </GlobalContext.Provider>
+    </GlobalState.Provider>
   );
 };

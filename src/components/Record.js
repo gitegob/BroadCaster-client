@@ -4,15 +4,15 @@ import React, { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { StatusChanger } from './StatusChanger';
-import { AuthContext } from '../contexts/auth/AuthContext';
-import { RecordsContext } from '../contexts/records/RecordsContext';
+import { AuthState } from '../state/auth/AuthState';
+import { RecordState } from '../state/records/RecordState';
 import { userPic } from './assets/assets';
 import { pusher } from '../lib/utils';
 
 export const Record = ({ record }) => {
   const [state, setstate] = useState({ loading: false, error: '' });
-  const { userData, token } = useContext(AuthContext);
-  const { deleteRecord } = useContext(RecordsContext);
+  const { userData, token } = useContext(AuthState);
+  const { deleteRecord } = useContext(RecordState);
   const history = useHistory();
   const handleRecordClick = () => {
     history.push(`/records/${record.id}/view`);
@@ -60,30 +60,30 @@ export const Record = ({ record }) => {
           Read more
         </button>
       ) : (
-        <div className="quick-panel">
-          {' '}
-          <Link to="#">
-            <i className="material-icons edit" onClick={handleEdit}>edit</i>
+          <div className="quick-panel">
             {' '}
-          </Link>
-          {' '}
-          {state.loading ? <div>Deleting...</div> : (
             <Link to="#">
-              <i className="material-icons delete" onClick={handleDelete}>delete</i>
+              <i className="material-icons edit" onClick={handleEdit}>edit</i>
               {' '}
             </Link>
-          )}
-          {' '}
-        </div>
-      )}
+            {' '}
+            {state.loading ? <div>Deleting...</div> : (
+              <Link to="#">
+                <i className="material-icons delete" onClick={handleDelete}>delete</i>
+                {' '}
+              </Link>
+            )}
+            {' '}
+          </div>
+        )}
 
       <div className="status-panel">
         <div />
         {userData.isAdmin ? (
           <StatusChanger record={record} />
         ) : (
-          <div className={`status ${record.status.toLowerCase()}`}>{record.status}</div>
-        )}
+            <div className={`status ${record.status.toLowerCase()}`}>{record.status}</div>
+          )}
       </div>
     </div>
   );

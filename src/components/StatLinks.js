@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { StatLink } from './StatLink';
-import { GlobalContext } from '../contexts/GlobalContext';
+import { GlobalState } from '../state/GlobalState';
 
 export const StatLinks = () => {
-  const { statusLinks } = useContext(GlobalContext);
+  const { statusLinks } = useContext(GlobalState);
   return (
     <ul className="status-links">
       {statusLinks.map((link) => (

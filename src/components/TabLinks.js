@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { TabLink } from './TabLink';
-import { GlobalContext } from '../contexts/GlobalContext';
+import { GlobalState } from '../state/GlobalState';
 
 export const TabLinks = () => {
-  const { tabLinks, tabsdisabled } = useContext(GlobalContext);
+  const { tabLinks, tabsdisabled } = useContext(GlobalState);
   return (
     <ul className="tab-links" disabled={tabsdisabled}>
       {tabLinks.map((link) => (

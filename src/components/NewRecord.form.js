@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { emptyRecord } from './assets/assets';
-import { AuthContext } from '../contexts/auth/AuthContext';
-import { RecordsContext } from '../contexts/records/RecordsContext';
+import { AuthState } from '../state/auth/AuthState';
+import { RecordState } from '../state/records/RecordState';
 import { pusher } from '../lib/utils';
 import { ToastError } from './ToastError';
 
@@ -11,8 +11,8 @@ export const NewRecord = ({ record }) => {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState('');
   const history = useHistory();
-  const { token } = useContext(AuthContext);
-  const { createRecord } = useContext(RecordsContext);
+  const { token } = useContext(AuthState);
+  const { createRecord } = useContext(RecordState);
   const handleSubmit = async (e) => {
     setloading(true);
     seterror('');

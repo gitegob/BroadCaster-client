@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { LoginForm } from '../components/Login.form';
 import { Layout } from '../components/Layout';
-import { GlobalContext } from '../contexts/GlobalContext';
+import { GlobalState } from '../state/GlobalState';
 import { ForgotPassword } from '../components/ForgotPassword';
 
 export default () => {
-  const { forgotPwd, setForgotPwd } = useContext(GlobalContext);
+  const { forgotPwd, setForgotPwd } = useContext(GlobalState);
   return (
     <Layout pageClass="logup-page" pageTitle="Log In - BroadCaster">
       <div className="middle">

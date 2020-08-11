@@ -2,13 +2,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { GlobalContext } from '../contexts/GlobalContext';
-import { RecordsContext } from '../contexts/records/RecordsContext';
+import { GlobalState } from '../state/GlobalState';
+import { RecordState } from '../state/records/RecordState';
 import { BASEURL } from '../lib/utils';
 
 export const TabLink = ({ tabLink, tabdisabled }) => {
-  const { handleTabClick, settabsdisabled } = useContext(GlobalContext);
-  const { getRecords } = useContext(RecordsContext);
+  const { handleTabClick, settabsdisabled } = useContext(GlobalState);
+  const { getRecords } = useContext(RecordState);
   const tkn = localStorage.getItem('accessToken');
   let type;
   if (tabLink.name === 'All Records') type = 'all';

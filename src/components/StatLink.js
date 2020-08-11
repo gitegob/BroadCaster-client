@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { GlobalContext } from '../contexts/GlobalContext';
+import { GlobalState } from '../state/GlobalState';
 
 export const StatLink = ({ statusLink }) => {
-  const { handleStatusClick } = useContext(GlobalContext);
+  const { handleStatusClick } = useContext(GlobalState);
   const handleClick = () => handleStatusClick(statusLink);
   return (
     <li

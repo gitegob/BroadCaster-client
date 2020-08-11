@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { GlobalContext } from '../contexts/GlobalContext';
-import { AuthContext } from '../contexts/auth/AuthContext';
+import { GlobalState } from '../state/GlobalState';
+import { AuthState } from '../state/auth/AuthState';
 import { ToastSuccess } from './ToastSuccess';
 import { ToastError } from './ToastError';
 
 export const ForgotPassword = () => {
-  const { setForgotPwd } = useContext(GlobalContext);
-  const { recoverPwd } = useContext(AuthContext);
+  const { setForgotPwd } = useContext(GlobalState);
+  const { recoverPwd } = useContext(AuthState);
   const [email, setemail] = useState('');
   const [state, setState] = useState({ success: '', error: '', loading: false });
   const handleSubmit = async (e) => {

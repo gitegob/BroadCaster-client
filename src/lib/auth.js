@@ -1,15 +1,5 @@
-import { pusher, BASEURL } from './utils';
+import { pusher, fetcher } from './utils';
 
-const fetcher = async (endPoint, config) => {
-  try {
-    const data = await fetch(`${BASEURL}/api/v1${endPoint}`, config);
-    const res = data.json();
-    return res;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-};
 export const logUp = async (body, path) => {
   localStorage.clear();
   const res = await fetcher(path, {
@@ -54,16 +44,6 @@ export const handleGetProfile = async (token, userId) => {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
-    },
-  });
-  return res;
-};
-
-export const handleVerifyEmail = async (verificationToken) => {
-  const res = await fetcher('/auth/signup/verify', {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${verificationToken}`,
     },
   });
   return res;

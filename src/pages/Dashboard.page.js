@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { UserPanel } from '../components/UserPanel';
 import { TabLinks } from '../components/TabLinks';
 import { Layout } from '../components/Layout';
-import { RecordsContext } from '../contexts/records/RecordsContext';
+import { RecordState } from '../state/records/RecordState';
 import { Loader } from '../components/Loader';
-const Records = lazy(()=>import('../components/Records'));
+const Records = lazy(() => import('../components/Records'));
 
 export default () => {
   const [state, setstate] = useState({ query: '', loading: false });
-  const { recordSearch } = useContext(RecordsContext);
+  const { recordSearch } = useContext(RecordState);
 
   const handleChange = (e) => {
     setstate({ ...state, query: e.target.value });
@@ -38,7 +38,7 @@ export default () => {
             New Record
           </Link>
         </div>
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={<Loader />}>
           <Records />
         </Suspense>
       </div>
