@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { logUp } from '../lib/auth';
 import { pusher } from '../lib/utils';
 import { ToastError } from './ToastError';
-import { GlobalState } from '../state/GlobalState';
 
 export const LoginForm = () => {
   const initialState = {
@@ -16,7 +15,6 @@ export const LoginForm = () => {
   };
   const [state, setState] = useState(initialState);
   const [pwdVisible, setPwdVisible] = useState(false);
-  const { togglePwdShow } = useContext(GlobalState);
   const history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +47,7 @@ export const LoginForm = () => {
       />
       <div className="pwd-wrapper">
         <input
-          type="password"
+          type={pwdVisible ? 'text' : 'password'}
           placeholder="Password"
           name="password"
           id="pwd"
@@ -61,7 +59,6 @@ export const LoginForm = () => {
           className="material-icons"
           onClick={() => {
             setPwdVisible(!pwdVisible);
-            togglePwdShow([document.querySelector('#pwd')]);
           }}
         >
           {pwdVisible ? 'visibility' : 'visibility_off'}

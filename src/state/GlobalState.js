@@ -26,13 +26,6 @@ export const GlobalProvider = ({ children }) => {
   const handleTabClick = (tabLink) => {
     tabStatClick(tabLink, tabLinks, setTabLinks);
   };
-  const togglePwdShow = (element) => {
-    element.map((el) => {
-      const type = el.getAttribute('type') === 'password' ? 'text' : 'password';
-      el.setAttribute('type', type);
-      return null;
-    });
-  };
   return (
     <GlobalState.Provider
       value={{
@@ -41,7 +34,6 @@ export const GlobalProvider = ({ children }) => {
         handleTabClick,
         tabsdisabled,
         settabsdisabled,
-        togglePwdShow,
         forgotPwd,
         setForgotPwd,
         editors,
