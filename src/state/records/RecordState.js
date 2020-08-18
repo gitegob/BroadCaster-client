@@ -28,7 +28,7 @@ export const RecordsProvider = ({ children }) => {
           type: 'GET_RECORDS',
           payload: res.data.records,
         });
-      } else logOut(history);
+      } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 
@@ -39,7 +39,7 @@ export const RecordsProvider = ({ children }) => {
           type: 'GET_USER_RECORDS',
           payload: res.data.records,
         });
-      } else logOut(history);
+      } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 
@@ -50,7 +50,7 @@ export const RecordsProvider = ({ children }) => {
           type: 'GET_A_RECORD',
           payload: res.data.record,
         });
-      } else logOut(history);
+      } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 
@@ -61,7 +61,7 @@ export const RecordsProvider = ({ children }) => {
           type: 'CREATE_A_RECORD',
           payload: res.data.record,
         });
-      } else logOut(history);
+      } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 
@@ -72,7 +72,7 @@ export const RecordsProvider = ({ children }) => {
           type: 'UPDATE_A_RECORD',
           payload: res.data.record,
         });
-      } else logOut(history);
+      } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 
@@ -81,7 +81,7 @@ export const RecordsProvider = ({ children }) => {
       if (res.status === 200) {
         await getRecords(`${BASEURL}/api/v1/records`, tkn);
         pusher(history, '/');
-      } else logOut(history);
+      } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 
@@ -90,7 +90,7 @@ export const RecordsProvider = ({ children }) => {
       if (res.status === 200) {
         await getRecords(`${BASEURL}/api/v1/records`, tkn);
         pusher(history, '/');
-      } logOut(history);
+      } if ([401, 403].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 
@@ -101,7 +101,7 @@ export const RecordsProvider = ({ children }) => {
           type: 'GET_RECORDS',
           payload: res.data.records,
         });
-      } else logOut(history);
+      } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
   return (

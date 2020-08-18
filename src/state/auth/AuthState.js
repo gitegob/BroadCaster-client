@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
             type: 'SET_USER_DATA',
             payload: res.data.userData,
           });
-        } else logOut(history);
+        } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
         return res;
       }).catch((err) => err);
   };
