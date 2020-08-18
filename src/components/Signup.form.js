@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { logUp } from '../lib/auth';
 import { ToastError } from './ToastError';
 import { ToastSuccess } from './ToastSuccess';
-import { GlobalState } from '../state/GlobalState';
 import { pusher } from '../lib/utils';
 
 export const SignupForm = () => {
@@ -22,7 +21,6 @@ export const SignupForm = () => {
   const [matchpwd, setmatchpwd] = useState(true);
   const [pwdvalid, setpwdvalid] = useState(true);
   const [pwdVisible, setPwdVisible] = useState({ pwd: false, confirmPwd: false });
-  const { togglePwdShow } = useContext(GlobalState);
   const history = useHistory();
 
   const dispError = (error) => {
@@ -86,7 +84,7 @@ export const SignupForm = () => {
       />
       <div className="pwd-wrapper">
         <input
-          type="password"
+          type={pwdVisible.pwd ? 'text' : 'password'}
           placeholder="Password"
           name="password"
           id="pwd"
@@ -98,7 +96,6 @@ export const SignupForm = () => {
           className="material-icons"
           onClick={() => {
             setPwdVisible({ ...pwdVisible, pwd: !pwdVisible.pwd });
-            togglePwdShow([document.querySelector('#pwd')]);
           }}
         >
           {pwdVisible.pwd ? 'visibility' : 'visibility_off'}
@@ -107,7 +104,7 @@ export const SignupForm = () => {
       {!pwdvalid && <ErrorDiv message="Password must be atleat 8 characters, with atleast a capital letter and a number" />}
       <div className="pwd-wrapper">
         <input
-          type="password"
+          type={pwdVisible.confirmPwd ? 'text' : 'password'}
           placeholder="Confirm Password"
           name="confirmPassword"
           id="confirm-pwd"
@@ -119,7 +116,6 @@ export const SignupForm = () => {
           className="material-icons"
           onClick={() => {
             setPwdVisible({ ...pwdVisible, confirmPwd: !pwdVisible.confirmPwd });
-            togglePwdShow([document.querySelector('#confirm-pwd')]);
           }}
         >
           {pwdVisible.confirmPwd ? 'visibility' : 'visibility_off'}
