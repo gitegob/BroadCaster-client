@@ -76,8 +76,9 @@ export default () => {
               intervention like damaged roads,burst pipes,etc.
               <br />
               Records will initially be categorized as &quot;pending&quot;.
-              After careful investigation of the posted incidents users will notice
-              via their dashboard or email whether their record has been resolved or rejected
+              After careful investigation of the posted incidents users will be noticed
+              via their dashboard or email whether their record has been resolved or rejected.
+              Thank you for using BroadCaster.
             </div>
             <div className="feedback" id="contact-us">
               <div className="hear-from-u">I&apos;d love to hear from you!</div>
@@ -85,20 +86,20 @@ export default () => {
                 Contact me
               </button>
               {error && (
-              <div style={{
-                margin: '1rem auto', width: 'fit-content', textAlign: 'center', color: 'whitesmoke', backgroundColor: 'crimson',
-              }}
-              >
-                {error}
-              </div>
+                <div style={{
+                  margin: '1rem auto', width: 'fit-content', textAlign: 'center', color: 'whitesmoke', backgroundColor: 'crimson',
+                }}
+                >
+                  {error}
+                </div>
               )}
               {success && (
-              <div style={{
-                margin: '1rem auto', width: 'fit-content', textAlign: 'center', color: 'whitesmoke', backgroundColor: 'green',
-              }}
-              >
-                {success}
-              </div>
+                <div style={{
+                  margin: '1rem auto', width: 'fit-content', textAlign: 'center', color: 'whitesmoke', backgroundColor: 'green',
+                }}
+                >
+                  {success}
+                </div>
               )}
               <div className="contact-us-wrapper" style={{ display: displayed ? 'block' : 'none' }}>
                 <form onSubmit={handleSubmit}>

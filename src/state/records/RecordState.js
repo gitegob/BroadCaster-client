@@ -72,7 +72,7 @@ export const RecordsProvider = ({ children }) => {
           type: 'UPDATE_A_RECORD',
           payload: res.data.record,
         });
-      } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
+      } else if ([401].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 
@@ -81,7 +81,7 @@ export const RecordsProvider = ({ children }) => {
       if (res.status === 200) {
         await getRecords(`${BASEURL}/api/v1/records`, tkn);
         pusher(history, '/');
-      } else if ([401, 403].indexOf(res.status) > -1) logOut(history);
+      } else if ([401].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 
@@ -90,7 +90,7 @@ export const RecordsProvider = ({ children }) => {
       if (res.status === 200) {
         await getRecords(`${BASEURL}/api/v1/records`, tkn);
         pusher(history, '/');
-      } if ([401, 403].indexOf(res.status) > -1) logOut(history);
+      } if ([401].indexOf(res.status) > -1) logOut(history);
       return res;
     }).catch((err) => err);
 

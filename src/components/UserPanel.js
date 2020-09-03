@@ -26,7 +26,7 @@ export const UserPanel = () => {
             button="true"
           >
             Cancel
-        </button>
+          </button>
         </>
       )}
       {editors.prof && (
@@ -41,7 +41,7 @@ export const UserPanel = () => {
             button="true"
           >
             Edit Profile
-        </button>
+          </button>
         </>
       )}
       {editors.resetEditor && <ResetPassword />}

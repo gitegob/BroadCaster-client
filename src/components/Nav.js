@@ -12,7 +12,7 @@ export const Nav = ({ authed }) => {
   return (
     <nav>
       <h3 className="logo">
-        <Link to="/">
+        <Link replace={history.location.pathname === '/' ? true : false} to="/">
           <span className="broad">B</span>
           <span className="caster">roadcaster</span>
         </Link>
@@ -20,7 +20,7 @@ export const Nav = ({ authed }) => {
       {authed && (
         <ul className="nav-links">
           <li className="nav-link">
-            <Link to="/">Dashboard</Link>
+            <Link replace={history.location.pathname === '/' ? true : false} to="/">Dashboard</Link>
           </li>
           <li className="nav-link logout" onClick={logOutHandler}>
             Log Out
@@ -30,10 +30,13 @@ export const Nav = ({ authed }) => {
       {!authed && (
         <ul className="nav-links">
           <li className="nav-link">
-            <Link to="/signup">Sign Up</Link>
+            <Link replace={history.location.pathname === '/signup' ? true : false} to="/signup">Sign Up</Link>
           </li>
           <li className="nav-link">
-            <Link to="/login">Log In</Link>
+            <Link replace={history.location.pathname === '/login' ? true : false} to="/login">Log In</Link>
+          </li>
+          <li className="nav-link">
+            <Link replace={history.location.pathname === '/about' ? true : false} to="/about">About</Link>
           </li>
         </ul>
       )}
