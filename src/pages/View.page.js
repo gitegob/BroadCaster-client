@@ -8,14 +8,10 @@ import { RecordState } from '../state/records/RecordState';
 import { AuthState } from '../state/auth/AuthState';
 import { StatusChanger } from '../components/StatusChanger';
 import { Layout } from '../components/Layout';
-import { logOut } from '../lib/auth';
-import { pusher } from '../lib/utils';
-import { ToastError } from '../components/ToastError';
+import { DeleteModal } from '../components/DeleteModal';
 
 export default (props) => {
   const { token, userData } = useContext(AuthState);
-  const [loading, setloading] = useState(false);
-  const [error, seterror] = useState('');
   const history = useHistory();
   const { getARecord, record, deleteRecord } = useContext(RecordState);
   const [state, setState] = useState({ modDisplay: 'none', scrollable: true, record });
@@ -26,20 +22,6 @@ export default (props) => {
       modDisplay: state.modDisplay === 'flex' ? 'none' : 'flex',
     });
     document.querySelector('.whole-body').classList.toggle('no-scroll');
-  };
-  const handleDelete = async () => {
-    setloading(true);
-    const tkn = localStorage.getItem('accessToken');
-    try {
-      const res = await deleteRecord(record.id, tkn);
-      if ([401, 403].indexOf(res.status) > -1) logOut(history);
-      else if (res.status === 200) pusher(history, '/records');
-      else seterror('Server error,Unable to delete');
-    } catch (err) {
-      seterror('Server error,Unable to delete');
-      console.log(err);
-    }
-    setloading(false);
   };
   useEffect(() => {
     const tkn = token || localStorage.getItem('accessToken');
@@ -62,7 +44,7 @@ export default (props) => {
               {userData.isAdmin ? (
                 <div className="author-info">
                   <div>
-                    <img src={userPic} alt="author pic" className="author-pic" />
+                    <img src={record.authorDP || userPic} alt="author pic" className="author-pic" />
                   </div>
                   <span className="author-name">
                     <Link to="/#">{record.authorName}</Link>
@@ -96,10 +78,10 @@ export default (props) => {
                 {userData.isAdmin ? (
                   null
                 ) : (
-                    <Link to="/records/5/edit" className="edit" button="true">
-                      <i className="material-icons">edit</i>
-                    </Link>
-                  )}
+                  <Link to="/records/5/edit" className="edit" button="true">
+                    <i className="material-icons">edit</i>
+                  </Link>
+                )}
                 <Link to="#" className="delete" button="true" onClick={setMod}>
                   <i className="material-icons">delete</i>
                 </Link>
@@ -109,27 +91,10 @@ export default (props) => {
           </div>
         </div>
       </div>
-      <div className="modal-bg" style={{ display: state.modDisplay }}>
-        <div className=" delete modal">
-          <center>
-            <div>Delete record?</div>
-            <br />
-            <button type="button" className="confirm-delete" button="true" onClick={handleDelete}>
-              {loading ? 'Deleting...' : 'Confirm'}
-            </button>
-            <span
-              className="close-modal"
-              role="button"
-              onClick={setMod}
-              onKeyUp={setMod}
-              tabIndex="0"
-            >
-              <i className="material-icons">close</i>
-            </span>
-          </center>
-        </div>
-      </div>
-      {error && <ToastError message={error} />}
+      <DeleteModal {...{
+        setMod, modDisplay: state.modDisplay,
+      }}
+      />
     </Layout>
   );
 };
