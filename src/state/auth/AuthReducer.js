@@ -11,6 +11,6 @@ export const AuthReducer = (state, action) => {
         currentProfile: action.payload,
       };
     default:
-      return null;
+      return state;
   }
 };

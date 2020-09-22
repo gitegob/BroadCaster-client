@@ -31,6 +31,6 @@ export const RecordsReducer = (state, action) => {
         record: action.payload,
       };
     default:
-      return null;
+      return state;
   }
 };
